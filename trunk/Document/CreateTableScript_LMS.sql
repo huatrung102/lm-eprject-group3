@@ -68,7 +68,8 @@ CREATE TABLE Orders(
 	Order_Id char(36) not null PRIMARY KEY DEFAULT newid(),
 	Mem_Id char(36) FOREIGN KEY REFERENCES Members(Mem_Id),
 	Order_CreateDate datetime not null default getdate(),
-	Order_DueDate datetime not null
+	Order_DueDate datetime not null,
+	Order_isDeleted bit
 )
 GO
 CREATE TABLE OrderDetails(
@@ -76,7 +77,8 @@ CREATE TABLE OrderDetails(
 	Order_Id char(36) FOREIGN KEY REFERENCES Orders(Order_Id),
 	Cop_Id varchar(16) FOREIGN KEY REFERENCES Copies(Cop_Id),
 	OrderDetail_Status bit,
-	OrderDetail_ReturnDate datetime
+	OrderDetail_ReturnDate datetime,
+	OrderDetail_isDeleted bit
 )
 GO
 CREATE TABLE Fines(
