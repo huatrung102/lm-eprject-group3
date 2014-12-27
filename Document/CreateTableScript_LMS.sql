@@ -50,7 +50,8 @@ CREATE TABLE Books(
 	Cat_Id char(36) FOREIGN KEY REFERENCES Categories(Cat_Id),
 	Book_Language  varchar(7)  not null,
 	Book_ImageFile varchar(255) not null default '/imgBook/nocover.png',
-	Book_CreateDate datetime not null default getdate()
+	Book_CreateDate datetime not null default getdate(),
+	Book_isDeleted bit not null default 0 
 )
 GO
 CREATE TABLE Copies(
@@ -73,8 +74,9 @@ CREATE TABLE IRBookDetails(
 	IRBook_Id char(36) FOREIGN KEY REFERENCES IRBooks(IRBook_Id),
 	Cop_Id char(36) FOREIGN KEY REFERENCES Copies(Cop_Id),
 	IRBookDetail_Status bit not null default 0,
-	IRBookDetail_ReturnDate datetime,
-	IRBookDetail_isDeleted bit not null default 0
+	--IRBookDetail_isDeleted bit not null default 0, --can not delete only perform action return if there is mistake when issuing
+	IRBookDetail_ReturnDate datetime
+	
 )
 GO
 CREATE TABLE Fines(
