@@ -5,22 +5,18 @@ GO
 
 CREATE TABLE Members(
 	Mem_Id char(36) not null PRIMARY KEY DEFAULT newid(),
-	Mem_FirstName nvarchar(30),
-	Mem_LastName nvarchar(50),
+	Mem_FirstName nvarchar(30) not null,
+	Mem_LastName nvarchar(50) not null,
 	Mem_Phone varchar(20),
 	Mem_Address nvarchar(200),
 	Mem_Email varchar(50) not null unique,
 	Mem_Status bit not null default 1, -- 0:bi xoa,1 hoat dong,2:bi khoa
 	Mem_CreateDate datetime not null default getdate(),
-	Mem_isDelete bit not null default 0
+	Mem_isDelete bit not null default 0,
+	Mem_ImageFile varchar(255) not null default '/imgMem/noavatar.png',
 )
 GO
-CREATE TABLE Roles(
-	Role_Id varchar(15) not null PRIMARY KEY,
-	Role_Name nvarchar(20) not null,
-	Role_Description nvarchar(100)
-)
-GO
+
 CREATE TABLE Staffs(
 	Staff_Id char(36) not null PRIMARY KEY DEFAULT newid(),
 	Staff_FirstName nvarchar(30),
@@ -28,64 +24,62 @@ CREATE TABLE Staffs(
 	Staff_Login  varchar(25) not null unique,
 	Staff_Password varchar(50) not null,
 	Staff_Phone varchar(20),
-	Role_Id varchar(15) FOREIGN KEY REFERENCES Roles(Role_Id),
+	Staff_Role varchar(15) not null,
 	Staff_Address nvarchar(200),
 	Staff_Email varchar(50) not null unique,
 	Staff_Status int not null default 1,	-- 0:bi xoa,1 hoat dong,2:bi khoa
 	Staff_CreateDate datetime not null default getdate(),
-	Staff_isDelete bit not null default 0
+	Staff_isDelete bit not null default 0,
+	Staff_ImageFile varchar(255) not null default '/imgStaff/noavatar.png',
 )
 GO
 CREATE TABLE Categories(
 	Cat_Id char(36) not null PRIMARY KEY DEFAULT newid(),
-	Cat_Name nvarchar(30) not null unique
-)
+	Cat_Name nvarchar(30) not null unique,
+	Cat_Description nvarchar(100) 
+)	
 GO
-CREATE TABLE Languages(
-	Lang_Id varchar(7) not null PRIMARY KEY ,
-	Lang_Name nvarchar(30) not null unique
-)
-GO
+
 CREATE TABLE Books(
 	Book_ISBN varchar(13) not null  PRIMARY KEY,
 	Book_Title nvarchar(50) not null,
 	Book_Publisher nvarchar(50), --not null,
-	Book_Author nvarchar(50),-- not null,
-	--Book_Quanlity int not null, no need
+	Book_Author nvarchar(50),-- not null,	
 	Book_Price money not null,
+	Book_Content nvarchar(1000) not null default '',
 	Cat_Id char(36) FOREIGN KEY REFERENCES Categories(Cat_Id),
-	Lang_Id  varchar(7)  FOREIGN KEY REFERENCES Languages(Lang_Id),
+	Book_Language  varchar(7)  not null,
 	Book_ImageFile varchar(255) not null default '/imgBook/nocover.png',
 	Book_CreateDate datetime not null default getdate()
 )
 GO
 CREATE TABLE Copies(
-	Cop_Id	varchar(16) not null PRIMARY KEY,--book ISBN + 3 number char from 001 - 999 (use function sql to get the numbers)
+	Cop_Id	char(36) not null PRIMARY KEY DEFAULT newid(),--book ISBN + 3 number char from 001 - 999 (use function sql to get the numbers)
 	Book_ISBN varchar(13) FOREIGN KEY REFERENCES Books(Book_ISBN),
 	Cop_Status bit not null default 1,
 	Cop_isDeleted bit not null default 0
 )
 GO
-CREATE TABLE Orders(
-	Order_Id char(36) not null PRIMARY KEY DEFAULT newid(),
+CREATE TABLE IRBooks(
+	IRBook_Id char(36) not null PRIMARY KEY DEFAULT newid(),
 	Mem_Id char(36) FOREIGN KEY REFERENCES Members(Mem_Id),
-	Order_CreateDate datetime not null default getdate(),
-	Order_DueDate datetime not null,
-	Order_isDeleted bit not null default 0
+	IRBook_CreateDate datetime not null default getdate(),
+	IRBook_DueDate datetime not null,
+	IRBook_Description nvarchar(100)
 )
 GO
-CREATE TABLE OrderDetails(
-	OrderDetail_Id char(36) not null PRIMARY KEY DEFAULT newid(),
-	Order_Id char(36) FOREIGN KEY REFERENCES Orders(Order_Id),
-	Cop_Id varchar(16) FOREIGN KEY REFERENCES Copies(Cop_Id),
-	OrderDetail_Status bit not null default 0,
-	OrderDetail_ReturnDate datetime,
-	OrderDetail_isDeleted bit not null default 0
+CREATE TABLE IRBookDetails(
+	IRBookDetail_Id char(36) not null PRIMARY KEY DEFAULT newid(),
+	IRBook_Id char(36) FOREIGN KEY REFERENCES IRBooks(IRBook_Id),
+	Cop_Id char(36) FOREIGN KEY REFERENCES Copies(Cop_Id),
+	IRBookDetail_Status bit not null default 0,
+	IRBookDetail_ReturnDate datetime,
+	IRBookDetail_isDeleted bit not null default 0
 )
 GO
 CREATE TABLE Fines(
 	Fine_Id char(36) not null PRIMARY KEY DEFAULT newid(),
-	OrderDetail_Id char(36) FOREIGN KEY REFERENCES OrderDetails(OrderDetail_Id),
+	IRBookDetail_Id char(36) FOREIGN KEY REFERENCES IRBookDetails(IRBookDetail_Id),
 	Fine_Amount money not null,
 	Fine_CreateDate datetime not null default getdate(),
 	Fine_PaidDate datetime,
