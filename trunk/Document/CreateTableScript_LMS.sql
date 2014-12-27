@@ -36,6 +36,7 @@ GO
 CREATE TABLE Categories(
 	Cat_Id char(36) not null PRIMARY KEY DEFAULT newid(),
 	Cat_Name nvarchar(30) not null unique,
+	Cat_isDelete bit not null default 0,
 	Cat_Description nvarchar(100) 
 )	
 GO
