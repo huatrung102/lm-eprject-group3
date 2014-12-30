@@ -6,6 +6,7 @@
 package DemoTestFunction;
 
 
+import Config.SysVar;
 import Helpers.SqlHelper;
 import java.sql.ResultSet;
 import javax.swing.DefaultComboBoxModel;
@@ -72,7 +73,7 @@ public class User {
         return cbm;
     }
     public static DefaultTableModel getListTable(){
-        DefaultTableModel tbm = SqlHelper.getDefaultTableModel("getListAccount");
+        DefaultTableModel tbm = SqlHelper.getDefaultTableModel("getListAccount","","",20);
         return tbm;
     }
 }

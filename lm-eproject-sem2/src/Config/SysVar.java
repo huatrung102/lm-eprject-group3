@@ -15,6 +15,6 @@ public class SysVar {
     public static final String driver_msSQL = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     public static final String driver_jdts = "net.sourceforge.jtds.jdbc.Driver";
     public static final String patern_email = "^[\\w-\\.]+@([\\w-]+[\\w-]{2,4}$)";
-    
+    public static final String value_nullSql = "$null$";
     
 }

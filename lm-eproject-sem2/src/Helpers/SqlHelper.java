@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -216,9 +217,15 @@ public class SqlHelper {
         PreparedStatement pstmt = null;
         try
         {            
-            return  conn.prepareStatement(cmdText, 
+            pstmt = conn.prepareStatement(cmdText, 
                     ResultSet.TYPE_SCROLL_SENSITIVE, 
                     ResultSet.CONCUR_UPDATABLE); 
+//            int i = 1;
+//            for (Object item : cmdParams){
+//                pstmt.setObject(i, item);
+//                i++;
+//            }
+            return pstmt;
         } catch (SQLException ex){
             Logger.getLogger(SqlHelper.class.getName()).log(Level.SEVERE, null, ex);
             close(pstmt);
@@ -255,7 +262,8 @@ public class SqlHelper {
                 strSql.append("(");
             } else{
                 strSql.append(",");
-            }
+            }            
+            
             if(obj instanceof String){
                 strSql.append("'").append(String.valueOf(obj)).append("'");
             } else if(obj instanceof Integer){
@@ -264,7 +272,8 @@ public class SqlHelper {
                 strSql.append((Boolean)obj?1:0);
             } else if(obj instanceof Float){
                 strSql.append((Float)obj);
-            }
+            } 
+           // strSql.append("?");
             t++;
         }
     }  
