@@ -4,7 +4,7 @@ USE LMS
 GO
 
 CREATE TABLE Members(
-	Mem_Id char(36) not null PRIMARY KEY DEFAULT newid(),
+	Mem_Id char(36) not null PRIMARY KEY DEFAULT newid(),	
 	Mem_FirstName nvarchar(30) not null,
 	Mem_LastName nvarchar(50) not null,
 	Mem_Phone varchar(20),
@@ -13,7 +13,7 @@ CREATE TABLE Members(
 	Mem_Status bit not null default 1, -- 0:bi xoa,1 hoat dong,2:bi khoa
 	Mem_CreateDate datetime not null default getdate(),
 	Mem_isDelete bit not null default 0,
-	Mem_ImageFile varchar(255) not null default '/imgMem/noavatar.png',
+	Mem_ImageFile varchar(255) not null default '/imgage/noavatar.png',
 )
 GO
 
