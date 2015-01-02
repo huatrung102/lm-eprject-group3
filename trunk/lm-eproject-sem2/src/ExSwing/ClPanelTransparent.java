@@ -12,13 +12,13 @@ public class ClPanelTransparent extends JPanel
 	public ClPanelTransparent()
 	{
 		setOpaque(false);
-		clr = new Color(getBackground().getRed(), getBackground().getRed(), getBackground().getGreen(),80);
+		clr = new Color(getBackground().getRed(), getBackground().getRed(), getBackground().getGreen(),90);
 	}	
 	
 	public void setBackground(Color bg)
 	{
 		super.setBackground(bg);
-		clr = new Color(getBackground().getRed(), getBackground().getRed(), getBackground().getGreen(),80);
+		clr = new Color(getBackground().getRed(), getBackground().getRed(), getBackground().getGreen(),90);
 		repaint();
 	}
 	
