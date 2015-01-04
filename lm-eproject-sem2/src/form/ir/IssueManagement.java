@@ -41,7 +41,7 @@ public class IssueManagement extends javax.swing.JFrame {
         
         JLabel label_5 = new JLabel("");
         label_5.setIcon(new ImageIcon(Main.class
-                        .getResource("/image/wall3.jpg")));        
+                        .getResource("/image/background.png")));        
         label_5.setBounds(0, 0, 1145, 800);
         pnlIssue.add(label_5);
         
