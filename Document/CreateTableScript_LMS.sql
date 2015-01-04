@@ -7,7 +7,7 @@ CREATE TABLE Members(
 	Mem_Id char(36) not null PRIMARY KEY DEFAULT newid(),	
 	Mem_FirstName nvarchar(30) not null,
 	Mem_LastName nvarchar(50) not null,
-	--Mem_No varchar(10) not null unique, --auto gen rule: Mem0000001
+	Mem_No char(8) not null unique, --auto gen rule: M0000001
 	Mem_Phone varchar(20),
 	Mem_Address nvarchar(200),
 	Mem_Email varchar(50) not null unique,
@@ -58,7 +58,7 @@ CREATE TABLE Books(
 GO
 CREATE TABLE Copies(
 	Cop_Id int  PRIMARY KEY not null identity(1,1),  --char(36) not null unique DEFAULT newid(),
-	--Cop_No varchar(4), -- auto gen rule: 0001 
+	Cop_No char(8) not null unique, -- auto gen rule: C0000001
 	Book_ISBN varchar(13) FOREIGN KEY REFERENCES Books(Book_ISBN),
 	Cop_Status bit not null default 1,
 	Cop_isDeleted bit not null default 0,
