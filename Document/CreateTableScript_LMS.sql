@@ -57,12 +57,12 @@ CREATE TABLE Books(
 )
 GO
 CREATE TABLE Copies(
-	Cop_Id int  PRIMARY KEY not null identity(1,1),  --char(36) not null unique DEFAULT newid(),
+	Cop_Id char(36)  PRIMARY KEY DEFAULT newid(),   --char(36) not null unique DEFAULT newid(),
 	Cop_No char(8) not null unique, -- auto gen rule: C0000001
 	Book_ISBN varchar(13) FOREIGN KEY REFERENCES Books(Book_ISBN),
 	Cop_Status bit not null default 1,
-	Cop_isDeleted bit not null default 0,
-	PRIMARY KEY(Cop_No,Book_ISBN)
+	Cop_isDeleted bit not null default 0
+	
 )
 GO
 CREATE TABLE IRBooks(
