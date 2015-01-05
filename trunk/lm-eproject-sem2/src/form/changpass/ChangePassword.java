@@ -53,7 +53,7 @@ public class ChangePassword extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1420493802_Check.png"))); // NOI18N
         jButton1.setText("Change");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1420493707_Delete.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
         jButton2.setText("Cancel");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
