@@ -1,4 +1,4 @@
-
+package form.category;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,7 +27,7 @@ public class Category extends javax.swing.JFrame {
      */
     public Category() {
         initComponents();
-        this.setTitle("View Profile");
+        this.setTitle("Category");
         Date currentDate = new Date();
         int tYear = cal.get(Calendar.YEAR);
         int tMonth = cal.get(Calendar.MONTH);
@@ -42,23 +42,23 @@ public class Category extends javax.swing.JFrame {
         tableModel.addColumn("Status");
         tblBookList.setModel(tableModel);
         
-        String[] str1 = new String[]{"Zelda: Hyrule Historia Hello World RDLDL","Nguyễn Công Hoan","NXB Kim Đồng","Public"};               
-        String[] str2 = new String[]{"Dế Mèn phiêu lưu ký","Tô Hoài","NXB Trẻ","Public"};
-        String[] str3 = new String[]{"Nhà có 2 chồng","Nguyễn Tấn Dũng","NXB Thanh Niên","unPublic"};
-        String[] str4 = new String[]{"Lịch sử đương đại","Nguyễn Đình Chính","NXB Đồng Tháp","Public"};
-        String[] str5 = new String[]{"Địa lý lớp 12 - Ôn tập","Trịnh Kim Chi","NXB Giáo Dục","unPublic"};
-        String[] str6 = new String[]{"Lord of the Ring","Patrick John","NXB Kim Đồng","unPublic"};
+//        String[] str1 = new String[]{"Zelda: Hyrule Historia Hello World RDLDL","Nguyễn Công Hoan","NXB Kim Đồng","Public"};               
+//        String[] str2 = new String[]{"Dế Mèn phiêu lưu ký","Tô Hoài","NXB Trẻ","Public"};
+//        String[] str3 = new String[]{"Nhà có 2 chồng","Nguyễn Tấn Dũng","NXB Thanh Niên","unPublic"};
+//        String[] str4 = new String[]{"Lịch sử đương đại","Nguyễn Đình Chính","NXB Đồng Tháp","Public"};
+//        String[] str5 = new String[]{"Địa lý lớp 12 - Ôn tập","Trịnh Kim Chi","NXB Giáo Dục","unPublic"};
+//        String[] str6 = new String[]{"Lord of the Ring","Patrick John","NXB Kim Đồng","unPublic"};
         
-        tableModel.addRow(str1);
-        tableModel.addRow(str2);
-        tableModel.addRow(str3);
-        tableModel.addRow(str4);
-        tableModel.addRow(str5);
-        tableModel.addRow(str6);
-        tblBookList.getColumnModel().getColumn(0).setPreferredWidth(200);
-        tblBookList.getColumnModel().getColumn(1).setPreferredWidth(80);
-        tblBookList.getColumnModel().getColumn(2).setPreferredWidth(80);
-        tblBookList.getColumnModel().getColumn(3).setPreferredWidth(10);
+//        tableModel.addRow(str1);
+//        tableModel.addRow(str2);
+//        tableModel.addRow(str3);
+//        tableModel.addRow(str4);
+//        tableModel.addRow(str5);
+//        tableModel.addRow(str6);
+//        tblBookList.getColumnModel().getColumn(0).setPreferredWidth(200);
+//        tblBookList.getColumnModel().getColumn(1).setPreferredWidth(80);
+//        tblBookList.getColumnModel().getColumn(2).setPreferredWidth(80);
+//        tblBookList.getColumnModel().getColumn(3).setPreferredWidth(10);
 
         
     }
