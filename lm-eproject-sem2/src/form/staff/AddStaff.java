@@ -69,7 +69,7 @@ public class AddStaff extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnCan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1420493707_Delete.png"))); // NOI18N
+        btnCan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
         btnCan.setText("Cancel");
         btnCan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

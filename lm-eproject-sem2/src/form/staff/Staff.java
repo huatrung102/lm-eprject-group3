@@ -314,7 +314,7 @@ public class Staff extends javax.swing.JFrame {
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Update.png"))); // NOI18N
         jButton4.setText("Update");
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1420493707_Delete.png"))); // NOI18N
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
         jButton13.setText("Delete");
 
         lblAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/staff.png"))); // NOI18N
