@@ -176,6 +176,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/search.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
         </Component>
@@ -369,6 +372,9 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="jButton11">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/image/Information.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Show"/>
                   </Properties>
                 </Component>
@@ -445,6 +451,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton12">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/image/Add.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Add"/>
                   </Properties>
                 </Component>
