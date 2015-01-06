@@ -42,23 +42,23 @@ public class Category extends javax.swing.JFrame {
         tableModel.addColumn("Status");
         tblBookList.setModel(tableModel);
         
-//        String[] str1 = new String[]{"Zelda: Hyrule Historia Hello World RDLDL","Nguyễn Công Hoan","NXB Kim Đồng","Public"};               
-//        String[] str2 = new String[]{"Dế Mèn phiêu lưu ký","Tô Hoài","NXB Trẻ","Public"};
-//        String[] str3 = new String[]{"Nhà có 2 chồng","Nguyễn Tấn Dũng","NXB Thanh Niên","unPublic"};
-//        String[] str4 = new String[]{"Lịch sử đương đại","Nguyễn Đình Chính","NXB Đồng Tháp","Public"};
-//        String[] str5 = new String[]{"Địa lý lớp 12 - Ôn tập","Trịnh Kim Chi","NXB Giáo Dục","unPublic"};
-//        String[] str6 = new String[]{"Lord of the Ring","Patrick John","NXB Kim Đồng","unPublic"};
+        String[] str1 = new String[]{"Zelda: Hyrule Historia Hello World RDLDL","Nguyễn Công Hoan","NXB Kim Đồng","Public"};               
+        String[] str2 = new String[]{"Dế Mèn phiêu lưu ký","Tô Hoài","NXB Trẻ","Public"};
+        String[] str3 = new String[]{"Nhà có 2 chồng","Nguyễn Tấn Dũng","NXB Thanh Niên","unPublic"};
+        String[] str4 = new String[]{"Lịch sử đương đại","Nguyễn Đình Chính","NXB Đồng Tháp","Public"};
+        String[] str5 = new String[]{"Địa lý lớp 12 - Ôn tập","Trịnh Kim Chi","NXB Giáo Dục","unPublic"};
+        String[] str6 = new String[]{"Lord of the Ring","Patrick John","NXB Kim Đồng","unPublic"};
         
-//        tableModel.addRow(str1);
-//        tableModel.addRow(str2);
-//        tableModel.addRow(str3);
-//        tableModel.addRow(str4);
-//        tableModel.addRow(str5);
-//        tableModel.addRow(str6);
-//        tblBookList.getColumnModel().getColumn(0).setPreferredWidth(200);
-//        tblBookList.getColumnModel().getColumn(1).setPreferredWidth(80);
-//        tblBookList.getColumnModel().getColumn(2).setPreferredWidth(80);
-//        tblBookList.getColumnModel().getColumn(3).setPreferredWidth(10);
+        tableModel.addRow(str1);
+        tableModel.addRow(str2);
+        tableModel.addRow(str3);
+        tableModel.addRow(str4);
+        tableModel.addRow(str5);
+        tableModel.addRow(str6);
+        tblBookList.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tblBookList.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tblBookList.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tblBookList.getColumnModel().getColumn(3).setPreferredWidth(10);
 
         
     }
@@ -138,6 +138,7 @@ public class Category extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search.png"))); // NOI18N
         jButton1.setText("Search");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -263,6 +264,7 @@ public class Category extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Information.png"))); // NOI18N
         jButton11.setText("Show");
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Update.png"))); // NOI18N
@@ -292,6 +294,7 @@ public class Category extends javax.swing.JFrame {
 
         jLabel20.setText("Number of Book");
 
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Add.png"))); // NOI18N
         jButton12.setText("Add");
 
         jLabel21.setText("Category Name");
