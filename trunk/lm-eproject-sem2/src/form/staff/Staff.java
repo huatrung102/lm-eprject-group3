@@ -441,16 +441,16 @@ public class Staff extends javax.swing.JFrame {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jButton6.setText("|< First");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/first.png"))); // NOI18N
         jPanel8.add(jButton6);
 
-        jButton8.setText("< Previous");
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pre.png"))); // NOI18N
         jPanel8.add(jButton8);
 
-        jButton9.setText("Next >");
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/next.png"))); // NOI18N
         jPanel8.add(jButton9);
 
-        jButton10.setText("Last >|");
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/last.png"))); // NOI18N
         jPanel8.add(jButton10);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -522,7 +522,7 @@ public class Staff extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(15, Short.MAX_VALUE))
+                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
