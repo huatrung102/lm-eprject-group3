@@ -52,7 +52,7 @@ public class ChangePassword extends javax.swing.JFrame {
 
         jLabel3.setText("Confirm New Password");
 
-        btnChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1420493802_Check.png"))); // NOI18N
+        btnChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Confirm.png"))); // NOI18N
         btnChange.setText("Change");
         btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +85,7 @@ public class ChangePassword extends javax.swing.JFrame {
                         .addComponent(btnChange)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
