@@ -20,6 +20,7 @@ public class Profile extends javax.swing.JFrame {
      */
     public Profile() {
         initComponents();
+        this.setTitle("View Profile");
         Date currentDate = new Date();
         int tYear = cal.get(Calendar.YEAR);
         int tMonth = cal.get(Calendar.MONTH);
