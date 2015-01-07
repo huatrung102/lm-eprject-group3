@@ -5,9 +5,13 @@
  */
 package Helpers;
 
+import form.main.Main;
 import java.awt.Component;
 import java.awt.Container;
 import java.lang.reflect.Field;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import javax.swing.JToggleButton;
 import javax.swing.text.JTextComponent;
@@ -51,5 +55,12 @@ public class UIHelper {
                 resetForm((Container)c);
             }
         }
+    }
+    public static void bindBackground(JPanel pnl){
+         JLabel label_5 = new JLabel("");
+        label_5.setIcon(new ImageIcon(Main.class
+                        .getResource("/image/wall3.jpg")));        
+        label_5.setBounds(0, 0, 2000, 1000);
+        pnl.add(label_5);
     }
 }

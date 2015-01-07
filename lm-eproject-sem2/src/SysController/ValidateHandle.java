@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Utilities;
+package SysController;
 
 import javax.swing.JComponent;
 import javax.swing.text.JTextComponent;
@@ -20,7 +20,7 @@ import org.netbeans.validation.api.ui.swing.SwingValidationGroup;
  *
  * @author Administrator PC
  */
-public class Validate {
+public class ValidateHandle {
     private static class CompareValidator extends GroupValidator {
         JTextComponent comp1;
         JTextComponent comp2;
@@ -74,5 +74,4 @@ public class Validate {
         group.add (comp, intValidator);
         return group;
     }
-    
 }
