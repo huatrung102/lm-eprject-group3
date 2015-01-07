@@ -74,6 +74,7 @@ public class User {
     }
     public static DefaultTableModel getListTable(){
         DefaultTableModel tbm = SqlHelper.getDefaultTableModel("getListAccount","","",20);
+        
         return tbm;
     }
 }

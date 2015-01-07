@@ -24,36 +24,32 @@ import java.util.logging.Logger;
  * @author Administrator PC
  */
 public class ManageConnection {
-   
-    public static Db getInfoDB(){
+
+    public static Db getInfoDB() {
         Properties p = new Properties();
         Db db = null;
         File file = new File(SysVar.file_DbConfig);
-        if(file.exists())
-        {
+        if (file.exists()) {
             try (
-                   FileInputStream fis = new FileInputStream(file); 
-                 ){                
+                    FileInputStream fis = new FileInputStream(file);) {
                 p.load(fis);
                 db = new Db(p.getProperty("server"),
-                        p.getProperty("port"), 
+                        p.getProperty("port"),
                         p.getProperty("database"),
                         p.getProperty("instance"),
-                        p.getProperty("username"), 
+                        p.getProperty("username"),
                         p.getProperty("password"));
-            } catch(Exception ex) {
-                MessageHandle.showError(MessageHandle.openFileError);
-               // Logger.getLogger(ManageConnection.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {                
+                db = null;
             }
         }
         return db;
     }
-    public static boolean SetInfoDB(Db db){
+
+    public static boolean SetInfoDB(Db db) {
         Properties p = new Properties();
-        try(
-            FileOutputStream file = new FileOutputStream(SysVar.file_DbConfig);
-            )
-        {            
+        try (
+                FileOutputStream file = new FileOutputStream(SysVar.file_DbConfig);) {
             p.setProperty("server", db.getServer());
             p.setProperty("port", db.getPort());
             p.setProperty("database", db.getDatabase());
@@ -61,50 +57,54 @@ public class ManageConnection {
             p.setProperty("username", db.getUsername());
             p.setProperty("password", db.getPassword());
             p.store(file, "Group 3-Fpt Aptech");
-            
-        }catch(IOException ex)
-        {
-            MessageHandle.showError(MessageHandle.openFileError);
+
+        } catch (IOException ex) {
+            MessageHandle.showError(MessageHandle.getMessage(MessageHandle.Obj_Connection, MessageHandle.Action_save,
+                    MessageHandle.result_saveConfig_err));
             return false;
         }
         return true;
     }
-    private static String connectionString(String driver){
+
+    private static String connectionString(String driver) {
         StringBuilder sb = new StringBuilder();
-        Db db =  getInfoDB();
-        if(driver.equalsIgnoreCase(SysVar.driver_msSQL))
-            sb.append("jdbc:sqlserver://");
-        else    
-            sb.append("jdbc:jtds:sqlserver://");        
-         sb.append(db.getServer())
-        .append(":").append(db.getPort());
-         if(driver.equalsIgnoreCase(SysVar.driver_msSQL))
-            sb.append(";DatabaseName=").append(db.getDatabase());
-         else            sb.append("/").append(db.getDatabase());
-        if(!db.getInstance().isEmpty()) 
-            sb.append(";instance=").append(db.getInstance());
-        sb.append(";User=").append(db.getUsername())
-        .append(";Password=").append(db.getPassword());
+        Db db = getInfoDB();
+        if (db != null) {
+            if (driver.equalsIgnoreCase(SysVar.driver_msSQL)) {
+                sb.append("jdbc:sqlserver://");
+            } else {
+                sb.append("jdbc:jtds:sqlserver://");
+            }
+            sb.append(db.getServer())
+                    .append(":").append(db.getPort());
+            if (driver.equalsIgnoreCase(SysVar.driver_msSQL)) {
+                sb.append(";DatabaseName=").append(db.getDatabase());
+            } else {
+                sb.append("/").append(db.getDatabase());
+            }
+            if (!db.getInstance().isEmpty()) {
+                sb.append(";instance=").append(db.getInstance());
+            }
+            sb.append(";User=").append(db.getUsername())
+                    .append(";Password=").append(db.getPassword());
+        }
+
         return sb.toString();
-                
+
     }
-   
-    public static Connection getConnection(String driver){
+
+    public static Connection getConnection(String driver) {
         try {
             Class.forName(driver);
+            
             return DriverManager.getConnection(connectionString(driver));
-             
-        } catch (SQLException ex) {
-           Logger.getLogger(ManageConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ManageConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch(Exception ex){
+        } catch (Exception ex) {
             Logger.getLogger(ManageConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return  null;
+        return null;
     }
-    
-
-
 
 }

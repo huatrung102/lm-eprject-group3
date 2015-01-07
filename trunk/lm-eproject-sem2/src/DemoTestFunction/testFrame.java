@@ -112,7 +112,7 @@ public class testFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField6)
                             .addComponent(jTextField5))))
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addContainerGap(471, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
