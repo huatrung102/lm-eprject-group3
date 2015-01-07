@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author TraPhucVinh
  */
-public class Staff extends javax.swing.JFrame {
+public class StaffDat extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     Vector row;
     
@@ -27,7 +27,7 @@ public class Staff extends javax.swing.JFrame {
     /**
      * Creates new form List
      */
-    public Staff() {
+    public StaffDat() {
         initComponents();
         
         Date currentDate = new Date();
@@ -557,13 +557,13 @@ public class Staff extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Staff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StaffDat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -571,7 +571,7 @@ public class Staff extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Staff().setVisible(true);
+                new StaffDat().setVisible(true);
             }
         });
     }
