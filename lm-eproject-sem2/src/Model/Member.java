@@ -5,6 +5,8 @@
  */
 package Model;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Administrator PC
@@ -20,8 +22,19 @@ public class Member {
     public String Mem_CreateDate;
     public String Mem_ImageFile;
     public boolean Mem_isDelete;
+    private static String test_col[] = {"Member No","Fullname","Email","Phone"};
     
     public Member(){
+    }
+     public static DefaultTableModel getTestMemberList(){
+        DefaultTableModel tblM = new DefaultTableModel(test_col, 0);         
+        
+        
+        tblM.addRow(new Object[]{"M0000001","Hua Tran Huu Trung","trunghth@gmail.com","0934399664"});
+        tblM.addRow(new Object[]{"M0000002","Ngo Thanh Dat","trunghth1@gmail.com",""});
+        tblM.addRow(new Object[]{"M0000003","Tra Phuc Vinh Uy","trunghth2@gmail.com","0123456789"});
+        return tblM;
+        
     }
     public static Member getTestMember(){
         Member mem = new Member();

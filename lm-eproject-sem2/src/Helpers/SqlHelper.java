@@ -13,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -69,7 +68,7 @@ public class SqlHelper {
         closeConnection(rs);
         return tm;
     }
-    
+    //use for insert,update,delete
     public static int executeNonQuery(String cmdText){        
         CallableStatement stmt = getCallableStatement(cmdText);
         if (stmt == null){

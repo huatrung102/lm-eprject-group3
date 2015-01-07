@@ -8,6 +8,7 @@ package form.ir;
 import ExSwing.ClButtonTransparan;
 import Model.Books;
 import Model.IRBooks;
+import Model.Member;
 import form.main.Main;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -25,23 +26,36 @@ public class ReturnManagement extends javax.swing.JFrame {
     public ReturnManagement() {
         initComponents();
          btSearchMem.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource("/image/search.png")));
-         btReturn.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource("/image/Explore.png")));
+         btReturn.setIcon(new ImageIcon(ReturnManagement.class
                         .getResource("/image/return.png")));
          JLabel label_5 = new JLabel("");
         label_5.setIcon(new ImageIcon(Main.class
                         .getResource("/image/wall3.jpg")));        
-        label_5.setBounds(0, 0, 700, 500);
+        label_5.setBounds(0, 0, 1200, 400);
         pnlReturn.add(label_5);
         
         loadBook();
         loadIRBook();
+        loadMember();
     }
     private void loadBook(){
         glBook = Books.getTestBook();
     }
     private void loadIRBook(){
         tblReturn.setModel(IRBooks.getTestIRBookReturn(glBook));
+    }
+    private void loadMember(){
+        Member mem = Member.getTestMember();
+        lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
+        lblPhone.setText(mem.Mem_Phone);
+        lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
+        lblRegisterDate.setText(mem.Mem_CreateDate);
+        //load image member
+        lblImgMember.setIcon(new ImageIcon(Main.class
+                        .getResource(mem.Mem_ImageFile)));        
+        lblImgMember.setBounds(0, 0, 140, 140);
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,19 +71,31 @@ public class ReturnManagement extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtEmailMem = new javax.swing.JTextField();
         btSearchMem = new ClButtonTransparan("Search");
-        jLabel2 = new javax.swing.JLabel();
-        txtEmailMem1 = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblReturn = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btReturn = new ClButtonTransparan("Return");
+        jPanel4 = new javax.swing.JPanel();
+        pnlImgMember = new javax.swing.JPanel();
+        lblImgMember = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblFullname = new javax.swing.JLabel();
+        lblPhone = new javax.swing.JLabel();
+        lblRegisterDate = new javax.swing.JLabel();
+        lblStatusMem = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        lblStatusMem1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setTitle(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.title")); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1150, 430));
         setResizable(false);
 
-        pnlReturn.setPreferredSize(new java.awt.Dimension(700, 500));
+        pnlReturn.setPreferredSize(new java.awt.Dimension(1100, 400));
 
         pnlBackground.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.pnlBackground.border.title"))); // NOI18N
 
@@ -80,28 +106,18 @@ public class ReturnManagement extends javax.swing.JFrame {
         btSearchMem.setForeground(java.awt.Color.darkGray);
         btSearchMem.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.btSearchMem.text")); // NOI18N
 
-        jLabel2.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel2.text")); // NOI18N
-
-        txtEmailMem1.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.txtEmailMem1.text")); // NOI18N
-
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btSearchMem)
-                            .addComponent(txtEmailMem1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btSearchMem)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,14 +125,9 @@ public class ReturnManagement extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtEmailMem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(btSearchMem)
-                .addContainerGap())
+                    .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSearchMem))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jPanel10.border.title"))); // NOI18N
@@ -138,11 +149,11 @@ public class ReturnManagement extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -159,22 +170,127 @@ public class ReturnManagement extends javax.swing.JFrame {
         btReturn.setForeground(java.awt.Color.darkGray);
         btReturn.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.btReturn.text")); // NOI18N
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jPanel4.border.title"))); // NOI18N
+        jPanel4.setPreferredSize(new java.awt.Dimension(250, 176));
+
+        pnlImgMember.setPreferredSize(new java.awt.Dimension(140, 140));
+
+        lblImgMember.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblImgMember.text")); // NOI18N
+        lblImgMember.setAlignmentX(0.5F);
+
+        javax.swing.GroupLayout pnlImgMemberLayout = new javax.swing.GroupLayout(pnlImgMember);
+        pnlImgMember.setLayout(pnlImgMemberLayout);
+        pnlImgMemberLayout.setHorizontalGroup(
+            pnlImgMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlImgMemberLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImgMember)
+                .addContainerGap(128, Short.MAX_VALUE))
+        );
+        pnlImgMemberLayout.setVerticalGroup(
+            pnlImgMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlImgMemberLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblImgMember)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel2.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel2.text")); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel3.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel3.text")); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel4.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel4.text")); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel5.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel5.text")); // NOI18N
+
+        lblFullname.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblFullname.text")); // NOI18N
+
+        lblPhone.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblPhone.text")); // NOI18N
+        lblPhone.setPreferredSize(new java.awt.Dimension(40, 15));
+
+        lblRegisterDate.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblRegisterDate.text")); // NOI18N
+
+        lblStatusMem.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblStatusMem.text")); // NOI18N
+
+        jLabel16.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel16.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel16.text")); // NOI18N
+
+        lblStatusMem1.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblStatusMem1.text")); // NOI18N
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlImgMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblRegisterDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                            .addComponent(lblStatusMem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblStatusMem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblFullname))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblRegisterDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblStatusMem))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(lblStatusMem1))
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout pnlReturnLayout = new javax.swing.GroupLayout(pnlReturn);
         pnlReturn.setLayout(pnlReturnLayout);
         pnlReturnLayout.setHorizontalGroup(
             pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlReturnLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btReturn)
-                .addGap(44, 44, 44))
             .addGroup(pnlReturnLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlReturnLayout.createSequentialGroup()
-                        .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 416, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btReturn))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlReturnLayout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -183,37 +299,25 @@ public class ReturnManagement extends javax.swing.JFrame {
         );
         pnlReturnLayout.setVerticalGroup(
             pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlReturnLayout.createSequentialGroup()
+            .addGroup(pnlReturnLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btReturn)
-                .addGap(104, 104, 104))
+                .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlReturnLayout.createSequentialGroup()
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btReturn))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 6, Short.MAX_VALUE))
             .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlReturnLayout.createSequentialGroup()
                     .addGap(174, 174, 174)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(326, Short.MAX_VALUE)))
+                    .addContainerGap(162, Short.MAX_VALUE)))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(pnlReturn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(pnlReturn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
+        getContentPane().add(pnlReturn, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -257,14 +361,25 @@ public class ReturnManagement extends javax.swing.JFrame {
     private javax.swing.JButton btReturn;
     private javax.swing.JButton btSearchMem;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblFullname;
+    private javax.swing.JLabel lblImgMember;
+    private javax.swing.JLabel lblPhone;
+    private javax.swing.JLabel lblRegisterDate;
+    private javax.swing.JLabel lblStatusMem;
+    private javax.swing.JLabel lblStatusMem1;
     private javax.swing.JPanel pnlBackground;
+    private javax.swing.JPanel pnlImgMember;
     private javax.swing.JPanel pnlReturn;
     private javax.swing.JTable tblReturn;
     private javax.swing.JTextField txtEmailMem;
-    private javax.swing.JTextField txtEmailMem1;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,8 +16,8 @@ public class Copies {
     public String Book_ISBN;
     public boolean Cop_Status;
     //public boolean Cop_isDeleted;
-    private static String test_col[] = {"ISBN","Copy Id","Copy Status"};
-    private static String test_ISBN = "9001234567890";
+    private static String test_col[] = {"ISBN","Title"};
+    private static String test_ISBN = "900123456789";
     
     public Copies(String Cop_Id, String Book_ISBN, boolean Cop_Status) {
         this.Cop_Id = Cop_Id;
@@ -28,8 +28,8 @@ public class Copies {
     public static DefaultTableModel getTestCopyByISBN(){
         DefaultTableModel tblM = new DefaultTableModel(test_col, 0);
         
-        for(int i = 0 ; i< 50; i++){            
-            tblM.addRow(new Object[] {test_ISBN,"000"+(i+1), true});
+        for(int i = 0 ; i< 10; i++){            
+            tblM.addRow(new Object[] {test_ISBN+i,"Title 00"+i});
         }
         return tblM;
     }

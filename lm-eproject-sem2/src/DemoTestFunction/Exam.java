@@ -40,6 +40,8 @@ public class Exam extends javax.swing.JFrame {
     }
     private void loadTable(){
         jTable1.setModel(User.getListTable());
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
     }
     private boolean validateForm(){
         Pattern regex = 
