@@ -20,6 +20,13 @@ INSERT INTO [dbo].[Categories]
 		   (0,N'Khác', 0, N'Thể loại Khác')     
 GO
 
-delete Categories
-
+USE [Set05]
+GO
+CREATE PROCEDURE [getListCategory]
+AS
+	BEGIN
+		SELECT Cat_Name
+		  FROM [Categories]
+	END
+GO
 

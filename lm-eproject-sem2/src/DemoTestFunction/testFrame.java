@@ -6,7 +6,7 @@
 package DemoTestFunction;
 
 import ExSwing.ClIconText;
-import Utilities.Validate;
+//import org.openide.util.Utilities;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -198,11 +198,11 @@ public class testFrame extends javax.swing.JFrame {
     
     private SwingValidationGroup groupValidation(){
         SwingValidationGroup group = SwingValidationGroup.create();
-        SwingValidationGroup groupCompare = Validate.checkCompare(jTextField4, jTextField5);
-        group.addItem(groupCompare, false);
-        group.addItem(Validate.checkNoBlank(jTextField3),false);
-        group.addItem(Validate.checkNoBlank(jTextField2),false);
-        group.addItem(Validate.checkNoBlank(jTextField1),false);
+//        SwingValidationGroup groupCompare = Validate.checkCompare(jTextField4, jTextField5);
+//        group.addItem(groupCompare, false);
+//        group.addItem(Validate.checkNoBlank(jTextField3),false);
+//        group.addItem(Validate.checkNoBlank(jTextField2),false);
+//        group.addItem(Validate.checkNoBlank(jTextField1),false);
         
         return group;
         
