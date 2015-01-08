@@ -29,6 +29,7 @@ public class StaffDat extends javax.swing.JFrame {
      */
     public StaffDat() {
         initComponents();
+        this.setTitle("Staff Management");
         
         Date currentDate = new Date();
         int tYear = cal.get(Calendar.YEAR);
