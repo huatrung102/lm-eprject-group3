@@ -5,6 +5,7 @@
  */
 package form.main;
 
+import Helpers.UIHelper;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -23,7 +24,7 @@ public class Settings extends javax.swing.JFrame {
         
         JLabel label_5 = new JLabel("");
         label_5.setIcon(new ImageIcon(Login.class
-                        .getResource("/image/background.png")));        
+                        .getResource("/image/bg2.jpg")));        
         label_5.setBounds(0, 0, 670, 374);
         jPanel1.add(label_5);
     }
