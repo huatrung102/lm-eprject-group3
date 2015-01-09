@@ -35,7 +35,7 @@ public class ClPanelTransparent extends JPanel
 	protected void paintComponent(Graphics graph)
 	{
 		super.paintComponent(graph);
-                Color shadowColorA = new Color(shadowColor.getRed(), shadowColor.getGreen(), shadowColor.getBlue(), shadowAlpha);
+                
 		Graphics2D g2d = (Graphics2D) graph.create();
                 
                 if(HQ){
