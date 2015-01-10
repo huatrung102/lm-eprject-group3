@@ -69,18 +69,15 @@ CREATE TABLE IRBooks(
 	IRBook_Id char(36) not null PRIMARY KEY DEFAULT newid(),
 	Mem_Id char(36) FOREIGN KEY REFERENCES Members(Mem_Id),
 	IRBook_CreateDate datetime not null default getdate(),
-	IRBook_DueDate datetime not null,
-	IRBook_Description nvarchar(100)
+	IRBook_DueDate datetime not null
 )
 GO
 CREATE TABLE IRBookDetails(
 	IRBookDetail_Id char(36) not null PRIMARY KEY DEFAULT newid(),
 	IRBook_Id char(36) FOREIGN KEY REFERENCES IRBooks(IRBook_Id),
 	Cop_Id char(36) FOREIGN KEY REFERENCES Copies(Cop_Id),
-	IRBookDetail_Status bit not null default 0,
-	--IRBookDetail_isDeleted bit not null default 0, --can not delete only perform action return if there is mistake when issuing
-	IRBookDetail_ReturnDate datetime
-	
+	IRBookDetail_Status bit not null default 0,	
+	IRBookDetail_ReturnDate datetime	
 )
 GO
 CREATE TABLE Fines(
