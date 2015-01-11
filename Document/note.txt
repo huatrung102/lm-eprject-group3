@@ -1,5 +1,6 @@
-Tên cate ko trùng
+﻿Tên cate ko trùng
 Số lượng số nguyên, ko đc nhập số
 Tìm kiếm để chọn cho mượn làm kỹ
 Số lượng nhập mỗi lần là bao nhiêu bản copy
 Cách tổ chức database
+khi change pass thì pass cũ và pass mới khác nhau , pass mới và pass confirm giống nhau 
