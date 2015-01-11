@@ -26,7 +26,7 @@ public class StaffUy extends javax.swing.JFrame {
     public StaffUy() {
         initComponents();
         UIHelper.bindBackground(pnlBackground);
-        
+        this.setTitle("Staff Management");
         tableModel = new DefaultTableModel();
         tableModel.addColumn("First Name");
         tableModel.addColumn("Last Name");
