@@ -394,16 +394,16 @@ public class StaffUy extends javax.swing.JFrame {
             tblBookList.getColumnModel().getColumn(4).setPreferredWidth(20);
         }
 
-        jButton6.setText("|< First");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/first.png"))); // NOI18N
         jPanel8.add(jButton6);
 
-        jButton8.setText("< Previous");
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pre.png"))); // NOI18N
         jPanel8.add(jButton8);
 
-        jButton9.setText("Next >");
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/next.png"))); // NOI18N
         jPanel8.add(jButton9);
 
-        jButton10.setText("Last >|");
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/last.png"))); // NOI18N
         jPanel8.add(jButton10);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
