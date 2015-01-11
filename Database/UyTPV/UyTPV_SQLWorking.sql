@@ -36,22 +36,22 @@ INSERT INTO [dbo].[Books]
            ,[Book_CreateDate]
            ,[Book_isDeleted])
      VALUES
-			('1111111111111','Book1','pub1','auth1',1,'content1',1,'vn','img/aaa.jpg',2015/01/01,0)
+			('1111111111111','Book1','pub1','auth1',1,'content1',1,'vn','img/aaa.jpg',2015/01/01,0),
+			('2222222222222','Book2','pub2','auth2',2,'content2',2,'en','img/bbb.jpg',2015/02/02,0),
+			('3333333333333','Book3','pub3','auth3',3,'content3',3,'fr','img/ccc.jpg',2015/03/03,0),
+			('4444444444444','Book4','pub4','auth4',4,'content4',3,'us','img/ddd.jpg',2015/04/04,0)
 GO
-
-
-
 
 USE [Set05]
 GO
-CREATE PROCEDURE [getListCategory]
+CREATE PROCEDURE [getCategoryListWithBookNumber]
 AS
 	BEGIN
-		SELECT c.Cat_Name FROM Categories
-		JOIN 
-
-		SELECT c.Cat_Name, COUNT(b.Cat_Id) as Book_Count
-		FROM Categories c, Books b
-		GROUP BY c.Cat_Name
+		SELECT c.Cat_Id AS 'Category ID', c.Cat_Name AS 'Category', COUNT(b.Book_ISBN) AS 'Book Count'
+		FROM Categories c
+		LEFT JOIN Books b ON c.Cat_Id = b.Cat_Id
+		WHERE c.Cat_isDelete = 0	--Cat_IsDeleted = 0 (khong bi xoa) - 1 (xoa)
+		GROUP BY c.Cat_Id, c.Cat_Name
+		ORDER BY c.Cat_Id
 	END
 GO
