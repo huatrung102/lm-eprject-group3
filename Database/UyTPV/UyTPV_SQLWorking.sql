@@ -22,11 +22,36 @@ GO
 
 USE [Set05]
 GO
+
+INSERT INTO [dbo].[Books]
+           ([Book_ISBN]
+           ,[Book_Title]
+           ,[Book_Publisher]
+           ,[Book_Author]
+           ,[Book_Price]
+           ,[Book_Content]
+           ,[Cat_Id]
+           ,[Book_Language]
+           ,[Book_ImageFile]
+           ,[Book_CreateDate]
+           ,[Book_isDeleted])
+     VALUES
+			('1111111111111','Book1','pub1','auth1',1,'content1',1,'vn','img/aaa.jpg',2015/01/01,0)
+GO
+
+
+
+
+USE [Set05]
+GO
 CREATE PROCEDURE [getListCategory]
 AS
 	BEGIN
-		SELECT Cat_Name
-		  FROM [Categories]
+		SELECT c.Cat_Name FROM Categories
+		JOIN 
+
+		SELECT c.Cat_Name, COUNT(b.Cat_Id) as Book_Count
+		FROM Categories c, Books b
+		GROUP BY c.Cat_Name
 	END
 GO
-
