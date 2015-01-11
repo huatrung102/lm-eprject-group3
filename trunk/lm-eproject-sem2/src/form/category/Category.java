@@ -37,26 +37,10 @@ public class Category extends javax.swing.JFrame {
         txtCateName.setEditable(false);
         txtCateID.setEditable(false);
         
-        //Load list cate
-        tableModel = new DefaultTableModel();
-        tableModel.addColumn("Category");
-        tableModel.addColumn("Book number");
-
-        ResultSet rs = Model.Categories.getListCategory();
-        try {
-            while (rs.next()){
-                Vector row = new Vector();
-                row.add(rs.getString("Cat_Name"));
-                row.add(rs.getString("Book_Count"));
-                tableModel.addRow(row);
-            }
-        } catch (SQLException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-        
-        tblListCate.setModel(tableModel);
-        tblListCate.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tblListCate.getColumnModel().getColumn(1).setPreferredWidth(20);
+        tblListCate.setModel(Model.Categories.getCategoryListWithBookNumber());
+        tblListCate.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblListCate.getColumnModel().getColumn(1).setPreferredWidth(90);
+        tblListCate.getColumnModel().getColumn(2).setPreferredWidth(5);
     }
 
     /**

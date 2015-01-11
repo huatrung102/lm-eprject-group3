@@ -24,9 +24,9 @@ public class Categories {
     
     }
     
-    public static ResultSet getListCategory(){
-        ResultSet rs = SqlHelper.getResultSet("getListCategory");
-        return rs;
+    public static DefaultTableModel getCategoryListWithBookNumber(){
+        DefaultTableModel tbl = SqlHelper.getDefaultTableModel("getCategoryListWithBookNumber");
+        return tbl;
     }
 }
 
