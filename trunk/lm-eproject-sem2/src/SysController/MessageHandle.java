@@ -70,6 +70,10 @@ public class MessageHandle {
         return getMessageByResult(Obj,action,result,otherText);
     }
     
+    private static void result_saveConfig_err(){
+    
+    }
+    
     private static String getMessageByResult(String Obj, String action,int result,String otherText){
         StringBuilder sb = new StringBuilder();
         //insert,/update/lock/login User/Book/... successfull!   

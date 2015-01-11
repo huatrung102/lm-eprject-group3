@@ -59,8 +59,8 @@ public class ManageConnection {
             p.store(file, "Group 3-Fpt Aptech");
 
         } catch (IOException ex) {
-            MessageHandle.showError(MessageHandle.getMessage(MessageHandle.Obj_Connection, MessageHandle.Action_save,
-                    MessageHandle.result_saveConfig_err));
+            //MessageHandle.showError(MessageHandle.getMessage(MessageHandle.Obj_Connection, MessageHandle.Action_save,
+            //        MessageHandle.result_saveConfig_err));
             return false;
         }
         return true;

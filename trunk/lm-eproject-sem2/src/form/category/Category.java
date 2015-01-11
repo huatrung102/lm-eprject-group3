@@ -1,12 +1,11 @@
 package form.category;
 import ExSwing.ClPanelTransparent;
 import Helpers.UIHelper;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.openide.util.Exceptions;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,35 +20,43 @@ import javax.swing.table.DefaultTableModel;
 public class Category extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     Vector row;
-    
-    SimpleDateFormat formaDay = new SimpleDateFormat("EEE,dd MMM, yyyy");
-    Calendar cal = Calendar.getInstance();
-    /**
-     * Creates new form Profile
-     */
+ 
     public Category() {
         initComponents();
         UIHelper.bindBackground(pnlBackground);
         this.setTitle("Category");       
+        start();      
+    }
+    
+    public void start(){
+        btnDeleteCate.setEnabled(false);
+        btnNewCate.setEnabled(true);
+        btnSaveCate.setEnabled(false);
+        btnUpdateCate.setEnabled(false);
+        txtCateDescription.setEditable(false);
+        txtCateName.setEditable(false);
+        txtCateID.setEditable(false);
         
+        //Load list cate
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Category");
         tableModel.addColumn("Book number");
-        tblCateList.setModel(tableModel);
-        
-        String[] str1 = new String[]{"Novel","100"};               
-        String[] str2 = new String[]{"Economic","100"};
-        String[] str3 = new String[]{"Magazine","100"};
-        
-        tableModel.addRow(str1);
-        tableModel.addRow(str2);
-        tableModel.addRow(str3);
 
-        tblCateList.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tblCateList.getColumnModel().getColumn(1).setPreferredWidth(20);
-
-
+        ResultSet rs = Model.Categories.getListCategory();
+        try {
+            while (rs.next()){
+                Vector row = new Vector();
+                row.add(rs.getString("Cat_Name"));
+                row.add(rs.getString("Book_Count"));
+                tableModel.addRow(row);
+            }
+        } catch (SQLException ex) {
+            Exceptions.printStackTrace(ex);
+        }
         
+        tblListCate.setModel(tableModel);
+        tblListCate.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tblListCate.getColumnModel().getColumn(1).setPreferredWidth(20);
     }
 
     /**
@@ -64,46 +71,44 @@ public class Category extends javax.swing.JFrame {
         pnlBackground = new javax.swing.JPanel();
         jPanel9 = new ClPanelTransparent();
         jLabel19 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnNewCate = new javax.swing.JButton();
+        btnDeleteCate = new javax.swing.JButton();
+        btnUpdateCate = new javax.swing.JButton();
         jPanel10 = new ClPanelTransparent();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblCateList = new javax.swing.JTable();
+        tblListCate = new javax.swing.JTable();
         jPanel6 = new ClPanelTransparent();
         jLabel20 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtCateName = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtCateID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
+        txtCateDescription = new javax.swing.JTextArea();
+        btnSaveCate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Book Managment");
-        setMaximumSize(new java.awt.Dimension(820, 515));
         setMinimumSize(new java.awt.Dimension(820, 515));
-        setPreferredSize(new java.awt.Dimension(820, 515));
         setResizable(false);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 0));
         jLabel19.setText("Category");
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Add.png"))); // NOI18N
-        jButton7.setText("New Book");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnNewCate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Add.png"))); // NOI18N
+        btnNewCate.setText("New");
+        btnNewCate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnNewCateActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
-        jButton4.setText("Delete");
+        btnDeleteCate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
+        btnDeleteCate.setText("Delete");
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Update.png"))); // NOI18N
-        jButton5.setText("Update");
+        btnUpdateCate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Update.png"))); // NOI18N
+        btnUpdateCate.setText("Update");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -113,11 +118,11 @@ public class Category extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(btnUpdateCate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnDeleteCate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
+                .addComponent(btnNewCate)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -126,13 +131,13 @@ public class Category extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(jButton7)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnNewCate)
+                    .addComponent(btnDeleteCate)
+                    .addComponent(btnUpdateCate))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        tblCateList.setModel(new javax.swing.table.DefaultTableModel(
+        tblListCate.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -158,12 +163,12 @@ public class Category extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(tblCateList);
-        if (tblCateList.getColumnModel().getColumnCount() > 0) {
-            tblCateList.getColumnModel().getColumn(0).setResizable(false);
-            tblCateList.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblCateList.getColumnModel().getColumn(1).setResizable(false);
-            tblCateList.getColumnModel().getColumn(1).setPreferredWidth(20);
+        jScrollPane3.setViewportView(tblListCate);
+        if (tblListCate.getColumnModel().getColumnCount() > 0) {
+            tblListCate.getColumnModel().getColumn(0).setResizable(false);
+            tblListCate.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblListCate.getColumnModel().getColumn(1).setResizable(false);
+            tblListCate.getColumnModel().getColumn(1).setPreferredWidth(20);
         }
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -189,12 +194,12 @@ public class Category extends javax.swing.JFrame {
 
         jLabel1.setText("Description");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtCateDescription.setColumns(20);
+        txtCateDescription.setRows(5);
+        jScrollPane2.setViewportView(txtCateDescription);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Save.png"))); // NOI18N
-        jButton3.setText("Save");
+        btnSaveCate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Save.png"))); // NOI18N
+        btnSaveCate.setText("Save");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -208,11 +213,11 @@ public class Category extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
+                    .addComponent(btnSaveCate)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane2)
-                        .addComponent(jTextField8)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCateName)
+                        .addComponent(txtCateID, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -221,17 +226,17 @@ public class Category extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCateID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCateName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnSaveCate)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -246,7 +251,7 @@ public class Category extends javax.swing.JFrame {
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,9 +281,9 @@ public class Category extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnNewCateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewCateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnNewCateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,10 +322,10 @@ public class Category extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btnDeleteCate;
+    private javax.swing.JButton btnNewCate;
+    private javax.swing.JButton btnSaveCate;
+    private javax.swing.JButton btnUpdateCate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
@@ -330,10 +335,10 @@ public class Category extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel pnlBackground;
-    private javax.swing.JTable tblCateList;
+    private javax.swing.JTable tblListCate;
+    private javax.swing.JTextArea txtCateDescription;
+    private javax.swing.JTextField txtCateID;
+    private javax.swing.JTextField txtCateName;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,16 +6,16 @@
 
 package Model;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultMutableTreeNode;
-import form.book.BookList;
+import Helpers.SqlHelper;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author TraPhucVinh
  */
-public class Categories {
+public class Categories {    
     public String Cat_Id;
     public String Cat_Name;
     public boolean Cat_isDelete;
@@ -24,17 +24,9 @@ public class Categories {
     
     }
     
-    public void getListCategory(){
-        DefaultMutableTreeNode rootNode;
-        rootNode = new DefaultMutableTreeNode("Categories");
-        JTree treCategory;
-        treCategory = new JTree(rootNode);
-        
-        DefaultMutableTreeNode leafNode1;
-        leafNode1 = new DefaultMutableTreeNode("Novel");
-        
-        rootNode.add(leafNode1);
-        JScrollPane scpScroller = new JScrollPane(treCategory);
+    public static ResultSet getListCategory(){
+        ResultSet rs = SqlHelper.getResultSet("getListCategory");
+        return rs;
     }
 }
 
