@@ -5,6 +5,7 @@
  */
 package Model;
 
+import SysController.MessageHandle;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +30,7 @@ public class Member {
      public static DefaultTableModel getTestMemberList(){
         DefaultTableModel tblM = new DefaultTableModel(test_col, 0);         
         
-        
+         MessageHandle.getMessage(MessageHandle.Obj_Member, MessageHandle.Action_insert, 1);
         tblM.addRow(new Object[]{"M0000001","Hua Tran Huu Trung","trunghth@gmail.com","0934399664"});
         tblM.addRow(new Object[]{"M0000002","Ngo Thanh Dat","trunghth1@gmail.com",""});
         tblM.addRow(new Object[]{"M0000003","Tra Phuc Vinh Uy","trunghth2@gmail.com","0123456789"});
