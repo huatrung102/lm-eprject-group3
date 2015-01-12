@@ -25,7 +25,7 @@ public class MessageHandle {
     
     
     public static final String Obj_File = "File";    
-    public static final String Obj_Connection = "System";
+    public static final String Obj_System = "System";
     
     
     public static final String Action_insert = "Insert";
@@ -66,15 +66,11 @@ public class MessageHandle {
     
     
     
-    public static String getMessage(String Obj, String action, int result,String otherText) {
-        return getMessageByResult(Obj,action,result,otherText);
+    public static String getMessage(String Obj, String action, int result) {
+        return getMessageByResult(Obj,action,result);
     }
     
-    private static void result_saveConfig_err(){
-    
-    }
-    
-    private static String getMessageByResult(String Obj, String action,int result,String otherText){
+    private static String getMessageByResult(String Obj, String action,int result){
         StringBuilder sb = new StringBuilder();
         //insert,/update/lock/login User/Book/... successfull!   
         sb.append(action).append(" ")
