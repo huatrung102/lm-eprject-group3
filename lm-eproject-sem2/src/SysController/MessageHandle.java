@@ -64,7 +64,9 @@ public class MessageHandle {
         JOptionPane.showMessageDialog(null, s);
     }
     
-    
+    public static void showMessage(String Obj, String action, int result){
+        JOptionPane.showMessageDialog(null, getMessage(Obj,action,result));
+    }
     
     public static String getMessage(String Obj, String action, int result) {
         return getMessageByResult(Obj,action,result);
