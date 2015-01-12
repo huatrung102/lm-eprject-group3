@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="27a95c65-4ab2-4b13-b485-199c3b8aa39c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     Books."Book_ISBN" AS Books_Book_ISBN,
+     Books."Book_Title" AS Books_Book_Title,
+     Books."Book_Publisher" AS Books_Book_Publisher,
+     Books."Book_Author" AS Books_Book_Author,
+     Books."Book_Price" AS Books_Book_Price,
+     Books."Book_Content" AS Books_Book_Content,
+     Books."Book_Language" AS Books_Book_Language,
+     Books."Book_ImageFile" AS Books_Book_ImageFile,
+     Books."Book_CreateDate" AS Books_Book_CreateDate,
+     Books."Book_isDeleted" AS Books_Book_isDeleted,
+     Categories."Cat_Id" AS Categories_Cat_Id,
+     Categories."Cat_Name" AS Categories_Cat_Name,
+     Copies."Cop_Id" AS Copies_Cop_Id,
+     Copies."Book_ISBN" AS Copies_Book_ISBN,
+     Copies."Cop_Status" AS Copies_Cop_Status,
+     Copies."Cop_isDeleted" AS Copies_Cop_isDeleted,
+     Copies."Cop_No" AS Copies_Cop_No
+FROM
+     "dbo"."Categories" Categories INNER JOIN "dbo"."Books" Books ON Categories."Cat_Id" = Books."Cat_Id"
+     INNER JOIN "dbo"."Copies" Copies ON Books."Book_ISBN" = Copies."Book_ISBN"]]>
+	</queryString>
+	<field name="Books_Book_ISBN" class="java.lang.String"/>
+	<field name="Books_Book_Title" class="java.lang.String"/>
+	<field name="Books_Book_Publisher" class="java.lang.String"/>
+	<field name="Books_Book_Author" class="java.lang.String"/>
+	<field name="Books_Book_Price" class="java.math.BigDecimal"/>
+	<field name="Books_Book_Content" class="java.lang.String"/>
+	<field name="Books_Book_Language" class="java.lang.String"/>
+	<field name="Books_Book_ImageFile" class="java.lang.String"/>
+	<field name="Books_Book_CreateDate" class="java.sql.Timestamp"/>
+	<field name="Books_Book_isDeleted" class="java.lang.Boolean"/>
+	<field name="Categories_Cat_Id" class="java.lang.String"/>
+	<field name="Categories_Cat_Name" class="java.lang.String"/>
+	<field name="Copies_Cop_Id" class="java.lang.String"/>
+	<field name="Copies_Book_ISBN" class="java.lang.String"/>
+	<field name="Copies_Cop_Status" class="java.lang.Boolean"/>
+	<field name="Copies_Cop_isDeleted" class="java.lang.Boolean"/>
+	<field name="Copies_Cop_No" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="fd07fc8f-0a55-4067-a110-112775a392bf"/>
+				<imageExpression><![CDATA["leaf_banner_gray.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="27971559-888d-4301-b502-76141c899ef5"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Gray Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="117" y="46" width="157" height="22" uuid="14ba5a53-cd1d-4b2d-a19f-fa21ed169cd0"/>
+				<text><![CDATA[Leaf Gray SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="2da4fc95-2594-4842-9f63-5246e68414dd"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="32" height="15" uuid="43a68226-789e-43f6-be5a-5286c658ffd5"/>
+				<text><![CDATA[Books_Book_ISBN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="32" y="19" width="32" height="15" uuid="cf1f402a-6554-4bbe-8205-7828ec0d8acd"/>
+				<text><![CDATA[Books_Book_Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="64" y="19" width="32" height="15" uuid="23f917d8-3755-42f2-8e64-dd4d6cf6fa2e"/>
+				<text><![CDATA[Books_Book_Publisher]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="96" y="19" width="32" height="15" uuid="5c45574a-9109-44a4-976e-e686f16dda7c"/>
+				<text><![CDATA[Books_Book_Author]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="128" y="19" width="32" height="15" uuid="8c078707-76ee-4053-b8d9-5a9b65151ecc"/>
+				<text><![CDATA[Books_Book_Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="160" y="19" width="32" height="15" uuid="b3f791b3-37f4-48a2-8413-450524448dac"/>
+				<text><![CDATA[Books_Book_Content]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="192" y="19" width="32" height="15" uuid="e2c0c1cd-cd52-45a6-b493-398c649e2374"/>
+				<text><![CDATA[Books_Book_Language]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="224" y="19" width="32" height="15" uuid="efa406cc-d871-4e77-8bd4-8077fabf66af"/>
+				<text><![CDATA[Books_Book_ImageFile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="256" y="19" width="32" height="15" uuid="28bb88d9-201f-4316-9340-7c0a4d879851"/>
+				<text><![CDATA[Books_Book_CreateDate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="288" y="19" width="32" height="15" uuid="73b5dd30-60b7-4ee0-8d19-f3d061724c24"/>
+				<text><![CDATA[Books_Book_isDeleted]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="320" y="19" width="32" height="15" uuid="a09de07b-53ed-4da7-8b8d-fe122c6a7e06"/>
+				<text><![CDATA[Categories_Cat_Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="352" y="19" width="32" height="15" uuid="a197db71-19bd-46dc-879f-15ba26f6b595"/>
+				<text><![CDATA[Categories_Cat_Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="384" y="19" width="32" height="15" uuid="f8004294-1f49-4017-a280-3926bbf122e2"/>
+				<text><![CDATA[Copies_Cop_Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="416" y="19" width="32" height="15" uuid="f11b9ba4-4ca0-4b7d-bec3-678a5d507541"/>
+				<text><![CDATA[Copies_Book_ISBN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="448" y="19" width="32" height="15" uuid="f1660c8e-4fec-4bfa-9ec3-ae069bae7bb2"/>
+				<text><![CDATA[Copies_Cop_Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="480" y="19" width="32" height="15" uuid="82f4d67b-a61e-4fe6-96fa-7fa913e7321b"/>
+				<text><![CDATA[Copies_Cop_isDeleted]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="512" y="19" width="32" height="15" uuid="5e683216-2b3c-4f97-8833-9d9b46eb4cda"/>
+				<text><![CDATA[Copies_Cop_No]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="69e4b574-f61e-4299-a622-2f8416df8a05"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="32" height="15" uuid="a95adf5c-87b2-4fb9-bd3a-70ecce01949e"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_ISBN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="32" y="0" width="32" height="15" uuid="67a10640-59fb-43c8-8a13-52dd6bbdc387"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_Title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="64" y="0" width="32" height="15" uuid="6949fca1-d94e-487d-9670-d24278e1c6b6"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_Publisher}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="96" y="0" width="32" height="15" uuid="31e98736-7fce-45c2-a8ed-e14054640970"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_Author}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="128" y="0" width="32" height="15" uuid="a31f2f00-bd28-4ccf-8a80-ef2bc0f16d53"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_Price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="160" y="0" width="32" height="15" uuid="590754dd-31f7-4907-9a04-b1019fe15b84"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_Content}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="192" y="0" width="32" height="15" uuid="d98163c3-4f4e-4bac-9c7a-86ab5f363549"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_Language}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="224" y="0" width="32" height="15" uuid="3a76190f-738e-4bae-9e86-8c09d96b18d7"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_ImageFile}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="256" y="0" width="32" height="15" uuid="e2b33296-2501-439b-b28e-884ba93dbfd3"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_CreateDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="288" y="0" width="32" height="15" uuid="68ba2950-5a17-400d-8b23-b502b9590d27"/>
+				<textFieldExpression><![CDATA[$F{Books_Book_isDeleted}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="320" y="0" width="32" height="15" uuid="22784a0b-c7f1-4708-995e-5d592213a485"/>
+				<textFieldExpression><![CDATA[$F{Categories_Cat_Id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="352" y="0" width="32" height="15" uuid="696f5240-6164-448c-bb78-2ba00331f10a"/>
+				<textFieldExpression><![CDATA[$F{Categories_Cat_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="384" y="0" width="32" height="15" uuid="42c26747-6d64-4f1b-9644-ff0380077f04"/>
+				<textFieldExpression><![CDATA[$F{Copies_Cop_Id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="416" y="0" width="32" height="15" uuid="96bc7ade-3531-4d4e-98cb-a922c3430b12"/>
+				<textFieldExpression><![CDATA[$F{Copies_Book_ISBN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="448" y="0" width="32" height="15" uuid="74f263c0-69a0-41b5-abc7-d4e2333b839f"/>
+				<textFieldExpression><![CDATA[$F{Copies_Cop_Status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="480" y="0" width="32" height="15" uuid="f8e2bed9-749d-4617-b164-6807e00904c7"/>
+				<textFieldExpression><![CDATA[$F{Copies_Cop_isDeleted}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="512" y="0" width="32" height="15" uuid="3b515dca-13a8-4c37-846c-483af344eb03"/>
+				<textFieldExpression><![CDATA[$F{Copies_Cop_No}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="fa6eb058-860b-455b-9c82-ca0f2a137abd"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="a229fb74-ba8a-4559-b661-9c42dae88b6e"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="3c0ef67f-9298-48f7-b85f-e23a64742caa"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="6c9b0454-fa5f-4fbd-a511-3c7ee833ba8f"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
