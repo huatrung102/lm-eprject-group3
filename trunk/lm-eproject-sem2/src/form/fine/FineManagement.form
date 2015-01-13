@@ -92,7 +92,6 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Member Fine">
-                  <Border PropertyName="innerBorder" info="null"/>
                   <ResourceString PropertyName="titleX" bundle="form/fine/Bundle.properties" key="FineManagement.pnlBackground.border.title" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                   <Font PropertyName="font" name="Tahoma" size="14" style="1"/>
                   <Color PropertyName="color" blue="0" green="ff" id="yellow" palette="1" red="ff" type="palette"/>
@@ -326,7 +325,6 @@
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Member&apos;s Infomation">
-                  <Border PropertyName="innerBorder" info="null"/>
                   <ResourceString PropertyName="titleX" bundle="form/fine/Bundle.properties" key="FineManagement.jPanel4.border.title" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                   <Font PropertyName="font" name="Tahoma" size="14" style="1"/>
                   <Color PropertyName="color" blue="0" green="ff" id="yellow" palette="1" red="ff" type="palette"/>

@@ -16,5 +16,7 @@ public class SysVar {
     public static final String driver_jdts = "net.sourceforge.jtds.jdbc.Driver";
     public static final String patern_email = "^[\\w-\\.]+@([\\w-]+[\\w-]{2,4}$)";
     public static final String value_nullSql = "$null$";
+    public static final String image_member_defaut= "/image/noavatar.png";
+    public static final String image_staff_defaut= "/image/noavatar.png";
     
 }

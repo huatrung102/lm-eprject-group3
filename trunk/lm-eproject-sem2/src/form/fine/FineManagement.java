@@ -10,7 +10,7 @@ import ExSwing.ClPanelTransparent;
 import Helpers.UIHelper;
 import Model.Books;
 import Model.IRBooks;
-import Model.Member;
+import Model.Members;
 import bussiness.Fine;
 import form.ir.IssueManagement;
 import form.main.Main;
@@ -41,7 +41,7 @@ public class FineManagement extends javax.swing.JFrame {
          loadMember();
     }
     private void loadBook(){
-        glBook = Books.getTestBook();
+       // glBook = Books.getTestBook();
     }
     private void loadIRBook(){
         tblFine.setModel(IRBooks.getTestIRBookFine(glBook));
@@ -50,7 +50,7 @@ public class FineManagement extends javax.swing.JFrame {
         lblTotalPrice.setText(String.valueOf(Fine.calculateTotal(tblFine, 6)) + " $");
     }
     private void loadMember(){
-        Member mem = Member.getTestMember();
+        Members mem = null; //Members.getTestMember();
         lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
         lblPhone.setText(mem.Mem_Phone);
         lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");

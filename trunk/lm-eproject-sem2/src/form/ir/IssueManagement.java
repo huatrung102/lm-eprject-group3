@@ -5,18 +5,23 @@
  */
 package form.ir;
 
+import Config.SysVar;
 import ExSwing.*;
 import Helpers.UIHelper;
 import Model.Books;
 import Model.Copies;
 import Model.IRBooks;
-import Model.Member;
+import Model.Members;
+import SysController.MessageHandle;
 
 import form.main.Main;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,10 +32,25 @@ public class IssueManagement extends javax.swing.JFrame {
     /**
      * Creates new form IRManagement
      */
-    Books glBook;
+    //Books glBook;
+    Members Member;    
+    ArrayList<Books> listBooks;
+    IRBooks ir;
+    int countSTT = 1;
+    private static String issue_col[] = {"No","ISBN","Title","Category","Copy Id"};
     public IssueManagement() {
-        initComponents();
-       
+        initComponents();       
+        UIHelper.bindBackground(pnlIssue);
+        initForm();
+        initMember();
+        initTblIssuing();
+        listBooks = new ArrayList<>();
+        ir = new IRBooks();
+       // loadBook();
+      //  loadCopies();        
+       // loadIRBook();
+    }
+    private void initForm(){
         btSearchMem.setIcon(new ImageIcon(IssueManagement.class
                         .getResource("/image/Explore.png")));
          btSearchBook.setIcon(new ImageIcon(IssueManagement.class
@@ -39,20 +59,13 @@ public class IssueManagement extends javax.swing.JFrame {
                         .getResource("/image/reset.png")));
         btIssue.setIcon(new ImageIcon(IssueManagement.class
                         .getResource("/image/issue.png")));
-        
-        
-        UIHelper.bindBackground(pnlIssue);
-        loadMember();
-        loadBook();
-        loadCopies();        
-        loadIRBook();
     }
     private void loadCopies(){
-        tblCopies.setModel(Copies.getTestCopyByISBN());        
+      //  tblCopies.setModel(Copies.getTestCopyByISBN());        
     }
     private void loadBook(){
-        Books book = Books.getTestBook();
-        glBook = book;
+        Books book = null;//= Books.getTestBook();
+       // glBook = book;
         lblAuthor.setText(book.Book_Author);
         lblCategory.setText(book.Cat_Name);
         lblLanguage.setText(book.Book_Language);
@@ -61,15 +74,28 @@ public class IssueManagement extends javax.swing.JFrame {
       //  lblPrice.setText(book.Book_Price + " $");
         
         //load image book
-        lblImgBook.setIcon(new ImageIcon(Main.class
+        lblImgBook.setIcon(new ImageIcon(IssueManagement.class
                         .getResource(book.Book_ImageFile)));        
         lblImgBook.setBounds(0, 0, 140, 140);
     }
     private void loadIRBook(){
-        tblIssuing.setModel(IRBooks.getTestIRBookIssue(glBook));
+       // tblIssuing.setModel(IRBooks.getTestIRBookIssue(glBook));
     }
-    private void loadMember(){
-        Member mem = Member.getTestMember();
+    private void initMember(){
+        lblFullname.setText("");
+        lblPhone.setText("");
+        lblStatusMem.setText("");
+        lblRegisterDate.setText("");
+        //load image member
+        lblImgMember.setIcon(new ImageIcon(Main.class
+                        .getResource(SysVar.image_member_defaut)));        
+        lblImgMember.setBounds(0, 0, 140, 140);
+    }
+    private void initTblIssuing(){
+        DefaultTableModel tblM = new DefaultTableModel(issue_col, 0);
+        tblIssuing.setModel(tblM);
+    }
+    private void loadMember(Members mem){        
         lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
         lblPhone.setText(mem.Mem_Phone);
         lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
@@ -94,7 +120,7 @@ public class IssueManagement extends javax.swing.JFrame {
         jPanel3 = new ClPanelTransparent();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtEmailMem = new javax.swing.JTextField();
+        txtMemNo = new javax.swing.JTextField();
         btSearchMem = new ClButtonTransparan("Search");
         jPanel6 = new ClPanelTransparent();
         jPanel8 = new javax.swing.JPanel();
@@ -102,8 +128,8 @@ public class IssueManagement extends javax.swing.JFrame {
         txtISBN = new javax.swing.JTextField();
         btSearchBook = new ClButtonTransparan("Search");
         jLabel14 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        txtISBN1 = new javax.swing.JTextField();
+        cbCategory = new javax.swing.JComboBox();
+        txtTitle = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jPanel10 = new ClPanelTransparent();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -160,7 +186,12 @@ public class IssueManagement extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel1.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.jLabel1.text")); // NOI18N
 
-        txtEmailMem.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.txtEmailMem.text")); // NOI18N
+        txtMemNo.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.txtMemNo.text")); // NOI18N
+        txtMemNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMemNoActionPerformed(evt);
+            }
+        });
 
         btSearchMem.setForeground(java.awt.Color.darkGray);
         btSearchMem.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.btSearchMem.text")); // NOI18N
@@ -173,7 +204,7 @@ public class IssueManagement extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMemNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btSearchMem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -184,7 +215,7 @@ public class IssueManagement extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMemNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSearchMem))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -201,13 +232,18 @@ public class IssueManagement extends javax.swing.JFrame {
 
         btSearchBook.setForeground(java.awt.Color.darkGray);
         btSearchBook.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.btSearchBook.text")); // NOI18N
+        btSearchBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchBookActionPerformed(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel14.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.jLabel14.text")); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        txtISBN1.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.txtISBN1.text")); // NOI18N
+        txtTitle.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.txtTitle.text")); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel15.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.jLabel15.text")); // NOI18N
@@ -234,8 +270,8 @@ public class IssueManagement extends javax.swing.JFrame {
                             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtISBN1)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtTitle)
+                                    .addComponent(cbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(0, 0, Short.MAX_VALUE)))
                     .addContainerGap()))
         );
@@ -251,11 +287,11 @@ public class IssueManagement extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
-                        .addComponent(txtISBN1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
                     .addComponent(btSearchBook)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -277,6 +313,11 @@ public class IssueManagement extends javax.swing.JFrame {
             }
         ));
         tblIssuing.setPreferredSize(new java.awt.Dimension(300, 150));
+        tblIssuing.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblIssuingMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblIssuing);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -309,6 +350,11 @@ public class IssueManagement extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCopies.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCopiesMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblCopies);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -443,7 +489,7 @@ public class IssueManagement extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 165, Short.MAX_VALUE)
+            .addGap(0, 172, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel9Layout.createSequentialGroup()
                     .addGap(30, 30, 30)
@@ -468,7 +514,7 @@ public class IssueManagement extends javax.swing.JFrame {
                         .addComponent(lblStatusMem1))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -638,10 +684,10 @@ public class IssueManagement extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4))
         );
@@ -663,7 +709,7 @@ public class IssueManagement extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(pnlIssueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -673,6 +719,82 @@ public class IssueManagement extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtMemNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMemNoActionPerformed
+        // TODO add your handling code here:
+        String mem_No = txtMemNo.getText();
+        Members obj = Members.getIRCountInformation(mem_No);
+        if(obj != null){
+            loadMember(obj);
+        }else{
+            MessageHandle.showError("Can not find Member with No: " + mem_No);
+        }
+    }//GEN-LAST:event_txtMemNoActionPerformed
+    private void bindTblIssue(IRBooks irb){
+        DefaultTableModel tblM = (DefaultTableModel)tblIssuing.getModel();
+        tblM.addRow(new Object[]{
+                                countSTT++
+                                ,irb.book.Book_ISBN
+                                ,irb.book.Book_Title
+                                ,irb.book.Cat_Name
+                                ,irb.copy.Cop_No });
+        tblIssuing.setModel(tblM);
+    }
+    private void tblCopiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCopiesMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2){
+           
+            int index = tblCopies.getSelectedRow();
+            boolean status = index != -1;
+                if(status){
+                    //get ISBN on table
+                    String ISBN = String.valueOf(tblCopies.getModel().getValueAt(index, 0)) ;
+                    //get count book
+                    int count = Integer.parseInt(String.valueOf(tblCopies.getModel().getValueAt(index, 2)))  ;
+                    ir.book = Books.getByISBN(ISBN);                    
+                    ir.book.Book_Count = count;
+                    ir.copy = Copies.getLastestIsFree(ir.book.Book_ISBN);
+                    if(ir.copy != null){
+                        bindTblIssue(ir);
+                        //column 3 contain count book
+                        
+                        tblCopies.setValueAt(--ir.book.Book_Count, index, 2);
+                        validate();
+                    }else
+                        MessageHandle.showError("Not exists Copy");
+                    
+                }                
+        }
+    }//GEN-LAST:event_tblCopiesMouseClicked
+    
+    private void btSearchBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchBookActionPerformed
+        // TODO add your handling code here:
+        Books obj = new Books();
+        obj.Book_ISBN = txtISBN.getText().trim();
+        obj.Book_Title = txtTitle.getText();
+        obj.Cat_Id = String.valueOf(cbCategory.getSelectedObjects()[0]);//get value of comboBox
+        //test
+        obj.Cat_Id = "";
+        
+        DefaultTableModel tblM = IRBooks.getListBookByFilter(obj);
+        
+        tblCopies.setModel(tblM);
+        if(tblM.getRowCount() == 0)
+            MessageHandle.showError("No Book satisfy depend condition");
+    }//GEN-LAST:event_btSearchBookActionPerformed
+
+    private void tblIssuingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblIssuingMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2){
+            JTable target = (JTable)evt.getSource();            
+            int index = target.getSelectedRow();
+            boolean status = index != -1;
+                if(status){
+                    DefaultTableModel tblM = (DefaultTableModel) tblIssuing.getModel();
+                    tblM.removeRow(tblCopies.convertRowIndexToModel(index));                   
+                }                
+        }
+    }//GEN-LAST:event_tblIssuingMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -714,7 +836,7 @@ public class IssueManagement extends javax.swing.JFrame {
     private javax.swing.JButton btReset;
     private javax.swing.JButton btSearchBook;
     private javax.swing.JButton btSearchMem;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox cbCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -763,8 +885,8 @@ public class IssueManagement extends javax.swing.JFrame {
     private javax.swing.JPanel pnlIssue;
     private javax.swing.JTable tblCopies;
     private javax.swing.JTable tblIssuing;
-    private javax.swing.JTextField txtEmailMem;
     private javax.swing.JTextField txtISBN;
-    private javax.swing.JTextField txtISBN1;
+    private javax.swing.JTextField txtMemNo;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }
