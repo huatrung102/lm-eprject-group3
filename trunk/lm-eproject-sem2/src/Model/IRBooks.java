@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Helpers.SqlHelper;
 import bussiness.Fine;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,13 +20,15 @@ import sun.util.calendar.Gregorian;
  * @author Administrator PC
  */
 public class IRBooks {
-    public Books book;
-    public Copies copy;
+    public Books book;    
     public String IRBook_Id;
     public String Mem_Id;
     public String Mem_FullName;
     public String IRBook_DueDate;
     public String IRBook_CreateDate;
+    public String Cop_Id;
+    public String Cop_Count;
+    
     
     private static String test_col[] = {"No","ISBN","Title","Category","Copy Id"};
     private static String test_col1[] = {"No","ISBN","Title","Copy Id","Issue Date","Due Date","Late Date"};
@@ -122,5 +125,15 @@ public class IRBooks {
         return tblM;
         
         
+    }
+    
+    
+    public static DefaultTableModel getListBookByFilter(Books b){
+        DefaultTableModel tblM = SqlHelper.getDefaultTableModel("Books_getListBookByFilter"
+                                            , b.Book_ISBN
+                                            , b.Book_Title
+                                            , b.Cat_Id);
+        
+        return tblM;
     }
 }
