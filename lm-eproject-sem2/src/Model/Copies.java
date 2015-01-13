@@ -6,6 +6,7 @@
 package Model;
 
 import Helpers.SqlHelper;
+import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,18 +16,33 @@ import javax.swing.table.DefaultTableModel;
 public class Copies {
     public String Cop_Id;
     public String Book_ISBN;
+    public String Cop_No;
     public boolean Cop_Status;
     public boolean Cop_isDeleted;
     
     
-    public Copies(String Cop_Id, String Book_ISBN, boolean Cop_Status) {
-        this.Cop_Id = Cop_Id;
-        this.Book_ISBN = Book_ISBN;
-        this.Cop_Status = Cop_Status;
+    public Copies() {
+        
     }
     
-    public static String getLastestIsFree(String ISBN){
-        return String.valueOf(SqlHelper.execScalar("Copies_getLastestIsFree", ISBN)) ;        
+    public static Copies getLastestIsFree(String ISBN){
+        Copies cop = null;
+        ResultSet rs = null;
+        try {
+            rs = SqlHelper.getResultSet("Copies_getLastestIsFree", ISBN);
+            if(rs.next()){
+                cop = new Copies();
+                cop.Book_ISBN = rs.getString("Book_ISBN");
+                cop.Cop_Id = rs.getString("Cop_Id");
+                cop.Cop_Status = rs.getBoolean("Cop_Status");
+                cop.Cop_No = rs.getString("Cop_No");
+                
+            }
+        } catch (Exception e) {
+            SqlHelper.closeConnection(rs);
+            cop = null;
+        }
+        return cop;             
     }
     
 }
