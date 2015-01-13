@@ -10,7 +10,7 @@ import ExSwing.ClPanelTransparent;
 import Helpers.UIHelper;
 import Model.Books;
 import Model.IRBooks;
-import Model.Member;
+import Model.Members;
 import form.main.Main;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -38,13 +38,13 @@ public class ReturnManagement extends javax.swing.JFrame {
         loadMember();
     }
     private void loadBook(){
-        glBook = Books.getTestBook();
+        //glBook = Books.getTestBook();
     }
     private void loadIRBook(){
         tblReturn.setModel(IRBooks.getTestIRBookReturn(glBook));
     }
     private void loadMember(){
-        Member mem = Member.getTestMember();
+        Members mem = null; //Members.getTestMember();
         lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
         lblPhone.setText(mem.Mem_Phone);
         lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");

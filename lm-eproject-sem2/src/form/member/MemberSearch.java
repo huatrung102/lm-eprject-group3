@@ -7,7 +7,7 @@ package form.member;
 
 import ExSwing.ClPanelTransparent;
 import Model.IRBooks;
-import Model.Member;
+import Model.Members;
 import form.ir.IssueManagement;
 import form.main.Main;
 import javax.swing.ImageIcon;
@@ -37,10 +37,10 @@ public class MemberSearch extends javax.swing.JDialog {
         pnlBackground.add(label_5);
     }
     private void loadListMember(){
-        tblMembers.setModel(Member.getTestMemberList());
+      //  tblMembers.setModel(Members.getTestMemberList());
     }
     private void loadMember(){
-        Member mem = Member.getTestMember();
+        Members mem = null; //= Members.getTestMember();
         lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
         lblPhone.setText(mem.Mem_Phone);
         lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
