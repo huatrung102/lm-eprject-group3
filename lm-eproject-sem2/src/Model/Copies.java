@@ -7,6 +7,7 @@ package Model;
 
 import Helpers.SqlHelper;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,11 +26,11 @@ public class Copies {
         
     }
     
-    public static Copies getLastestIsFree(String ISBN){
+    public static Copies getLastestIsFree(String ISBN,HashMap Cop_Id){
         Copies cop = null;
         ResultSet rs = null;
         try {
-            rs = SqlHelper.getResultSet("Copies_getLastestIsFree", ISBN);
+            rs = SqlHelper.getResultSet("Copies_getLastestIsFree", ISBN,Cop_Id);
             if(rs.next()){
                 cop = new Copies();
                 cop.Book_ISBN = rs.getString("Book_ISBN");
