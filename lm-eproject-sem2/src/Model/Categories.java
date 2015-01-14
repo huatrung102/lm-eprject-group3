@@ -12,6 +12,7 @@ public class Categories {
     public String Cat_Name;
     public boolean Cat_isDelete;
     public String Cat_Description;
+    public static Categories objCate;
     public Categories(){
     
     }
@@ -32,29 +33,29 @@ public class Categories {
         return SqlHelper.executeNonQuery("Categories_Insert", obj.Cat_Name, obj.Cat_isDelete, obj.Cat_Description);
     }
     
-    public static int Categories_findCategoryByCateName(String catename){
+    public static Categories Categories_getCategoryByCateId(String cateid){
         ResultSet rs;
-        int isExist = 1; //1 là có tồn tại CateName
-        rs = SqlHelper.getResultSet("Categories_findCategoryByCateName", catename);
+        objCate = new Categories();
         try {
+            rs = SqlHelper.getResultSet("Categories_getCategoryByCateId", cateid);
             if(rs.next()){
-                isExist = rs.getInt(1);
+                objCate.Cat_Id = cateid;
+                objCate.Cat_Name = rs.getString("Cat_Name");
+                objCate.Cat_isDelete = rs.getBoolean("Cat_isDelete");
+                objCate.Cat_Description = rs.getString("Cat_Description");
             }
         } catch (SQLException ex) {
             Exceptions.printStackTrace(ex);
         }
-        return isExist;
+        return objCate;
     }
     
-    public static int Categories_Update(Categories obj){
-        return 0;
-//      return SqlHelper.executeNonQuery(sqlUpdateAccount,obj.password
-//                            , obj.fullname,obj.age,obj.mail,obj.username);
-        
+    public static int Categories_Update(Categories obj, String cateid){
+        return SqlHelper.executeNonQuery("Categories_Update", cateid, 
+                obj.Cat_Name, obj.Cat_isDelete, obj.Cat_Description);
     }
-    public static int Categories_Lock(String catid){
-       return 0;
-//       return SqlHelper.executeNonQuery(sqlDeleteAccount,username);
+    public static int Categories_Lock(String cateid){
+       return SqlHelper.executeNonQuery("Categories_Lock", cateid);
     } 
 }
 

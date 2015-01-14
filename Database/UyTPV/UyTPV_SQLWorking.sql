@@ -52,50 +52,112 @@ AS
 		LEFT JOIN Books b ON c.Cat_Id = b.Cat_Id
 		WHERE c.Cat_isDelete = 0	--Cat_IsDeleted = 0 (khong bi xoa) - 1 (xoa)
 		GROUP BY c.Cat_Id, c.Cat_Name
-		ORDER BY c.Cat_Id
+		ORDER BY c.Cat_Name
 	END
 GO
 
 USE [LMS]
 GO
-CREATE PROCEDURE [Categories_Insert]
+Create PROCEDURE [dbo].[Categories_Insert]
 @Cat_Name NVARCHAR(30),
 @Cat_isDelete BIT,
 @Cat_Description NVARCHAR(100)
 AS
-	BEGIN
-		begin transaction
-			begin try
-				INSERT INTO [dbo].[Categories]
-					 ([Cat_Name]
-					 ,[Cat_isDelete]
-					 ,[Cat_Description])
-				VALUES
-					 (@Cat_Name
-					 , @Cat_isDelete
-					 , @Cat_Description)
-			end try
-		begin catch
-			if @@trancount >0
-				rollback transaction;
-		end catch
-		if @@trancount >0
-			begin
-			   commit transaction;
-			   return 1;
-			end
-		else
-		return 2;		   
-	END
+ BEGIN
+ IF EXISTS (SELECT * FROM Categories WHERE Cat_Name = @Cat_Name)
+  RETURN 0;
+ begin transaction
+ begin try  
+   INSERT INTO [dbo].[Categories]
+     ([Cat_Name]
+     ,[Cat_isDelete]
+     ,[Cat_Description])
+  VALUES
+     (@Cat_Name
+     , @Cat_isDelete
+     , @Cat_Description)
+ end try
+ begin catch
+  if @@trancount >0
+   rollback transaction;
+ end catch
+  if @@trancount >0
+  begin
+   commit transaction;
+   return 1;
+  end
+  else
+   return 2;
+ END
+ GO
+ 
+USE [LMS]
+GO
+CREATE PROCEDURE [dbo].[Categories_getCategoryByCateId] 
+	@Cat_Id NVARCHAR(36)
+AS
+BEGIN
+	SELECT * FROM Categories c WHERE c.Cat_Id = @Cat_Id
+END
 GO
 
-CREATE PROCEDURE [Categories_findCategoryByCateName]
-@Cat_Name NVARCHAR(30)
+USE [LMS]
+GO
+CREATE PROCEDURE Categories_Lock
+@Cat_Id NVARCHAR(36)
 AS
 	BEGIN
-		IF EXISTS (SELECT * FROM Categories c WHERE c.Cat_Name = 'Novel')
-			RETURN 1
-		ELSE
-			RETURN 0
-	END
+ begin transaction
+ begin try  
+  UPDATE [dbo].[Categories]
+		   SET
+			  [Cat_isDelete] = 1
+		WHERE Cat_Id = @Cat_Id
+ end try
+ begin catch
+  if @@trancount >0
+   rollback transaction;
+ end catch
+  if @@trancount >0
+  begin
+   commit transaction;
+   return 1;
+  end
+  else
+   return 2;
+   END
+GO
+
+USE [LMS]
+GO
+CREATE PROCEDURE Categories_Update
+	@Cat_Id NVARCHAR(36),
+	@Cat_Name NVARCHAR(30),
+	@Cat_isDelete BIT,
+	@Cat_Description NVARCHAR(100)
+AS
+ BEGIN
+ IF EXISTS (SELECT * FROM Categories WHERE Cat_Name = @Cat_Name)
+  RETURN 0;
+ begin transaction
+ begin try  
+   UPDATE [dbo].[Categories]
+	   SET 
+		  [Cat_Name] = @Cat_Name
+		  ,[Cat_isDelete] = @Cat_isDelete
+		  ,[Cat_Description] = @Cat_Description
+	 WHERE Cat_Id = @Cat_Id
+ end try
+ begin catch
+  if @@trancount >0
+   rollback transaction;
+ end catch
+  if @@trancount >0
+  begin
+   commit transaction;
+   return 1;
+  end
+  else
+   return 2;
+   END
 GO
