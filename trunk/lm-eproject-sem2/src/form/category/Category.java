@@ -354,6 +354,7 @@ public class Category extends javax.swing.JFrame {
             int isSuccess = Model.Categories.Categories_Insert(obj);
             JOptionPane.showMessageDialog(null, isSuccess);
         }
+        setNormalMode();
     }//GEN-LAST:event_btnSaveCateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
