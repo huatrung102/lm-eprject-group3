@@ -1,4 +1,4 @@
-USE [Set05]
+USE LMS
 GO
 
 INSERT INTO [dbo].[Categories]
@@ -20,7 +20,7 @@ INSERT INTO [dbo].[Categories]
 		   (0,N'Khác', 0, N'Thể loại Khác')     
 GO
 
-USE [Set05]
+USE [LMS]
 GO
 
 INSERT INTO [dbo].[Books]
@@ -42,16 +42,44 @@ INSERT INTO [dbo].[Books]
 			('4444444444444','Book4','pub4','auth4',4,'content4',3,'us','img/ddd.jpg',2015/04/04,0)
 GO
 
-USE [Set05]
+USE LMS
 GO
-CREATE PROCEDURE [getCategoryListWithBookNumber]
+CREATE PROCEDURE [Categories_getCategoryListWithBookNumber]
 AS
 	BEGIN
-		SELECT c.Cat_Id AS 'Category ID', c.Cat_Name AS 'Category', COUNT(b.Book_ISBN) AS 'Book Count'
+		SELECT c.Cat_Id AS 'Category ID', c.Cat_Name AS 'Category', isnull(COUNT(b.Book_ISBN),0) AS 'Book Count'
 		FROM Categories c
 		LEFT JOIN Books b ON c.Cat_Id = b.Cat_Id
 		WHERE c.Cat_isDelete = 0	--Cat_IsDeleted = 0 (khong bi xoa) - 1 (xoa)
 		GROUP BY c.Cat_Id, c.Cat_Name
 		ORDER BY c.Cat_Id
+	END
+GO
+
+USE [LMS]
+GO
+CREATE PROCEDURE [Categories_Insert]
+@Cat_Name NVARCHAR(30),
+@Cat_isDelete BIT,
+@Cat_Description NVARCHAR(100)
+AS
+	BEGIN
+		INSERT INTO [dbo].[Categories]
+				   ([Cat_Name]
+				   ,[Cat_isDelete]
+				   ,[Cat_Description])
+			 VALUES
+				   --(@Cat_Name
+				   --, @Cat_isDelete
+				   --, @Cat_Description)
+				   ('Lala',0,'asda')
+	END
+GO
+
+CREATE PROCEDURE [Categories_findCategoryByCateName]
+@Cat_Name NVARCHAR(30)
+AS
+	BEGIN
+		SELECT * FROM Categories c WHERE c.Cat_Name = @Cat_Name
 	END
 GO

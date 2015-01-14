@@ -4,6 +4,7 @@ import Helpers.UIHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.openide.util.Exceptions;
 
@@ -27,20 +28,70 @@ public class Category extends javax.swing.JFrame {
         this.setTitle("Category");       
         start();      
     }
+
+    private Category(String text, String text0) {
+        
+    }
     
     public void start(){
-        btnDeleteCate.setEnabled(false);
-        btnNewCate.setEnabled(true);
-        btnSaveCate.setEnabled(false);
-        btnUpdateCate.setEnabled(false);
-        txtCateDescription.setEditable(false);
-        txtCateName.setEditable(false);
-        txtCateID.setEditable(false);
+        setNormalMode();
         
-        tblListCate.setModel(Model.Categories.getCategoryListWithBookNumber());
+        tblListCate.setModel(Model.Categories.Categories_getCategoryListWithBookNumber());
         tblListCate.getColumnModel().getColumn(0).setPreferredWidth(5);
         tblListCate.getColumnModel().getColumn(1).setPreferredWidth(90);
         tblListCate.getColumnModel().getColumn(2).setPreferredWidth(5);
+    }
+    
+    public void setNormalMode(){
+        txtCateID.setEnabled(false);
+        txtCateName.setEnabled(false);
+        txtCateDescription.setEnabled(false);
+        
+        txtCateID.setEditable(false);
+        txtCateName.setEditable(false);
+        txtCateDescription.setEditable(false);
+        
+        txtCateID.setText(null);
+        txtCateName.setText(null);
+        txtCateDescription.setText(null);
+        
+        btnDeleteCate.setEnabled(false);
+        btnNewCate.setEnabled(true);
+        btnUpdateCate.setEnabled(false);
+        btnSaveCate.setEnabled(false);
+        btnCancel.setEnabled(false);
+        
+        tblListCate.clearSelection();
+    }
+    
+    public void setSelectedMode(){
+       
+    }
+    
+    public void setUpdateMode(){
+        
+    }
+    
+    public void setAddNewMode(){
+        txtCateID.setEnabled(false);
+        txtCateName.setEnabled(true);
+        txtCateDescription.setEnabled(true);
+        
+        txtCateID.setEditable(false);
+        txtCateName.setEditable(true);
+        txtCateDescription.setEditable(true);
+        
+        txtCateID.setText("Auto Generate");
+        txtCateName.setText(null);
+        txtCateDescription.setText(null);
+        
+        btnDeleteCate.setEnabled(false);
+        btnNewCate.setEnabled(false);
+        btnUpdateCate.setEnabled(false);
+        btnSaveCate.setEnabled(true);
+        btnCancel.setEnabled(true);
+        
+        tblListCate.clearSelection();
     }
 
     /**
@@ -70,6 +121,7 @@ public class Category extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtCateDescription = new javax.swing.JTextArea();
         btnSaveCate = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Book Managment");
@@ -184,6 +236,19 @@ public class Category extends javax.swing.JFrame {
 
         btnSaveCate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Save.png"))); // NOI18N
         btnSaveCate.setText("Save");
+        btnSaveCate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveCateActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Cancel.png"))); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -197,7 +262,10 @@ public class Category extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSaveCate)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnSaveCate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel))
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane2)
                         .addComponent(txtCateName)
@@ -220,7 +288,9 @@ public class Category extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSaveCate)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSaveCate)
+                    .addComponent(btnCancel))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -266,8 +336,24 @@ public class Category extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewCateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewCateActionPerformed
-        // TODO add your handling code here:
+        setAddNewMode(); 
     }//GEN-LAST:event_btnNewCateActionPerformed
+
+    private void btnSaveCateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCateActionPerformed
+        String catename = txtCateName.getName();
+        Model.Categories obj;
+        if(txtCateName.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Category Name not be blank!");
+        } else if (Model.Categories.Categories_findCategoryByCateName(catename) > 0) {
+            JOptionPane.showMessageDialog(null, "Category Name is already exist!");
+        }
+        obj = new Model.Categories(txtCateName.getText(), txtCateDescription.getText());
+        int isSuccess = Model.Categories.Categories_Insert(obj);
+    }//GEN-LAST:event_btnSaveCateActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        setNormalMode();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,8 +390,9 @@ public class Category extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDeleteCate;
     private javax.swing.JButton btnNewCate;
     private javax.swing.JButton btnSaveCate;
