@@ -16,14 +16,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author TraPhucVinh
  */
-public class StaffUy extends javax.swing.JFrame {
+public class Staff extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     Vector row;
     
     /**
      * Creates new form List
      */
-    public StaffUy() {
+    public Staff() {
         initComponents();
         UIHelper.bindBackground(pnlBackground);
         this.setTitle("Staff Management");
@@ -531,7 +531,7 @@ public class StaffUy extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StaffUy().setVisible(true);
+                new Staff().setVisible(true);
             }
         });
     }
