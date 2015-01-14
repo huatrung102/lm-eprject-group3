@@ -5,9 +5,14 @@
  */
 package form.member;
 
+import Config.SysVar;
 import ExSwing.ClPanelTransparent;
+import Helpers.UIHelper;
+import Model.Books;
+import Model.Copies;
 import Model.IRBooks;
 import Model.Members;
+import SysController.MessageHandle;
 import form.ir.IssueManagement;
 import form.main.Main;
 import javax.swing.ImageIcon;
@@ -22,19 +27,27 @@ public class MemberSearch extends javax.swing.JDialog {
     /**
      * Creates new form MemberSearch
      */
+    IssueManagement dataPopup = new IssueManagement();
     public MemberSearch(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        loadMember();
-        loadListMember();
+        initDialog();
+        initMember();
+        //loadListMember();
         btFilter.setIcon(new ImageIcon(MemberSearch.class
-                        .getResource("/image/Explore.png")));
-        
-        JLabel label_5 = new JLabel("");
-        label_5.setIcon(new ImageIcon(MemberSearch.class
-                        .getResource("/image/wall3.jpg")));        
-        label_5.setBounds(0, 0, 1145, 800);
-        pnlBackground.add(label_5);
+                        .getResource("/image/Explore.png")));        
+        UIHelper.bindBackground(pnlBackground); 
+         setLocationRelativeTo(null);
+    }
+    private void initMember(){
+        lblFullname.setText("");
+        lblPhone.setText("");
+        lblStatusMem.setText("");
+        lblRegisterDate.setText("");
+        //load image member
+        lblImgMember.setIcon(new ImageIcon(MemberSearch.class
+                        .getResource(SysVar.image_member_defaut)));        
+        lblImgMember.setBounds(0, 0, 140, 140);
     }
     private void loadListMember(){
       //  tblMembers.setModel(Members.getTestMemberList());
@@ -51,6 +64,32 @@ public class MemberSearch extends javax.swing.JDialog {
         lblImgMember.setBounds(0, 0, 140, 140);
         
     }
+    private void initDialog(){
+        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MemberSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MemberSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MemberSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MemberSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,7 +103,12 @@ public class MemberSearch extends javax.swing.JDialog {
         jPanel2 = new ClPanelTransparent();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblMembers = new javax.swing.JTable();
+        tblMembers = new javax.swing.JTable(){
+
+            public boolean isCellEditable(int row,int column){
+                return false;
+            };
+        };
         jPanel4 = new ClPanelTransparent();
         jPanel5 = new javax.swing.JPanel();
         pnlImgMember = new javax.swing.JPanel();
@@ -105,6 +149,12 @@ public class MemberSearch extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblMembers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblMembers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMembersMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblMembers);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -367,15 +417,28 @@ public class MemberSearch extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblMembersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMembersMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2){
+           
+            int index = tblMembers.getSelectedRow();
+            boolean status = index != -1;
+                if(status){
+                    dataPopup.setDataPopUp("Hello");
+                    dispose();
+                    
+                }                
+        }
+    }//GEN-LAST:event_tblMembersMouseClicked
+    public String getPopUpData() {
+	return dataPopup.getDataPopUp();
+    }
     /**
      * @param args the command line arguments
      */
+    /*
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+      
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -394,7 +457,7 @@ public class MemberSearch extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-        /* Create and display the dialog */
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 MemberSearch dialog = new MemberSearch(new javax.swing.JFrame(), true);
@@ -408,7 +471,7 @@ public class MemberSearch extends javax.swing.JDialog {
             }
         });
     }
-
+*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFilter;
     private javax.swing.JLabel jLabel1;
