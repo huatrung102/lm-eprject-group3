@@ -139,6 +139,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteCateActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnUpdateCate">
               <Properties>
@@ -147,6 +150,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Update"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateCateActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -209,6 +215,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblListCateMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -233,6 +242,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="btnSaveCate" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnSaveUpdateCate" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -268,6 +279,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnSaveCate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSaveUpdateCate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
@@ -329,6 +341,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnSaveUpdateCate">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/Save.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Save"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveUpdateCateActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
