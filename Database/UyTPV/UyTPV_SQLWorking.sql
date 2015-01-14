@@ -69,10 +69,10 @@ AS
 				   ,[Cat_isDelete]
 				   ,[Cat_Description])
 			 VALUES
-				   --(@Cat_Name
-				   --, @Cat_isDelete
-				   --, @Cat_Description)
-				   ('Lala',0,'asda')
+				   (@Cat_Name
+				   , @Cat_isDelete
+				   , @Cat_Description)
+				   
 	END
 GO
 
