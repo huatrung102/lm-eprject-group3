@@ -29,25 +29,20 @@ public class Profile extends javax.swing.JFrame {
         ResultSet rs = null;
         try {
             rs = Model.Staffs.getProfile("M0000001");
-            if(rs.next()){
-                
-                if(rs.next()){
-                    lblID.setText(rs.getString("Staff_Id"));
-                    lblFirst.setText(rs.getString("Staff_FirstName"));
-                    lblLast.setText(rs.getString("Staff_LastName"));
-                    lblPhone.setText(rs.getString("Staff_Phone"));
-                    lblEmail.setText(rs.getString("Staff_Email"));
-                    lblAddress.setText(rs.getString("Staff_Address"));
-                    lblDate.setText(rs.getString("Staff_CreateDate"));
-                    lblStatus.setText(rs.getString("Staff_Status"));
-                    lblRole.setText(rs.getString("Staff_Role"));
-                }
-                
             
+            if(rs.next()){
+                lblID.setText(rs.getString("Staff_Id"));
+                lblFirst.setText(rs.getString("Staff_FirstName"));
+                lblLast.setText(rs.getString("Staff_LastName"));
+                lblPhone.setText(rs.getString("Staff_Phone"));
+                lblEmail.setText(rs.getString("Staff_Email"));
+                lblAddress.setText(rs.getString("Staff_Address"));
+                lblDate.setText(rs.getString("Staff_CreateDate"));
+                lblStatus.setText(rs.getString("Staff_Status"));
+                lblRole.setText(rs.getString("Staff_Role"));
             }else
                 JOptionPane.showMessageDialog(null, "heeh");
-            
-            //txtID.setText(rs.getString(1));
+                
             
         } catch (Exception e) {
             e.printStackTrace();
