@@ -89,7 +89,7 @@ public class SqlHelper {
         return i;
     }
     public static int executeNonQuery(String cmdText, Object... cmdParams){
-        CallableStatement stmt = getCallableStatement(cmdText);
+        CallableStatement stmt = getCallableStatement(cmdText,cmdParams);
         if (stmt == null){
             return -2;
         }
@@ -239,12 +239,8 @@ public class SqlHelper {
              cmdText = getQueryStoreReturn(cmdText,cmdParams);
              
              cstmt = conn.prepareCall(cmdText);
-          
-            int i = 2;
-            for (Object item : cmdParams){
-                cstmt.setObject(i, item);
-                i++;
-            }
+             cstmt.registerOutParameter(1, java.sql.Types.INTEGER);
+
             return cstmt;
          }
          catch (Exception ex) {
