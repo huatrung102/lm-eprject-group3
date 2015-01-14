@@ -64,15 +64,28 @@ CREATE PROCEDURE [Categories_Insert]
 @Cat_Description NVARCHAR(100)
 AS
 	BEGIN
-		INSERT INTO [dbo].[Categories]
-				   ([Cat_Name]
-				   ,[Cat_isDelete]
-				   ,[Cat_Description])
-			 VALUES
-				   (@Cat_Name
-				   , @Cat_isDelete
-				   , @Cat_Description)
-				   
+		begin transaction
+			begin try
+				INSERT INTO [dbo].[Categories]
+					 ([Cat_Name]
+					 ,[Cat_isDelete]
+					 ,[Cat_Description])
+				VALUES
+					 (@Cat_Name
+					 , @Cat_isDelete
+					 , @Cat_Description)
+			end try
+		begin catch
+			if @@trancount >0
+				rollback transaction;
+		end catch
+		if @@trancount >0
+			begin
+			   commit transaction;
+			   return 1;
+			end
+		else
+		return 2;		   
 	END
 GO
 
@@ -80,6 +93,9 @@ CREATE PROCEDURE [Categories_findCategoryByCateName]
 @Cat_Name NVARCHAR(30)
 AS
 	BEGIN
-		SELECT * FROM Categories c WHERE c.Cat_Name = @Cat_Name
+		IF EXISTS (SELECT * FROM Categories c WHERE c.Cat_Name = 'Novel')
+			RETURN 1
+		ELSE
+			RETURN 0
 	END
 GO

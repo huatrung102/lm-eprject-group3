@@ -99,9 +99,8 @@ public class SqlHelper {
             stmt.executeUpdate();
             i = stmt.getInt(1);
         } catch (SQLException ex){
-            Logger.getLogger(SqlHelper.class.getName()).log(Level.SEVERE, null,
-                    ex);
-            i = -1;
+            Logger.getLogger(SqlHelper.class.getName()).log(Level.SEVERE, null,ex);
+            i = -1888;
         } finally{
             closeConnection(stmt);
         }        
