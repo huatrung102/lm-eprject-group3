@@ -341,18 +341,19 @@ public class Category extends javax.swing.JFrame {
 
     private void btnSaveCateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveCateActionPerformed
         String catename, catedesc;
-                catename = txtCateName.getText();
-                catedesc = txtCateDescription.getText();
+        catename = txtCateName.getText();
+        catedesc = txtCateDescription.getText();
          
         Model.Categories obj;
-//        if(txtCateName.getText().isEmpty()){
-//            JOptionPane.showMessageDialog(null, "Category Name not be blank!");
+        if(catename.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Category Name not be blank!");
 //        } else if (Model.Categories.Categories_findCategoryByCateName(catename) > 0) {
 //            JOptionPane.showMessageDialog(null, "Category Name is already exist!");
-//        }
-        obj = new Model.Categories(catename, false, catedesc);
-        int isSuccess = Model.Categories.Categories_Insert(obj);
-        JOptionPane.showMessageDialog(null, isSuccess);
+        } else {
+            obj = new Model.Categories(catename, false, catedesc);
+            int isSuccess = Model.Categories.Categories_Insert(obj);
+            JOptionPane.showMessageDialog(null, isSuccess);
+        }
     }//GEN-LAST:event_btnSaveCateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
