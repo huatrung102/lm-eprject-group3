@@ -44,6 +44,7 @@ public class Books {
                 obj.Book_Publisher = rs.getString("Book_Publisher");
                 obj.Book_Title = rs.getString("Book_Title");
                 obj.Cat_Name = rs.getString("Cat_Name");
+                obj.Book_Count = rs.getInt("Book_Count");
             }
         } catch (Exception e) {
             SqlHelper.closeConnection(rs);
