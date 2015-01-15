@@ -23,31 +23,29 @@ public class IRBooks {
     public Books book;    
     public String IRBook_Id;
     public String Mem_Id;
+   
     public String Mem_FullName;
     public String IRBook_DueDate;
     public String IRBook_CreateDate;
+    public int IRBook_LateDay;
     public Copies copy;
     
     private static String test_col[] = {"No","ISBN","Title","Category","Copy Id"};
-    private static String test_col1[] = {"No","ISBN","Title","Copy Id","Issue Date","Due Date","Late Date"};
-    private static String test_col2[] = {"No","ISBN","Title","Copy Id","Book's Price","Late Date", "Pay"};
+    private static String return_col[] = {"","No","ISBN","Title","Copy No","Issue Date","Due Date","Late Day"};
+    private static String test_col2[] = {"No","ISBN","Title","Copy No","Book's Price","Late Date", "Pay"};
     public IRBooks(){
         
     }
     
     public static DefaultTableModel getTestIRBookIssue(Books b){
-        DefaultTableModel tblM = new DefaultTableModel(test_col, 0);         
-        
-        Object[] obj = {1,b.Book_ISBN,b.Book_Title ,b.Cat_Name,"00015"};
-        tblM.addRow(obj);
-        
+        DefaultTableModel tblM = new DefaultTableModel(return_col, 0);         
+        Object[] obj = {1,1,b.Book_ISBN,b.Book_Title ,b.Cat_Name,"00015"};
+        tblM.addRow(obj);        
         return tblM;
-        
-        
     }
     
     public static DefaultTableModel getTestIRBookReturn(Books b){
-        DefaultTableModel tblM = new DefaultTableModel(test_col1, 0); 
+        DefaultTableModel tblM = new DefaultTableModel(return_col, 0); 
         int lateday = 0;
         Date date;
        
@@ -69,7 +67,7 @@ public class IRBooks {
         } catch (Exception e) {
             System.out.println("Error");
         }  
-        tblM.addRow(new Object[] {1,b.Book_ISBN,b.Book_Title ,"00016","13/12/2014","20/12/2014", (lateday-1)});
+        tblM.addRow(new Object[] {Boolean.TRUE,1,b.Book_ISBN,b.Book_Title ,"00016","13/12/2014","20/12/2014", (lateday-1)});
                 
         try {
             
@@ -88,7 +86,7 @@ public class IRBooks {
         } catch (Exception e) {
             System.out.println("Error");
         }         
-        tblM.addRow(new Object[] {2,b.Book_ISBN,b.Book_Title ,"00015","30/12/2014","06/01/2015",lateday<=0?0:(lateday-1)});
+        tblM.addRow(new Object[] {Boolean.TRUE,2,b.Book_ISBN,b.Book_Title ,"00015","30/12/2014","06/01/2015",lateday<=0?0:(lateday-1)});
         
         return tblM;
         
@@ -131,6 +129,10 @@ public class IRBooks {
                                             , b.Book_ISBN
                                             , b.Book_Title
                                             , b.Cat_Id);
+        return tblM;
+    }
+    public static DefaultTableModel getListBookNotReturnByMemberNo(String Mem_No){
+        DefaultTableModel tblM = SqlHelper.getDefaultTableModel("IRBooks_getListBookNotReturnByMemberNo",Mem_No);
         return tblM;
     }
 }
