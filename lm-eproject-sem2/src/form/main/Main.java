@@ -5,8 +5,12 @@
  */
 package form.main;
 
+import Config.SysVar;
 import DemoTestFunction.mainForm;
 import ExSwing.*;
+import Helpers.UIHelper;
+import Model.Staffs;
+import SysController.MessageHandle;
 import form.ir.IssueManagement;
 import form.ir.ReturnManagement;
 
@@ -35,12 +39,38 @@ public class Main extends javax.swing.JFrame {
      */
     private String[] imageFile={"home.png","member_management.png","book_management.png"
             , "staff_management.png","ir_management.png","fine_management.png"};
+    private boolean[] role_Admin = {Boolean.TRUE,Boolean.TRUE
+                                    ,Boolean.TRUE,Boolean.TRUE
+                                    ,Boolean.TRUE,Boolean.TRUE};
+    private boolean[] role_IR = {Boolean.TRUE,Boolean.FALSE
+                                    ,Boolean.FALSE,Boolean.FALSE
+                                    ,Boolean.TRUE,Boolean.FALSE};
+    private boolean[] role_Fine = {Boolean.TRUE,Boolean.FALSE
+                                    ,Boolean.FALSE,Boolean.FALSE
+                                    ,Boolean.FALSE,Boolean.TRUE};
+    private boolean[] role_Member = {Boolean.TRUE,Boolean.TRUE
+                                    ,Boolean.FALSE,Boolean.FALSE
+                                    ,Boolean.FALSE,Boolean.FALSE};
+    private boolean[] role_Book = {Boolean.TRUE,Boolean.FALSE
+                                    ,Boolean.TRUE,Boolean.FALSE
+                                    ,Boolean.FALSE,Boolean.FALSE};
+    public Staffs staffLogin;
+    public void setStaff(Staffs staff){
+        this.staffLogin = staff;
+    }
+    
     public Main() {
         initComponents();
+        initForm();
+        Staffs stafftest = new Staffs();
+        stafftest.Staff_Role = SysVar.role_Book;
+        setStaff(stafftest);
+        loadTabByRole();
         
        
-        
-        
+       // validate();
+    }
+    private void initForm(){
         setIconImage(Toolkit.getDefaultToolkit().getImage(
 				Main.class.getResource("/image/main.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,30 +86,48 @@ public class Main extends javax.swing.JFrame {
         lblWelcome.setForeground(new Color(255, 255, 255));
         lblWelcome.setBounds(200, 261, 573, 63);
         
-        
-        //background pnl home 2
-//        JLabel lblBG = new JLabel("");
-//        lblBG.setIcon(new ImageIcon(Main.class
-//                        .getResource("/image/bgTab.png")));
-//        lblBG.setBounds(5, 5, 799, 567);
-//        pnlHome.add(lblBG);
-                
-        
-        
       //set side panel 
         setSidePanelByMember(sidePanel);
      //background wall
-        JLabel label_5 = new JLabel("");
-        label_5.setIcon(new ImageIcon(Main.class
-                        .getResource("/image/background.png")));
-        label_5.setForeground(Color.WHITE);
-        label_5.setBounds(0, 80, 1240, 620);
-        contentpane.add(label_5);
         
-       
-       // validate();
+        UIHelper.bindBackground(contentpane,"/image/background.png");
+        
     }
-   
+    private void bindTab(boolean[] role){
+        int max = role.length;
+        int index = 0;
+        for(int i = 0; i< max;i++){
+            if(!(role[i])){
+                jTabbedPane1.remove(index);                
+            }else
+                index++;
+        }
+    }
+    private boolean loadTabByRole(){
+        if(staffLogin != null){
+            switch(staffLogin.Staff_Role){
+                case SysVar.role_Admin:
+                    bindTab(role_Admin);
+                    break;
+                case SysVar.role_Book:
+                    bindTab(role_Book);
+                    break;
+                case SysVar.role_Fine:
+                    bindTab(role_Fine);
+                    break;
+                case SysVar.role_IR:
+                    bindTab(role_IR);
+                    break;
+                case SysVar.role_Member:
+                    bindTab(role_Member);
+                    break;    
+            }
+        }else{
+            MessageHandle.showError("Please logout and Login Again");
+            return false;
+        }
+        return true;
+    }
     private void addIconTabbedPane(){
         for(int i = 0; i < imageFile.length ; i++){
             jTabbedPane1.setIconAt(i, new ImageIcon( mainForm.class
@@ -87,6 +135,7 @@ public class Main extends javax.swing.JFrame {
         }
         
     }
+    
     private void setSidePanelByMember(JPanel content){
 /*       
  content.removeAll();
