@@ -183,3 +183,30 @@ END
 GO
 
 
+CREATE PROCEDURE Staffs_Lock
+	@Staff_Id char(36)
+AS
+BEGIN
+	UPDATE [dbo].[Staffs]
+   SET 
+   
+   [Staff_isDelete] = 1
+
+ WHERE @Staff_Id = Staff_Id
+END
+GO
+
+
+CREATE PROCEDURE Staffs_ChangePassword
+	 @Staff_Login varchar(25)
+	,@Staff_Password varchar(50)
+AS
+BEGIN
+	UPDATE [dbo].[Staffs]
+   SET 
+   
+   [Staff_Password] = @Staff_Password
+      
+ WHERE @Staff_Login = Staff_Login
+END
+GO
