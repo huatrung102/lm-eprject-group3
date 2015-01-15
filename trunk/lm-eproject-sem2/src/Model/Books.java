@@ -29,7 +29,20 @@ public class Books {
     public Books(){
     
     }    
-    
+    public static Books getTestBook(){
+        Books book = new Books();
+        book.Book_Author = "Cornelia Funke";
+        book.Book_Content = "One cruel night, Meggie's father reads aloud from a book called \"Inkheart,\" and an evil ruler escapes the boundaries of fiction and lands in their living room. Suddenly, Meggie is smack in the middle of the kind of adventure she has only read about in books";
+        book.Book_ISBN = "9780439709101";
+        book.Book_ImageFile = "/imgBook/book (6).JPG";
+        book.Book_Language = "English";
+        book.Book_Price = 80;
+        book.Book_Publisher = "Scholastic Paperbacks";
+        book.Book_Title = "Inkheart";
+        book.Cat_Name = "Fiction";
+        return book;
+    }
+
     public static Books getByISBN(String ISBN){
         Books obj = null;
         ResultSet rs = null;
