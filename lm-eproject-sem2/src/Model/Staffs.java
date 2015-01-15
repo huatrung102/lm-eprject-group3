@@ -7,30 +7,53 @@ package Model;
 
 import Helpers.SqlHelper;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.openide.util.Exceptions;
 
 /**
  *
  * @author Thient60330
  */
 public class Staffs {
-    String Staff_Id ;
-    String Staff_FirstName;
-    String Staff_LastName;
-    String Staff_Login;
-    String Staff_Password;
-    String Staff_Phone;
-    String Staff_Role;
-    String Staff_Address;
-    String Staff_Email;
-    String Staff_Status;
-    String Staff_CreateDate;
+    public String Staff_Id ;
+    public String Staff_FirstName;
+    public String Staff_LastName;
+    public String Staff_Login;
+    public String Staff_Password;
+    public String Staff_Phone;
+    public String Staff_Role;
+    public String Staff_Address;
+    public String Staff_Email;
+    public boolean Staff_Status;
+    public String Staff_CreateDate;
+
     
-    public static ResultSet getProfile(String Staff_Id)
-    {
-        ResultSet rs = SqlHelper.getResultSet("getProfile", Staff_Id);
-        return rs;
-    }
+     
     
-    
-    
+    public static Staffs getProfile(String Staff_Id){
+        Staffs staff = null;
+        ResultSet rs = null;
+        try {
+            rs = SqlHelper.getResultSet("getProfile", Staff_Id);
+            if(rs.next()){
+                staff = new Staffs();
+                staff.Staff_Id = rs.getString("Staff_Id");
+                staff.Staff_Address = rs.getString("Staff_Address");
+                staff.Staff_CreateDate = rs.getString("Staff_CreateDate");
+                staff.Staff_Email = rs.getString("Staff_Email");
+                staff.Staff_FirstName = rs.getString("Staff_FirstName");
+                staff.Staff_LastName = rs.getString("Staff_LastName");
+                staff.Staff_Login = rs.getString("Staff_Login");
+                staff.Staff_Password = rs.getString("Staff_Password");
+                staff.Staff_Role = rs.getString("Staff_Role");
+                staff.Staff_Phone = rs.getString("Staff_Phone");
+                staff.Staff_Status = rs.getBoolean("Staff_Status");
+            }
+        } catch (SQLException ex) {
+            Exceptions.printStackTrace(ex);             
+        }
+        return staff;
+}   
 }
+    
+
