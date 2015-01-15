@@ -63,4 +63,11 @@ public class UIHelper {
         label_5.setBounds(0, 0, 2000, 1000);
         pnl.add(label_5);
     }
+    public static void bindBackground(JPanel pnl,String pathImg){
+         JLabel label_5 = new JLabel("");
+        label_5.setIcon(new ImageIcon(Main.class
+                        .getResource(pathImg)));        
+        label_5.setBounds(0, 0, 2000, 1000);
+        pnl.add(label_5);
+    }
 }

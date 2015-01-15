@@ -8,14 +8,18 @@ package form.ir;
 import ExSwing.ClButtonTransparan;
 import ExSwing.ClPanelTransparent;
 import ExSwing.CheckBoxHeader;
+import ExSwing.GlassPaneProgress;
 import Helpers.UIHelper;
 import Model.Books;
 import Model.IRBooks;
 import Model.Members;
+import SysController.MessageHandle;
 import form.main.Main;
 import form.member.MemberSearch;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
@@ -36,6 +40,9 @@ public class ReturnManagement extends javax.swing.JFrame {
     Books glBook;
     public String Member_No;
     private static String return_col[] = {"","No","ISBN","Title","Copy No","Issue Date","Due Date","Late Day"};
+    private GlassPaneProgress glasspane;
+    int minBook = 0;
+    int maxBook = 5;
     public ReturnManagement() {
         initComponents();
         initForm();
@@ -61,6 +68,12 @@ public class ReturnManagement extends javax.swing.JFrame {
        // tblReturn.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JCheckBox()));
     }
     private void initForm(){
+        glasspane  = new GlassPaneProgress();
+        setGlassPane(glasspane);
+        glasspane.setMinimum(minBook);
+        glasspane.setMaximum(maxBook);
+        glasspane.setValue(minBook);
+        glasspane.setStringPainted(true);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -227,6 +240,11 @@ public class ReturnManagement extends javax.swing.JFrame {
         btReturn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btReturn.setForeground(java.awt.Color.yellow);
         btReturn.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.btReturn.text")); // NOI18N
+        btReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReturnActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jPanel4.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
         jPanel4.setPreferredSize(new java.awt.Dimension(250, 176));
@@ -380,6 +398,34 @@ public class ReturnManagement extends javax.swing.JFrame {
         memberSearchBox.setVisible(true);
         txtMemberNo.setText(memberSearchBox.getPopUpData1());       
     }//GEN-LAST:event_btSearchMemActionPerformed
+
+    private void btReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReturnActionPerformed
+        // TODO add your handling code here:
+        /*
+        boolean flag;
+        for(int i = 0; i< tblReturn.getRowCount(); i ++){
+            flag = Boolean.valueOf(String.valueOf(tblReturn.getValueAt(i, 0)));
+            if(flag){
+                new Thread(new Runnable() {
+
+        public void run() {
+            glasspane.setShowProgress(true);
+            for (int i = minBook; i < maxBook; i++) {
+                try {
+                    glasspane.setValue(i);
+                    glasspane.setString("DONE " + i + " OF " + maxBook + " TASK");
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    MessageHandle.showError("nooooooooo");
+                }
+            }
+            glasspane.setShowProgress(false);
+        }
+    }).start();
+            }
+        }
+        */
+    }//GEN-LAST:event_btReturnActionPerformed
     public void setDataPopUp(String memberNo) {
         this.Member_No = memberNo;
     }

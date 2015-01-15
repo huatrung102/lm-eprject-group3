@@ -19,4 +19,10 @@ public class SysVar {
     public static final String image_member_defaut= "/image/noavatar.png";
     public static final String image_staff_defaut= "/image/noavatar.png";
     
+    public static final String role_Member = "R_Member";
+    public static final String role_Admin = "R_Admin";
+    public static final String role_IR = "R_IR";
+    public static final String role_Book = "R_Book";
+    public static final String role_Fine = "R_Fine";
+    
 }
