@@ -8,6 +8,7 @@ package form.main;
 import DemoTestFunction.mainForm;
 import ExSwing.*;
 import form.ir.IssueManagement;
+import form.ir.ReturnManagement;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -1235,6 +1236,7 @@ public class Main extends javax.swing.JFrame {
 
     private void iconMem8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem8MouseClicked
         // TODO add your handling code here:
+        new ReturnManagement().setVisible(true);
     }//GEN-LAST:event_iconMem8MouseClicked
 
     private void iconMem9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem9MouseClicked
