@@ -10,6 +10,7 @@ import ExSwing.*;
 import Helpers.StringHelper;
 import Helpers.UIHelper;
 import Model.Books;
+import Model.Categories;
 import Model.Copies;
 import Model.IRBooks;
 import Model.Members;
@@ -17,13 +18,22 @@ import SysController.MessageHandle;
 
 import form.main.Main;
 import form.member.MemberSearch;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JWindow;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,59 +46,37 @@ public class IssueManagement extends javax.swing.JFrame {
      * Creates new form IRManagement
      */
     //Books glBook;
+    // <editor-fold defaultstate="collapsed" desc="Declare variable">
     private Members selectedMember;    
     private ArrayList<Books> listBooks;
     private IRBooks ir;
     int countSTT = 1;
     int countAllow = 0;
     private HashMap<String, String> Cop_IdList;
+    private JWindow window;
     
-    public String Member_Id;
+    public String Member_No;
     
     private static String issue_col[] = {"No","ISBN","Title","Category","Copy No"};
     private static String copies_col[] = {"ISBN","Title","Author"};
+    private static String issued_col[] = {"No","ISBN","Title","Copy No","Issue Date","Late day"};
+    // </editor-fold>     
     public IssueManagement() {
         initComponents();       
         UIHelper.bindBackground(pnlIssue);
-        initForm();
-        initMember();
-        initTblIssuing();
-        initTblCopies();
         listBooks = new ArrayList<>();
         ir = new IRBooks();
         Cop_IdList = new HashMap<>(5);
+        initForm();
+        initMember();
+        initCategory();
+        initTblIssuing();
+        initTblCopies();
+        initPopUpWindow();
+        
        // loadBook();
       //  loadCopies();        
        // loadIRBook();
-    }
-    private void initForm(){
-        btSearchMem.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource("/image/Explore.png")));
-         btSearchBook.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource("/image/Explore.png")));
-        btReset.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource("/image/reset.png")));
-        btIssue.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource("/image/issue.png")));
-        tblCopies.getTableHeader().setReorderingAllowed(false);
-        tblIssuing.getTableHeader().setReorderingAllowed(false);
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IssueManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IssueManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IssueManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IssueManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
     }
     private void loadCopies(){
       //  tblCopies.setModel(Copies.getTestCopyByISBN());        
@@ -111,18 +99,65 @@ public class IssueManagement extends javax.swing.JFrame {
     private void loadIRBook(){
        // tblIssuing.setModel(IRBooks.getTestIRBookIssue(glBook));
     }
-    public void setDataPopUp(String memberId) {
-		this.Member_Id = memberId;
-    }
-
-    public String getDataPopUp() {
-		return Member_Id;
-    }
     
+    private void loadMember(){
+        String mem_No = txtMemNo.getText();
+        Members mem = Members.getIRCountInformation(mem_No);
+        if(mem != null){
+            selectedMember = mem;
+            JLabel1111.setText("");
+            lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
+            lblPhone.setText(mem.Mem_Phone);
+            lblMemberEmail.setText(mem.Mem_Status?"Active" : "Inactive");
+            lblRegisterDate.setText(mem.Mem_CreateDate);
+            //load image member
+            lblImgMember.setIcon(new ImageIcon(Main.class
+                            .getResource(mem.Mem_ImageFile)));        
+            lblImgMember.setBounds(0, 0, 140, 140);
+        }else{
+            MessageHandle.showError("Can not find Member with No: " + mem_No);
+        }
+        
+    }
+     // <editor-fold defaultstate="collapsed" desc="Process function in Form">
+    private void openPopUp(JLabel lbl){
+        Point p = lbl.getLocationOnScreen();
+        p.y += lbl.getHeight();
+        p.x -= 100;
+        window.setLocation(p);
+        window.setVisible(true);
+    }
+    private void closePopUp(){
+        window.setVisible(false);
+    }
+    public void setDataPopUp(String memberNo) {
+        this.Member_No = memberNo;
+    }
+    public String getDataPopUp() {
+        return Member_No;
+    }
+    private void setCountSttOnTblIssuing(){        
+        for(int i = 0; i< tblIssuing.getRowCount(); i ++){
+            tblIssuing.setValueAt(String.valueOf(i+1), i, 0);
+        }
+    }
+    private void bindTblIssue(IRBooks irb){
+        DefaultTableModel tblM = (DefaultTableModel)tblIssuing.getModel();
+        tblM.addRow(new Object[]{
+                                countSTT++
+                                ,irb.book.Book_ISBN
+                                ,irb.book.Book_Title
+                                ,irb.book.Cat_Name
+                                ,irb.copy.Cop_No });
+        tblIssuing.setModel(tblM);
+        Cop_IdList.put(irb.copy.Cop_Id, irb.copy.Cop_Id);
+    }
+    // </editor-fold>   
+    // <editor-fold defaultstate="collapsed" desc="Init Component when load form">
     private void initMember(){
         lblFullname.setText("");
         lblPhone.setText("");
-        lblStatusMem.setText("");
+        lblMemberEmail.setText("");
         lblRegisterDate.setText("");
         //load image member
         lblImgMember.setIcon(new ImageIcon(IssueManagement.class
@@ -137,22 +172,74 @@ public class IssueManagement extends javax.swing.JFrame {
         DefaultTableModel tblM = new DefaultTableModel(copies_col, 0);
         tblCopies.setModel(tblM);
     }
-    private void loadMember(Members mem){  
-        JLabel1111.setText("");
-        lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
-        lblPhone.setText(mem.Mem_Phone);
-        lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
-        lblRegisterDate.setText(mem.Mem_CreateDate);
-        //load image member
-        lblImgMember.setIcon(new ImageIcon(Main.class
-                        .getResource(mem.Mem_ImageFile)));        
-        lblImgMember.setBounds(0, 0, 140, 140);
+    private void initPopUpWindow(){
+        window = new JWindow(this);
+        window.setAlwaysOnTop(true);
+        window.setLayout(new BorderLayout());
+        //window.add(new JScrollPane(new JTextArea("INI ADALAH TOOLTIP WINDOW")));
+        window.setSize(450, 120);
+        window.setEnabled(false);
         
+        JTable tblIssued = new JTable();
+        tblIssued.setModel(IRBooks.getListBookNotReturnByMemberNo(""));//selectedMember.Mem_No));
+        tblIssued.setPreferredSize(new Dimension(400, 100));
+        window.add(new JScrollPane(tblIssued));
     }
-    
-    public static void loadMemberBySearch(String Member_Id){
-       
+    private void initCategory(){
+       // cbCategory.setModel(Categories.());
     }
+    private void initForm(){
+        btSearchMem.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource("/image/Explore.png")));
+         btSearchBook.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource("/image/Explore.png")));
+        btReset.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource("/image/reset.png")));
+        btIssue.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource("/image/issue.png")));
+        tblCopies.getTableHeader().setReorderingAllowed(false);
+        tblIssuing.getTableHeader().setReorderingAllowed(false);
+        lblBookIssuedEvent.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                openPopUp(lblBookIssuedEvent);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                closePopUp();
+            }
+        });
+        lblNumberBookIssued.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                openPopUp(lblNumberBookIssued);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                closePopUp();
+            }
+        });
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(IssueManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(IssueManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(IssueManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(IssueManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+    // </editor-fold>       
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -205,11 +292,13 @@ public class IssueManagement extends javax.swing.JFrame {
         lblFullname = new javax.swing.JLabel();
         lblPhone = new javax.swing.JLabel();
         lblRegisterDate = new javax.swing.JLabel();
-        lblStatusMem = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        lblStatusMem1 = new javax.swing.JLabel();
+        lblMemberEmail = new javax.swing.JLabel();
+        lblBookIssuedEvent = new javax.swing.JLabel();
+        lblNumberBookIssued = new javax.swing.JLabel();
         JLabel1111 = new javax.swing.JLabel();
         lblMemberNo = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        lblStatusMem = new javax.swing.JLabel();
         jPanel7 = new ClPanelTransparent();
         jPanel13 = new javax.swing.JPanel();
         pnlImgBook = new javax.swing.JPanel();
@@ -360,6 +449,7 @@ public class IssueManagement extends javax.swing.JFrame {
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.jPanel10.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane2.setHorizontalScrollBar(null);
 
         tblIssuing.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -373,7 +463,6 @@ public class IssueManagement extends javax.swing.JFrame {
             }
         ));
         tblIssuing.setPreferredSize(new java.awt.Dimension(300, 150));
-        tblIssuing.setRowSelectionAllowed(true);
         tblIssuing.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblIssuing.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -512,18 +601,23 @@ public class IssueManagement extends javax.swing.JFrame {
 
         lblRegisterDate.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblRegisterDate.text")); // NOI18N
 
-        lblStatusMem.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblStatusMem.text")); // NOI18N
+        lblMemberEmail.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblMemberEmail.text")); // NOI18N
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel16.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.jLabel16.text")); // NOI18N
+        lblBookIssuedEvent.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        lblBookIssuedEvent.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblBookIssuedEvent.text")); // NOI18N
 
-        lblStatusMem1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblStatusMem1.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblStatusMem1.text")); // NOI18N
+        lblNumberBookIssued.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNumberBookIssued.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblNumberBookIssued.text")); // NOI18N
 
         JLabel1111.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         JLabel1111.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.JLabel1111.text")); // NOI18N
 
         lblMemberNo.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblMemberNo.text")); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel12.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.jLabel12.text")); // NOI18N
+
+        lblStatusMem.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblStatusMem.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -533,26 +627,33 @@ public class IssueManagement extends javax.swing.JFrame {
                 .addContainerGap(166, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(JLabel1111, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblStatusMem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblRegisterDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblStatusMem1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(21, 21, 21))
+                        .addComponent(lblStatusMem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(JLabel1111, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblMemberEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblRegisterDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(lblBookIssuedEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(lblNumberBookIssued, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(21, 21, 21))))
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel9Layout.createSequentialGroup()
                     .addContainerGap()
@@ -581,12 +682,16 @@ public class IssueManagement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
+                    .addComponent(lblMemberEmail))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
                     .addComponent(lblStatusMem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(lblStatusMem1))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addComponent(lblBookIssuedEvent)
+                    .addComponent(lblNumberBookIssued))
+                .addGap(18, 18, 18))
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                     .addContainerGap()
@@ -795,27 +900,12 @@ public class IssueManagement extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    // <editor-fold defaultstate="collapsed" desc="Event in Form">
     private void txtMemNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMemNoActionPerformed
         // TODO add your handling code here:
-        String mem_No = txtMemNo.getText();
-        Members obj = Members.getIRCountInformation(mem_No);
-        if(obj != null){
-            loadMember(obj);
-        }else{
-            MessageHandle.showError("Can not find Member with No: " + mem_No);
-        }
+        loadMember();
     }//GEN-LAST:event_txtMemNoActionPerformed
-    private void bindTblIssue(IRBooks irb){
-        DefaultTableModel tblM = (DefaultTableModel)tblIssuing.getModel();
-        tblM.addRow(new Object[]{
-                                countSTT++
-                                ,irb.book.Book_ISBN
-                                ,irb.book.Book_Title
-                                ,irb.book.Cat_Name
-                                ,irb.copy.Cop_No });
-        tblIssuing.setModel(tblM);
-        Cop_IdList.put(irb.copy.Cop_Id, irb.copy.Cop_Id);
-    }
+    
     private void tblCopiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCopiesMouseClicked
         // TODO add your handling code here:
         if(evt.getClickCount() == 2){
@@ -877,18 +967,13 @@ public class IssueManagement extends javax.swing.JFrame {
 
     private void btSearchMemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchMemActionPerformed
         // TODO add your handling code here:
-        MemberSearch memberSearchBox = new MemberSearch(new javax.swing.JFrame(), true);
+        MemberSearch memberSearchBox = new MemberSearch(this, true);
         memberSearchBox.setVisible(true);
-        txtMemNo.setText(memberSearchBox.getPopUpData());        
+        txtMemNo.setText(memberSearchBox.getPopUpData());    
+        loadMember();
     }//GEN-LAST:event_btSearchMemActionPerformed
-    private void setCountSttOnTblIssuing(){        
-        for(int i = 0; i< tblIssuing.getRowCount(); i ++){
-            tblIssuing.setValueAt(String.valueOf(i+1), i, 0);
-        }
-    }
-    /**
-     * @param args the command line arguments
-     */
+    // </editor-fold>
+    
      /*
     public static void main(String args[]) {
       
@@ -929,10 +1014,10 @@ public class IssueManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -957,18 +1042,20 @@ public class IssueManagement extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblAuthor;
+    private javax.swing.JLabel lblBookIssuedEvent;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblFullname;
     private javax.swing.JLabel lblImgBook;
     private javax.swing.JLabel lblImgMember;
     private javax.swing.JLabel lblLanguage;
+    private javax.swing.JLabel lblMemberEmail;
     private javax.swing.JLabel lblMemberNo;
+    private javax.swing.JLabel lblNumberBookIssued;
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblPrice1;
     private javax.swing.JLabel lblPublisher;
     private javax.swing.JLabel lblRegisterDate;
     private javax.swing.JLabel lblStatusMem;
-    private javax.swing.JLabel lblStatusMem1;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlImgBook;
     private javax.swing.JPanel pnlImgMember;

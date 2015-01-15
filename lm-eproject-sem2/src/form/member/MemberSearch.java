@@ -14,6 +14,7 @@ import Model.IRBooks;
 import Model.Members;
 import SysController.MessageHandle;
 import form.ir.IssueManagement;
+import form.ir.ReturnManagement;
 import form.main.Main;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -27,10 +28,18 @@ public class MemberSearch extends javax.swing.JDialog {
     /**
      * Creates new form MemberSearch
      */
-    IssueManagement dataPopup = new IssueManagement();
+    //IssueManagement dataPopup = new IssueManagement();
+    IssueManagement dataPopup ;
+    ReturnManagement dataPopup1 ;
+    java.awt.Frame parentFrame;
     public MemberSearch(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        super(parent, modal);        
         initComponents();
+        if(parent instanceof IssueManagement){
+            dataPopup = new IssueManagement();            
+        } else if (parent instanceof ReturnManagement){
+            dataPopup1 = new ReturnManagement();
+        }        
         initDialog();
         initMember();
         //loadListMember();
@@ -86,7 +95,7 @@ public class MemberSearch extends javax.swing.JDialog {
         addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                        dispose();
                     }
                 });
     }
@@ -424,7 +433,10 @@ public class MemberSearch extends javax.swing.JDialog {
             int index = tblMembers.getSelectedRow();
             boolean status = index != -1;
                 if(status){
-                    dataPopup.setDataPopUp("Hello");
+                    if(dataPopup != null)
+                        dataPopup.setDataPopUp("Hello issue");
+                    else if(dataPopup1 != null)
+                        dataPopup1.setDataPopUp("Hello return");
                     dispose();
                     
                 }                
@@ -432,6 +444,9 @@ public class MemberSearch extends javax.swing.JDialog {
     }//GEN-LAST:event_tblMembersMouseClicked
     public String getPopUpData() {
 	return dataPopup.getDataPopUp();
+    }
+    public String getPopUpData1(){
+        return dataPopup1.getDataPopUp();
     }
     /**
      * @param args the command line arguments

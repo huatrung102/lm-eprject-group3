@@ -7,13 +7,22 @@ package form.ir;
 
 import ExSwing.ClButtonTransparan;
 import ExSwing.ClPanelTransparent;
+import ExSwing.CheckBoxHeader;
 import Helpers.UIHelper;
 import Model.Books;
 import Model.IRBooks;
 import Model.Members;
 import form.main.Main;
+import form.member.MemberSearch;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import javax.swing.AbstractButton;
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -25,23 +34,56 @@ public class ReturnManagement extends javax.swing.JFrame {
      * Creates new form ReturnManagement
      */
     Books glBook;
+    public String Member_No;
+    private static String return_col[] = {"","No","ISBN","Title","Copy No","Issue Date","Due Date","Late Day"};
     public ReturnManagement() {
         initComponents();
+        initForm();
          btSearchMem.setIcon(new ImageIcon(IssueManagement.class
                         .getResource("/image/Explore.png")));
          btReturn.setIcon(new ImageIcon(ReturnManagement.class
                         .getResource("/image/return.png")));
         
         UIHelper.bindBackground(pnlReturn);
-        loadBook();
-        loadIRBook();
-        loadMember();
+        initTblReturn();
+      //  loadBook();
+      //  loadIRBook();
+      //  loadMember();
+    }
+    private void initTblReturn(){
+        DefaultTableModel tblM = IRBooks.getTestIRBookReturn(Books.getTestBook());//= new DefaultTableModel(return_col, 0);
+        tblReturn.setModel(tblM);
+        TableColumn tc = tblReturn.getColumnModel().getColumn(0);  
+       
+        tc.setCellEditor(tblReturn.getDefaultEditor(Boolean.class));  
+        tc.setCellRenderer(tblReturn.getDefaultRenderer(Boolean.class));  
+        tc.setHeaderRenderer(new CheckBoxHeader(new MyItemListener()));  
+       // tblReturn.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JCheckBox()));
+    }
+    private void initForm(){
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        tblReturn.getTableHeader().setReorderingAllowed(false);
     }
     private void loadBook(){
         //glBook = Books.getTestBook();
     }
     private void loadIRBook(){
-        tblReturn.setModel(IRBooks.getTestIRBookReturn(glBook));
+//        tblReturn.setModel(IRBooks.getTestIRBookReturn(glBook));
     }
     private void loadMember(){
         Members mem = null; //Members.getTestMember();
@@ -68,12 +110,17 @@ public class ReturnManagement extends javax.swing.JFrame {
         pnlBackground = new ClPanelTransparent();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtEmailMem = new javax.swing.JTextField();
+        txtMemberNo = new javax.swing.JTextField();
         btSearchMem = new ClButtonTransparan("Search");
         jPanel10 = new ClPanelTransparent();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblReturn = new javax.swing.JTable();
+        tblReturn = new javax.swing.JTable(){
+
+            public boolean isCellEditable(int row,int column){
+                return column == 0;
+            };
+        };
         btReturn = new ClButtonTransparan("Return");
         javax.swing.JPanel jPanel4 = new ClPanelTransparent();
         jPanel3 = new javax.swing.JPanel();
@@ -87,8 +134,6 @@ public class ReturnManagement extends javax.swing.JFrame {
         lblPhone = new javax.swing.JLabel();
         lblRegisterDate = new javax.swing.JLabel();
         lblStatusMem = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        lblStatusMem1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -104,10 +149,15 @@ public class ReturnManagement extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel1.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel1.text")); // NOI18N
 
-        txtEmailMem.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.txtEmailMem.text")); // NOI18N
+        txtMemberNo.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.txtMemberNo.text")); // NOI18N
 
         btSearchMem.setForeground(java.awt.Color.darkGray);
         btSearchMem.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.btSearchMem.text")); // NOI18N
+        btSearchMem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchMemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -117,7 +167,7 @@ public class ReturnManagement extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btSearchMem)
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -128,7 +178,7 @@ public class ReturnManagement extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSearchMem))
                 .addGap(12, 12, 12))
         );
@@ -225,11 +275,6 @@ public class ReturnManagement extends javax.swing.JFrame {
 
         lblStatusMem.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblStatusMem.text")); // NOI18N
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel16.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel16.text")); // NOI18N
-
-        lblStatusMem1.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblStatusMem1.text")); // NOI18N
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -241,23 +286,17 @@ public class ReturnManagement extends javax.swing.JFrame {
                     .addComponent(pnlImgMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lblRegisterDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(lblStatusMem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblStatusMem1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblRegisterDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblStatusMem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -284,11 +323,7 @@ public class ReturnManagement extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel5)
                                 .addComponent(lblStatusMem))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel16)
-                                .addComponent(lblStatusMem1))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE))
                         .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
                     .addContainerGap()))
         );
@@ -339,47 +374,52 @@ public class ReturnManagement extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btSearchMemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchMemActionPerformed
+        // TODO add your handling code here:
+        MemberSearch memberSearchBox = new MemberSearch(this, true);
+        memberSearchBox.setVisible(true);
+        txtMemberNo.setText(memberSearchBox.getPopUpData1());       
+    }//GEN-LAST:event_btSearchMemActionPerformed
+    public void setDataPopUp(String memberNo) {
+        this.Member_No = memberNo;
+    }
+
+    public String getDataPopUp() {
+        return Member_No;
+    }
+    
+    class MyItemListener implements ItemListener  
+  {  
+    public void itemStateChanged(ItemEvent e) {  
+      Object source = e.getSource();  
+      if (source instanceof AbstractButton == false) return;  
+      boolean checked = e.getStateChange() == ItemEvent.SELECTED;  
+      for(int x = 0, y = tblReturn.getRowCount(); x < y; x++)  
+      {  
+        tblReturn.setValueAt(new Boolean(checked),x,0);  
+        
+      }  
+    }  
+  } 
+  /*
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        
+        
         //</editor-fold>
 
-        /* Create and display the form */
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ReturnManagement().setVisible(true);
             }
         });
     }
-
+*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btReturn;
     private javax.swing.JButton btSearchMem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -394,11 +434,11 @@ public class ReturnManagement extends javax.swing.JFrame {
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblRegisterDate;
     private javax.swing.JLabel lblStatusMem;
-    private javax.swing.JLabel lblStatusMem1;
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JPanel pnlImgMember;
     private javax.swing.JPanel pnlReturn;
-    private javax.swing.JTable tblReturn;
-    private javax.swing.JTextField txtEmailMem;
+    protected javax.swing.JTable tblReturn;
+    private javax.swing.JTextField txtMemberNo;
     // End of variables declaration//GEN-END:variables
 }
+

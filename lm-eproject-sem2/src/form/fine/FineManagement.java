@@ -75,12 +75,17 @@ public class FineManagement extends javax.swing.JFrame {
         pnlBackground = new ClPanelTransparent();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtEmailMem = new javax.swing.JTextField();
+        txtMemberNo = new javax.swing.JTextField();
         btSearchMem = new ClButtonTransparan("Search");
         jPanel10 = new ClPanelTransparent();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblFine = new javax.swing.JTable();
+        tblFine = new javax.swing.JTable(){
+
+            public boolean isCellEditable(int row,int column){
+                return false;
+            };
+        };
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         lblTotalPrice = new javax.swing.JLabel();
@@ -110,10 +115,15 @@ public class FineManagement extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel1.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.jLabel1.text")); // NOI18N
 
-        txtEmailMem.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.txtEmailMem.text")); // NOI18N
+        txtMemberNo.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.txtMemberNo.text")); // NOI18N
 
         btSearchMem.setForeground(java.awt.Color.darkGray);
         btSearchMem.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.btSearchMem.text")); // NOI18N
+        btSearchMem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchMemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,7 +133,7 @@ public class FineManagement extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btSearchMem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -135,7 +145,7 @@ public class FineManagement extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(txtEmailMem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btSearchMem))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -352,6 +362,11 @@ public class FineManagement extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btSearchMemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchMemActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btSearchMemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -413,6 +428,6 @@ public class FineManagement extends javax.swing.JFrame {
     private javax.swing.JPanel pnlFine;
     private javax.swing.JPanel pnlImgMember;
     private javax.swing.JTable tblFine;
-    private javax.swing.JTextField txtEmailMem;
+    private javax.swing.JTextField txtMemberNo;
     // End of variables declaration//GEN-END:variables
 }
