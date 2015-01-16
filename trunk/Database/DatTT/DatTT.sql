@@ -240,3 +240,19 @@ BEGIN
 END
 
 GO
+
+
+CREATE PROCEDURE Staffs_Login
+	@Staff_Login varchar(25)
+	,@Staff_Password varchar(50)
+AS
+BEGIN
+	if exists (select * from Staffs where Staff_Login = @Staff_Login)
+	if exists(select * from STAFFS where  Staff_Login = @Staff_Login and Staff_Password = @Staff_Password)
+		SELECT 1 'check',* from STAFFS where  Staff_Login = @Staff_Login and Staff_Password = @Staff_Password
+	ELSE
+		SELECT 2 'check'
+else
+select 0 'check'
+END
+GO
