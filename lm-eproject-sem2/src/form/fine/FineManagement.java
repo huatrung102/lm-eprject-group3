@@ -5,17 +5,35 @@
  */
 package form.fine;
 
+import ExSwing.CheckBoxHeader;
+import ExSwing.CheckBoxTable;
+import ExSwing.CheckBoxTableCellEditor;
 import ExSwing.ClButtonTransparan;
 import ExSwing.ClPanelTransparent;
+import ExSwing.GlassPaneProgress;
+import ExSwing.SelectAllHeader;
 import Helpers.UIHelper;
 import Model.Books;
 import Model.IRBooks;
 import Model.Members;
 import bussiness.Fine;
 import form.ir.IssueManagement;
+import form.ir.ReturnManagement;
 import form.main.Main;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -27,19 +45,108 @@ public class FineManagement extends javax.swing.JFrame {
      * Creates new form FineManagement
      */
     Books glBook;
+    double totalmoney = 0;
+    
+    private static final int checkBox_Col = 0; //first column
+    private static String fine_col[] = //{"","No","ISBN","Title","Copy No","Issue Date","Due Date","Late Day"}
+                                        {"","No","ISBN","Title","Copy No","Book's Price","Late Date", "Pay"};
     public FineManagement() {
         initComponents();
-        btSearchMem.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource("/image/Explore.png")));
-         btFine.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource("/image/pay.png")));
-         UIHelper.bindBackground(pnlFine);
+        initForm();
+        initTblFine();
         
-         loadBook();
-         loadIRBook();
-         loadTotalPrice();
-         loadMember();
+       //  loadBook();
+      //   loadIRBook();
+      //   loadTotalPrice();
+       //  loadMember();
     }
+    private void bindTestValue(DefaultTableModel tblM){
+        
+        Books b = Books.getTestBook();
+        int lateday = 0;
+        Date date;
+       
+        SimpleDateFormat simpledate = new SimpleDateFormat("dd/MM/yyyy");
+        
+        try {
+            date = simpledate.parse("31/12/2014");
+            Calendar caldue = Calendar.getInstance();
+            caldue.setTime(date);
+            
+            Calendar calcurrent = Calendar.getInstance();
+            calcurrent.setTime(new Date());
+            while(!caldue.after(calcurrent)){
+                caldue.add(Calendar.DATE, 1);
+                lateday++;
+            }            
+            
+        } catch (Exception e) {
+            System.out.println("Error");
+        }  
+        tblM.addRow(new Object[] {Boolean.FALSE,1,b.Book_ISBN,b.Book_Title ,"00016",b.Book_Price, 
+                                    (lateday-1),Fine.calculateFine((lateday-1), b.Book_Price)});
+         tblM.addRow(new Object[] {Boolean.FALSE,2,b.Book_ISBN,b.Book_Title ,"00017",b.Book_Price, 
+                                    (lateday-1),Fine.calculateFine((lateday-1), b.Book_Price)});
+        
+    }
+    
+    private void initTblFine(){
+        DefaultTableModel tblM = //IRBooks.getTestIRBookReturn(Books.getTestBook());
+         new DefaultTableModel(fine_col, 0){
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            if (columnIndex == checkBox_Col) {
+                return Boolean.class;
+            } else {
+                return String.class;
+            }
+        }
+    };
+        bindTestValue(tblM);
+        tblFine.setModel(tblM);
+        TableColumn tc = tblFine.getColumnModel().getColumn(checkBox_Col);  
+        tc.setHeaderRenderer(new SelectAllHeader(tblFine, checkBox_Col));
+        tc.setCellEditor(tblFine.getDefaultEditor(Boolean.class));  
+        tc.setCellRenderer(tblFine.getDefaultRenderer(Boolean.class));
+        //tc.setCellRenderer(new CheckBoxTableCellEditor(new FineManagement.MyItemListener()));  
+       tblFine.getModel().addTableModelListener(new TableModelListener() {
+
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int x = tblFine.getModel().getColumnCount();
+                totalmoney = 0;
+                for(int i= 0 ; i < tblFine.getModel().getRowCount();i++){
+                    if((Boolean) tblFine.getModel().getValueAt(i, 0)){
+                        String temp = tblFine.getModel().getValueAt(i,x-1).toString();
+                        totalmoney +=   Double.parseDouble(temp);
+                    }
+                }
+                 lblTotalPrice.setText(String.valueOf(totalmoney));
+            }
+        });
+       // tblReturn.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JCheckBox()));
+    }
+  /*
+  class MyItemListener implements ItemListener  
+  {  
+    public void itemStateChanged(ItemEvent e) {  
+      Object source = e.getSource();  
+      if (source instanceof AbstractButton == false) return;  
+      boolean checked = e.getStateChange() == ItemEvent.SELECTED;        
+       tblFine.setValueAt(checked,tblFine.getSelectedRow(),0);
+       totalmoney = 0;
+        for(int row = 0;row < tblFine.getRowCount();row++){
+            checked = e.getStateChange() == ItemEvent.SELECTED;     
+            if(checked){
+               totalmoney += Double.valueOf((String)tblFine.getModel().getValueAt(row, tblFine.getColumnCount()-1));
+            }
+        }
+      
+      lblTotalPrice.setText(String.valueOf(totalmoney));
+    }  
+  } 
+    */
     private void loadBook(){
        // glBook = Books.getTestBook();
     }
@@ -83,7 +190,7 @@ public class FineManagement extends javax.swing.JFrame {
         tblFine = new javax.swing.JTable(){
 
             public boolean isCellEditable(int row,int column){
-                return false;
+                return column == 0;
             };
         };
         jPanel2 = new javax.swing.JPanel();
@@ -366,16 +473,43 @@ public class FineManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_btSearchMemActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+    private void initForm(){
+        /*
+        glasspane  = new GlassPaneProgress();
+        setGlassPane(glasspane);
+        glasspane.setMinimum(minBook);
+        glasspane.setMaximum(maxBook);
+        glasspane.setValue(minBook);
+        glasspane.setStringPainted(true);
+        */
+        btSearchMem.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource("/image/Explore.png")));
+         btFine.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource("/image/pay.png")));
+         UIHelper.bindBackground(pnlFine);
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ReturnManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        tblFine.getTableHeader().setReorderingAllowed(false);
+    }
+   /*
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -394,14 +528,14 @@ public class FineManagement extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FineManagement().setVisible(true);
             }
         });
     }
-
+*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btFine;
     private javax.swing.JButton btSearchMem;
@@ -427,7 +561,7 @@ public class FineManagement extends javax.swing.JFrame {
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JPanel pnlFine;
     private javax.swing.JPanel pnlImgMember;
-    private javax.swing.JTable tblFine;
+    protected javax.swing.JTable tblFine;
     private javax.swing.JTextField txtMemberNo;
     // End of variables declaration//GEN-END:variables
 }

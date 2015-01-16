@@ -45,7 +45,17 @@ public class IRBooks {
     }
     
     public static DefaultTableModel getTestIRBookReturn(Books b){
-        DefaultTableModel tblM = new DefaultTableModel(return_col, 0); 
+        DefaultTableModel tblM = new DefaultTableModel(return_col, 0){
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            if (columnIndex == 0) {
+                return Boolean.class;
+            } else {
+                return String.class;
+            }
+        }
+    }; 
         int lateday = 0;
         Date date;
        
@@ -67,7 +77,7 @@ public class IRBooks {
         } catch (Exception e) {
             System.out.println("Error");
         }  
-        tblM.addRow(new Object[] {Boolean.TRUE,1,b.Book_ISBN,b.Book_Title ,"00016","13/12/2014","20/12/2014", (lateday-1)});
+        tblM.addRow(new Object[] {Boolean.FALSE,1,b.Book_ISBN,b.Book_Title ,"00016","13/12/2014","20/12/2014", (lateday-1)});
                 
         try {
             
@@ -86,7 +96,7 @@ public class IRBooks {
         } catch (Exception e) {
             System.out.println("Error");
         }         
-        tblM.addRow(new Object[] {Boolean.TRUE,2,b.Book_ISBN,b.Book_Title ,"00015","30/12/2014","06/01/2015",lateday<=0?0:(lateday-1)});
+        tblM.addRow(new Object[] {Boolean.FALSE,2,b.Book_ISBN,b.Book_Title ,"00015","30/12/2014","06/01/2015",lateday<=0?0:(lateday-1)});
         
         return tblM;
         

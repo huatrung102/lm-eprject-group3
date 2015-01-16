@@ -9,6 +9,7 @@ import ExSwing.ClButtonTransparan;
 import ExSwing.ClPanelTransparent;
 import ExSwing.CheckBoxHeader;
 import ExSwing.GlassPaneProgress;
+import ExSwing.SelectAllHeader;
 import Helpers.UIHelper;
 import Model.Books;
 import Model.IRBooks;
@@ -39,6 +40,7 @@ public class ReturnManagement extends javax.swing.JFrame {
      */
     Books glBook;
     public String Member_No;
+    private static final int checkBox_Col = 0; //first column
     private static String return_col[] = {"","No","ISBN","Title","Copy No","Issue Date","Due Date","Late Day"};
     private GlassPaneProgress glasspane;
     int minBook = 0;
@@ -60,11 +62,12 @@ public class ReturnManagement extends javax.swing.JFrame {
     private void initTblReturn(){
         DefaultTableModel tblM = IRBooks.getTestIRBookReturn(Books.getTestBook());//= new DefaultTableModel(return_col, 0);
         tblReturn.setModel(tblM);
-        TableColumn tc = tblReturn.getColumnModel().getColumn(0);  
-       
+        
+        TableColumn tc = tblReturn.getColumnModel().getColumn(checkBox_Col);  
+        tc.setHeaderRenderer(new SelectAllHeader(tblReturn, checkBox_Col));
         tc.setCellEditor(tblReturn.getDefaultEditor(Boolean.class));  
         tc.setCellRenderer(tblReturn.getDefaultRenderer(Boolean.class));  
-        tc.setHeaderRenderer(new CheckBoxHeader(new MyItemListener()));  
+        
        // tblReturn.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JCheckBox()));
     }
     private void initForm(){

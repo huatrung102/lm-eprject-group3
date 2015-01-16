@@ -11,6 +11,7 @@ import ExSwing.*;
 import Helpers.UIHelper;
 import Model.Staffs;
 import SysController.MessageHandle;
+import form.fine.FineManagement;
 import form.ir.IssueManagement;
 import form.ir.ReturnManagement;
 
@@ -63,7 +64,8 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         initForm();
         Staffs stafftest = new Staffs();
-        stafftest.Staff_Role = SysVar.role_Book;
+        //test role
+        stafftest.Staff_Role = SysVar.role_Admin;
         setStaff(stafftest);
         loadTabByRole();
         
@@ -1290,6 +1292,7 @@ public class Main extends javax.swing.JFrame {
 
     private void iconMem9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem9MouseClicked
         // TODO add your handling code here:
+        new FineManagement().setVisible(true);
     }//GEN-LAST:event_iconMem9MouseClicked
 
     private void iconMem10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem10MouseClicked
