@@ -65,12 +65,16 @@ public class Main extends javax.swing.JFrame {
         initForm();
         Staffs stafftest = new Staffs();
         //test role
-        stafftest.Staff_Role = SysVar.role_Admin;
+        stafftest.Staff_Role = SysVar.role_Book;
         setStaff(stafftest);
         loadTabByRole();
         
        
        // validate();
+    }
+    private void Login(){
+        Staffs staff = new Staffs();
+        Staffs.Staff_Logined =  staff;
     }
     private void initForm(){
         setIconImage(Toolkit.getDefaultToolkit().getImage(
@@ -135,7 +139,6 @@ public class Main extends javax.swing.JFrame {
             jTabbedPane1.setIconAt(i, new ImageIcon( mainForm.class
 						.getResource("/image/"+ imageFile[i])));
         }
-        
     }
     
     private void setSidePanelByMember(JPanel content){

@@ -28,6 +28,8 @@ import java.util.Date;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -54,7 +56,7 @@ public class FineManagement extends javax.swing.JFrame {
         initComponents();
         initForm();
         initTblFine();
-        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        //  loadBook();
       //   loadIRBook();
       //   loadTotalPrice();
@@ -443,8 +445,8 @@ public class FineManagement extends javax.swing.JFrame {
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlFineLayout.createSequentialGroup()
                         .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btFine))
+                            .addComponent(btFine)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(9, 9, 9)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -459,9 +461,9 @@ public class FineManagement extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(btFine)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getContentPane().add(pnlFine, java.awt.BorderLayout.CENTER);
