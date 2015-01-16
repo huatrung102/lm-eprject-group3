@@ -210,3 +210,33 @@ BEGIN
  WHERE @Staff_Login = Staff_Login
 END
 GO
+
+
+CREATE PROCEDURE Staffs_GetByParameters
+@Staff_Id char(8) = ''
+,@Staff_Firstname nvarchar(80) = '' 
+,@Staff_Email varchar(50) = ''
+,@Staff_Login varchar(20) = ''
+AS
+BEGIN
+		SELECT 
+		[Staff_Id]
+      ,[Staff_FirstName]
+      ,[Staff_LastName]
+      ,[Staff_Phone]
+      ,[Staff_Address]
+      ,[Staff_Email]
+      ,[Staff_Status]
+      ,[Staff_CreateDate]
+      ,[Staff_isDelete]
+      ,[Staff_ImageFile]
+  FROM [dbo].[Staffs]
+  WHERE [Staff_isDelete] = 0
+  AND Staff_Id = (CASE WHEN @Staff_Id  = '' THEN Staff_Id ELSE @Staff_Id END)
+  AND (Staff_FirstName LIKE (CASE WHEN @Staff_Firstname  = '' THEN Staff_FirstName ELSE @Staff_Firstname END) 
+			OR	Staff_LastName  LIKE (CASE WHEN @Staff_Firstname  = '' THEN Staff_LastName ELSE @Staff_Firstname END))
+  AND Staff_Email = (CASE WHEN @Staff_Email  = '' THEN Staff_Email ELSE @Staff_Email END)
+  AND Staff_Phone = (CASE WHEN @Staff_Login  = '' THEN Staff_Phone ELSE @Staff_Login END)
+END
+
+GO
