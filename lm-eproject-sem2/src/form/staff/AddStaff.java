@@ -96,7 +96,7 @@ public class AddStaff extends javax.swing.JFrame {
 
         jLabel5.setText("Role");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Account Management", "Member", "Book Management", "Member Management" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Book Manage", "Fine Manage", "IR Manage", "Member Manage", "Admin" }));
 
         jLabel6.setText("Address");
 
