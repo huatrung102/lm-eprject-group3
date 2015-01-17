@@ -11,23 +11,31 @@ import ExSwing.*;
 import Helpers.UIHelper;
 import Model.Staffs;
 import SysController.MessageHandle;
+import form.book.BookList;
+import form.copy.Copies;
 import form.fine.FineManagement;
 import form.ir.IssueManagement;
 import form.ir.ReturnManagement;
+import form.member.Members;
+import form.staff.Staff;
 
 import java.awt.Color;
-import java.awt.Cursor;
+
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+
+import javax.swing.Timer;
 
 /**
  *
@@ -56,16 +64,21 @@ public class Main extends javax.swing.JFrame {
                                     ,Boolean.TRUE,Boolean.FALSE
                                     ,Boolean.FALSE,Boolean.FALSE};
     public Staffs staffLogin;
+    SimpleDateFormat simpleDate = new SimpleDateFormat("EEE, dd/MM/yyyy");
+    SimpleDateFormat simpleTime = new SimpleDateFormat("HH:mm:ss");
+    private String[] strDays = new String[] { "Sun", "Mon", "Tue", "Wed", "Thu",
+        "FrI", "Sat" };
     public void setStaff(Staffs staff){
         this.staffLogin = staff;
     }
     
     public Main() {
         initComponents();
+        setDateTime();
         initForm();
         Staffs stafftest = new Staffs();
         //test role
-        stafftest.Staff_Role = SysVar.role_Book;
+        stafftest.Staff_Role = SysVar.role_Admin;
         setStaff(stafftest);
         loadTabByRole();
         
@@ -95,6 +108,7 @@ public class Main extends javax.swing.JFrame {
         UIHelper.bindBackground(contentpane,"/image/background.png");
         
     }
+    
     private void bindTab(boolean[] role){
         int max = role.length;
         int index = 0;
@@ -257,9 +271,8 @@ public class Main extends javax.swing.JFrame {
         iconMem12 = new javax.swing.JLabel();
         iconMem13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblTime = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(org.openide.util.NbBundle.getMessage(Main.class, "Main.title")); // NOI18N
@@ -1186,20 +1199,15 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
-        jLabel13.setForeground(java.awt.Color.yellow);
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel13.text")); // NOI18N
+        lblTime.setFont(new java.awt.Font("Century Gothic", 0, 30)); // NOI18N
+        lblTime.setForeground(java.awt.Color.yellow);
+        lblTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTime.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.lblTime.text")); // NOI18N
 
-        jLabel23.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel23.setForeground(java.awt.Color.yellow);
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel23.text")); // NOI18N
-
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel11.setForeground(java.awt.Color.yellow);
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel11.text")); // NOI18N
+        lblDate.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblDate.setForeground(java.awt.Color.yellow);
+        lblDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDate.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.lblDate.text")); // NOI18N
 
         javax.swing.GroupLayout contentpaneLayout = new javax.swing.GroupLayout(contentpane);
         contentpane.setLayout(contentpaneLayout);
@@ -1210,15 +1218,14 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(contentpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentpaneLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(contentpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(contentpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(contentpaneLayout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel23))))
+                                .addComponent(lblTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(8, 8, 8))))
                     .addGroup(contentpaneLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentpaneLayout.setVerticalGroup(
@@ -1227,11 +1234,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(contentpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contentpaneLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addGroup(contentpaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23))
+                        .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)
+                        .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1254,7 +1259,7 @@ public class Main extends javax.swing.JFrame {
 
     private void iconMem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem1MouseClicked
         // TODO add your handling code here:
-        
+        new Members().setVisible(true);
     }//GEN-LAST:event_iconMem1MouseClicked
 
     private void iconMem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem2MouseClicked
@@ -1263,14 +1268,17 @@ public class Main extends javax.swing.JFrame {
 
     private void iconMem3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem3MouseClicked
         // TODO add your handling code here:
+        new Copies().setVisible(true);
     }//GEN-LAST:event_iconMem3MouseClicked
 
     private void iconMem4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem4MouseClicked
         // TODO add your handling code here:
+        new BookList().setVisible(true);
     }//GEN-LAST:event_iconMem4MouseClicked
 
     private void iconMem5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem5MouseClicked
         // TODO add your handling code here:
+         new Staff().setVisible(true);
     }//GEN-LAST:event_iconMem5MouseClicked
 
     private void iconMem6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem6MouseClicked
@@ -1315,7 +1323,18 @@ public class Main extends javax.swing.JFrame {
     private void iconMem15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem15MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_iconMem15MouseClicked
-
+    public void setDateTime() {
+        
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                Calendar now = Calendar.getInstance();
+                Date cur = now.getTime();             
+                lblDate.setText(simpleDate.format(cur));
+                lblTime.setText(simpleTime.format(cur));
+            }
+        };
+		new Timer(1000, taskPerformer).start();
+	}
     /**
      * @param args the command line arguments
      */
@@ -1373,9 +1392,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel iconMem9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1384,7 +1401,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -1432,6 +1448,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JPanel pnlBook;
     private javax.swing.JPanel pnlFine;

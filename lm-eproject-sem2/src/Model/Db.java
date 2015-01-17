@@ -5,6 +5,14 @@
  */
 package Model;
 
+import Config.SysVar;
+import SysController.MessageHandle;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  *
  * @author Administrator PC
@@ -65,17 +73,47 @@ public class Db {
         this.password = password;
     }
 
-    public Db(String server, String port, String database,String instance, String username, String password) {
-        this.server = server;
-        this.port = port;
-        this.database = database;
-        this.instance = instance;
-        this.username = username;
-        this.password = password;
-        
-    }
 
+    public static Db getInfoDB() {
+        Properties p = new Properties();
+        Db db = null;
+        File file = new File(SysVar.file_DbConfig);
+        if (file.exists()) {
+            try (
+                    FileInputStream fis = new FileInputStream(file);) {
+                p.load(fis);
+                db = new Db();
+                db.setDatabase(p.getProperty("database"));
+                db.setInstance(p.getProperty("instance"));
+                db.setPort(p.getProperty("port"));
+                db.setPassword(p.getProperty("password"));
+                db.setServer(p.getProperty("server"));
+                db.setUsername(p.getProperty("username"));
+              
+            } catch (Exception ex) {                
+                db = null;
+            }
+        }
+        return db;
+    }
     
+    public static int SetInfoDB(Db db) {
+        Properties p = new Properties();
+        try (
+                FileOutputStream file = new FileOutputStream(SysVar.file_DbConfig);) {
+            p.setProperty("server", db.getServer());
+            p.setProperty("port", db.getPort());
+            p.setProperty("database", db.getDatabase());
+            p.setProperty("instance", db.getInstance());
+            p.setProperty("username", db.getUsername());
+            p.setProperty("password", db.getPassword());
+            p.store(file, "Group 3-Fpt Aptech");
+
+        } catch (IOException ex) {           
+            return 2;
+        }
+        return 1;
+    }
     
     
 

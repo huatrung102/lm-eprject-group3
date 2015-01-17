@@ -172,6 +172,9 @@
                   <ResourceString bundle="form/main/Bundle.properties" key="Login.btExit.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btExitActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -181,6 +184,9 @@
               <ResourceString bundle="form/main/Bundle.properties" key="Login.btSetting.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSettingActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

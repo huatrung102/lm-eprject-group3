@@ -352,8 +352,29 @@ public class MessageHandle {
                 }
             break;
             // </editor-fold>
-            // <editor-fold defaultstate="collapsed" desc="My Fold">
-            
+            // <editor-fold defaultstate="collapsed" desc="Obj_File">
+            case Obj_File:     
+                switch(action){
+                    case Action_save:
+                        switch(result){
+                            case 1:
+                            sb.append(result_success);
+                            break;
+                            case 2:
+                            sb.append(result_unsuccess);
+                            break;
+                            
+                        }
+                    break;
+                    case Action_open:
+                        switch(result){                            
+                            case 2:
+                            sb.append(result_unsuccess);
+                            break;
+                        }
+                    break;
+                }
+            break;
             // </editor-fold>
             // <editor-fold defaultstate="collapsed" desc="My Fold">
 
