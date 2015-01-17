@@ -24,6 +24,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
         lblIcon.setIcon(new ImageIcon(Login.class
                         .getResource("/image/lock_icon.png")));
         ((ClIconText) txtUsername).setIcon(new ImageIcon(
@@ -75,6 +76,11 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.jLabel3.text")); // NOI18N
 
         btExit.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.btExit.text")); // NOI18N
+        btExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -115,6 +121,11 @@ public class Login extends javax.swing.JFrame {
         );
 
         btSetting.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.btSetting.text")); // NOI18N
+        btSetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSettingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
@@ -146,6 +157,16 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btSettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSettingActionPerformed
+        // TODO add your handling code here:
+        new Setting(this,true).setVisible(true);
+    }//GEN-LAST:event_btSettingActionPerformed
+
+    private void btExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btExitActionPerformed
 
     /**
      * @param args the command line arguments
