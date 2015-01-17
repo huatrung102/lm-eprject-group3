@@ -72,11 +72,7 @@ public class Main extends javax.swing.JFrame {
        
        // validate();
     }
-    private void Login(){
-        Staffs staff = new Staffs();
-        Staffs.Staff_Logined =  staff;
-    }
-    private void initForm(){
+        private void initForm(){
         setIconImage(Toolkit.getDefaultToolkit().getImage(
 				Main.class.getResource("/image/main.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -378,7 +374,6 @@ public class Main extends javax.swing.JFrame {
         jLabel30.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel30.text")); // NOI18N
         jLabel30.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setOpaque(true);
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -704,7 +699,6 @@ public class Main extends javax.swing.JFrame {
         jLabel44.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel44.text")); // NOI18N
         jLabel44.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setOpaque(true);
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

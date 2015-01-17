@@ -30,7 +30,7 @@ public class Profile extends javax.swing.JFrame {
         ResultSet rs = null;
         String rsID;
         try {
-            String staff_id = "M0000002                            ";
+            String staff_id = "M0000001                            ";
             Staffs staff = Staffs.getProfile(staff_id);
             
                 lblID.setText(staff.Staff_Id);
