@@ -46,4 +46,8 @@ public class Copies {
         return cop;             
     }
     
+    public static int Copies_Insert(Copies obj){
+        return SqlHelper.executeNonQuery("Copies_Insert", obj.Book_ISBN, obj.Cop_No);
+    }
+    
 }

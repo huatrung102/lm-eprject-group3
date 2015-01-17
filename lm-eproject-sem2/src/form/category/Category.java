@@ -2,34 +2,20 @@ package form.category;
 import ExSwing.ClPanelTransparent;
 import Helpers.UIHelper;
 import SysController.MessageHandle;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Vector;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.openide.util.Exceptions;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author TraPhucVinh
- */
 public class Category extends javax.swing.JFrame {
     DefaultTableModel tableModel;
-    Vector row;
     int line;
     String cateid, catename, catedesc;
     int isSuccess;
  
     public Category() {
         initComponents();
-        UIHelper.bindBackground(pnlBackground);
-        this.setTitle("Category");       
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        UIHelper.bindBackground(pnlBackground);       
         start();      
     }
 

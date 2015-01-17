@@ -3,6 +3,7 @@ package Model;
 import Helpers.SqlHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.openide.util.Exceptions;
@@ -56,7 +57,34 @@ public class Categories {
     }
     public static int Categories_Lock(String cateid){
        return SqlHelper.executeNonQuery("Categories_Lock", cateid);
-    } 
+    }
+    
+    public static DefaultTableModel Categories_getCategoryList(){
+        DefaultTableModel tbl = SqlHelper.getDefaultTableModel("Categories_getCategoryList");
+        return tbl;
+    }
+    
+    public static DefaultComboBoxModel Categories_getCategoryCombobox(){
+        DefaultComboBoxModel cbo = SqlHelper.getDefaultComboBoxModel("Categories_getCategoryList");
+        return cbo;
+    }
+    
+    public static Categories Categories_getCategoryByCateName(String catename){
+        ResultSet rs;
+        objCate = new Categories();
+        try {
+            rs = SqlHelper.getResultSet("Categories_getCategoryByCateName", catename);
+            if(rs.next()){
+                objCate.Cat_Name = catename;
+                objCate.Cat_Id = rs.getString("Cat_Id");
+                objCate.Cat_Description = rs.getString("Cat_Description");
+                objCate.Cat_isDelete = rs.getBoolean("Cat_isDelete");
+            }
+        } catch (SQLException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+        return objCate;
+    }
 }
 
 

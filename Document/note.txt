@@ -1,6 +1,22 @@
-﻿Tên cate ko trùng
+﻿Tên cate ko trùng --> DONE
 Số lượng số nguyên, ko đc nhập số
 Tìm kiếm để chọn cho mượn làm kỹ
 Số lượng nhập mỗi lần là bao nhiêu bản copy
 Cách tổ chức database
 khi change pass thì pass cũ và pass mới khác nhau , pass mới và pass confirm giống nhau 
+
+- Rãnh thì xử lý Jtree List Category trên Booklist Form
+- Xử lý vụ đóng mở form: run Booklist > Click nút Add Category > Load form Category > Đóng form Category (đóng luôn chương trình) --> DONE (nhớ remove hàm main và gắn lại nút Add Category trên BookList)
+- Xử lý chổ lưu trữ hình ảnh
+- Khi xóa cate phải kiểm tra trước khi xóa, nếu vẫn có sách ở trạng thái bình thường thuộc cate đó thì ko cho xóa
+
+- Data thống nhất
+convert(varchar(10), column_name, 103)
+SQL bit == Java (boolean)
+SQL (Date) == Java String
+SQL (Money) == Java (Float)
+
+tăng kích thước filed Language lên VARCHAR (20) 
+tăng kích thước Cop_No lên Char(15) format yyMMddHHmmss### (### là số number of copies nếu len thiếu thì chèn thêm số 0 ở trước)
+
+
