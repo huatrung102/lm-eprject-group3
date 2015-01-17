@@ -398,7 +398,38 @@ INSERT INTO [dbo].[Copies]
  END
 GO
 
-
+USE LMS
+GO
+CREATE PROCEDURE Books_DeleteBookByISBN
+	@Book_ISBN VARCHAR (13)
+AS
+ BEGIN
+ IF EXISTS (SELECT * FROM Copies WHERE Book_ISBN = @Book_ISBN AND Cop_Status = 0)
+  RETURN 0;
+ begin transaction
+ begin try  
+	UPDATE Copies 
+	SET Cop_isDeleted = 1 
+	WHERE Book_ISBN = @Book_ISBN
+	
+	UPDATE Books
+	SET Book_isDeleted = 1
+	WHERE Book_ISBN = @Book_ISBN
+	
+ end try
+ begin catch
+  if @@trancount >0
+   rollback transaction;
+ end catch
+  if @@trancount >0
+  begin
+   commit transaction;
+   return 1;
+  end
+  else
+   return 2;
+   END
+GO
 
 DELETE FROM Fines
 DELETE FROM IRBookDetails

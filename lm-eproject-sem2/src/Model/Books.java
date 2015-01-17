@@ -90,5 +90,33 @@ public class Books {
         return tbl;
     }
     
+    public static int Books_DeleteBookByISBN(String bookisbn){
+        return SqlHelper.executeNonQuery("Books_DeleteBookByISBN", bookisbn);
+    }
     
+    public static int Books_Update(Books obj, String bookisbn){
+        return SqlHelper.executeNonQuery("Books_Update", 
+                bookisbn,
+                obj.Book_Title,
+                obj.Book_Publisher,
+                obj.Book_Author,
+                obj.Book_Price,
+                obj.Book_Content,
+                obj.Cat_Id,
+                obj.Book_Language,
+                obj.Book_ImageFile,
+                obj.Book_isDeleted);
+    }
+    
+    public static DefaultTableModel Books_searchBook(String title, 
+            String publisher, 
+            String author, 
+            boolean isdelete){
+        DefaultTableModel tbl = SqlHelper.getDefaultTableModel("Books_searchBook", 
+                title, 
+                publisher, 
+                author, 
+                isdelete);
+        return tbl;
+    }
 }
