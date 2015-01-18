@@ -19,4 +19,7 @@ SQL (Money) == Java (Float)
 tăng kích thước filed Language lên VARCHAR (20) 
 tăng kích thước Cop_No lên Char(15) format yyMMddHHmmss### (### là số number of copies nếu len thiếu thì chèn thêm số 0 ở trước)
 
+Check vụ trùng ISBN khi add book --> DONE
+Upload image cho Add book và Upadte book --> DONE
+Làm Report
 
