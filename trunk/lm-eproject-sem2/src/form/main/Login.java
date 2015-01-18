@@ -8,6 +8,9 @@ package form.main;
 import ExSwing.ClIconPassText;
 import ExSwing.ClIconText;
 import ExSwing.ClPanelTransparent;
+import Model.Staffs;
+import static Model.Staffs.Staffs_Login;
+import SysController.MessageHandle;
 import form.ir.IssueManagement;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -37,6 +40,7 @@ public class Login extends javax.swing.JFrame {
                         .getResource("/image/wall.jpg")));        
         label_5.setBounds(0, 0, 670, 374);
         pnlBackground.add(label_5);
+        
     }
 
     /**
@@ -72,6 +76,11 @@ public class Login extends javax.swing.JFrame {
         txtPassword.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.txtPassword.text")); // NOI18N
 
         btLogin.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.btLogin.text")); // NOI18N
+        btLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLoginActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.jLabel3.text")); // NOI18N
 
@@ -159,14 +168,20 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSettingActionPerformed
-        // TODO add your handling code here:
-        new Setting(this,true).setVisible(true);
+               new Setting(this,true).setVisible(true);
     }//GEN-LAST:event_btSettingActionPerformed
 
     private void btExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExitActionPerformed
-        // TODO add your handling code here:
+    
         System.exit(0);
     }//GEN-LAST:event_btExitActionPerformed
+
+    private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
+        Staffs staff  = Staffs.Staffs_Login(txtUsername.getText(), String.valueOf(txtPassword.getPassword()));
+        if(staff != null){
+            MessageHandle.showError("OK!");
+        }
+    }//GEN-LAST:event_btLoginActionPerformed
 
     /**
      * @param args the command line arguments
