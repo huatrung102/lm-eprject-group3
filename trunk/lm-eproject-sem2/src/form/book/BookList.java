@@ -3,15 +3,27 @@ import ExSwing.ClPanelTransparent;
 import Model.Books;
 import Model.Copies;
 import SysController.MessageHandle;
+import com.sun.org.apache.bcel.internal.classfile.SourceFile;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.openide.util.Exceptions;
 
 public class BookList extends javax.swing.JFrame {
     DefaultTableModel tableModel;
@@ -19,6 +31,8 @@ public class BookList extends javax.swing.JFrame {
 //    bookimagefile, bookcreateDate, catid, catname;
 //    Boolean bookisdeleted;
 //    float bookprice;
+    private String filename = null;
+    byte[] cover_image = null;
     
 
     public BookList() {
@@ -49,8 +63,7 @@ public class BookList extends javax.swing.JFrame {
         cboLang.setSelectedIndex(-1);
         cboStatus.setSelectedIndex(-1);
         txaContent.setText(null);
-        ImageIcon aa = new ImageIcon(getClass().getResource("/imgBook/Nocover.JPG"));
-        lblCover.setIcon(aa);
+        lblCover.setIcon(null);
         lblNumberOfCopies.setText("---");
         txtNumberOfCopies.setText(null);
 
@@ -167,6 +180,24 @@ public class BookList extends javax.swing.JFrame {
         tblBookList.getColumnModel().getColumn(2).setPreferredWidth(80);
         tblBookList.getColumnModel().getColumn(3).setPreferredWidth(80);
         tblBookList.getColumnModel().getColumn(4).setPreferredWidth(10);
+    }
+    
+     
+    private static void copyFile(File source, File dest) throws IOException {
+            InputStream input = null;
+            OutputStream output = null;
+            try {
+                    input = new FileInputStream(source);
+                    output = new FileOutputStream(dest);
+                    byte[] buf = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = input.read(buf)) > 0) {
+                            output.write(buf, 0, bytesRead);
+                    }
+            } finally {
+                    input.close();
+                    output.close();
+            }
     }
 
     @SuppressWarnings("unchecked")
@@ -845,7 +876,7 @@ public class BookList extends javax.swing.JFrame {
             cboStatus.setSelectedIndex(0);
         }
         
-        ImageIcon icon = new ImageIcon(getClass().getResource(obj.Book_ImageFile));
+        ImageIcon icon = new ImageIcon(obj.Book_ImageFile);
         lblCover.setIcon(icon);
     }//GEN-LAST:event_tblBookListMouseClicked
 
@@ -864,6 +895,13 @@ public class BookList extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Book_ISBN length must be 13 NUMBERS");
             txtISBN.requestFocus();
             return;
+        } else {
+            Books objCheck = Model.Books.getByISBN(txtISBN.getText());
+            if (!objCheck.Book_ISBN.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Book ISBN exist, try again!");
+                txtTitle.requestFocus();
+                return;
+            }
         }
         
         if (txtTitle.getText().isEmpty()){
@@ -881,7 +919,7 @@ public class BookList extends javax.swing.JFrame {
             txtAuthor.requestFocus();
             return;
         } else if(txtAuthor.getText().length()>50){
-            JOptionPane.showMessageDialog(null, "Publisher do not longer 50 chars");
+            JOptionPane.showMessageDialog(null, "Author do not longer 50 chars");
             txtAuthor.requestFocus();
             return;
         }
@@ -945,8 +983,24 @@ public class BookList extends javax.swing.JFrame {
         obj.Cat_Id = Model.Categories.Categories_getCategoryByCateName(
                 (String)cboCategory.getSelectedItem()).Cat_Id;
         obj.Book_Language = (String) cboLang.getSelectedItem();
-        //obj.Book_ImageFile = lblCover.getIcon().toString();
-        obj.Book_ImageFile = "/imgBook/Nocover.JPG";
+        
+        //Copy file to imgBook folder
+        if(lblCover.getIcon() == null){
+            obj.Book_ImageFile = "imgBook/Nocover.jpg";
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String newfilename = sdf.format(Calendar.getInstance().getTime());
+            File labelicon = new File(lblCover.getIcon().toString());
+            File desfile = new File("imgBook\\"+newfilename+"_"+labelicon.getName());
+            try {
+                copyFile(labelicon, desfile);
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        obj.Book_ImageFile = "imgBook/"+desfile.getName();
+        }
+        //Ket thuc phan upload Image
+        
         if ((String)cboStatus.getSelectedItem() == "Active"){
             obj.Book_isDeleted = false;
         } else {
@@ -994,7 +1048,6 @@ public class BookList extends javax.swing.JFrame {
                         numi = "00"+Integer.toString(i);
                         objCopies.Cop_No = copno+numi;
                         int a = Model.Copies.Copies_Insert(objCopies);
-                        
                     }
                 }
             }
@@ -1007,7 +1060,14 @@ public class BookList extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnChangeCoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeCoverActionPerformed
+        //Chọn file hình và lấy đường dẫn
+        JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+        File sourefile = fc.getSelectedFile();
         
+        //Set image vào label cover
+        ImageIcon newIcon = new ImageIcon(sourefile.getPath());
+        lblCover.setIcon(newIcon);
     }//GEN-LAST:event_btnChangeCoverActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -1112,8 +1172,24 @@ public class BookList extends javax.swing.JFrame {
         obj.Cat_Id = Model.Categories.Categories_getCategoryByCateName(
                 (String)cboCategory.getSelectedItem()).Cat_Id;
         obj.Book_Language = (String) cboLang.getSelectedItem();
-        //obj.Book_ImageFile = lblCover.getIcon().toString();
-        obj.Book_ImageFile = "/imgBook/Nocover.JPG";
+        
+        //Copy file to imgBook folder
+        if(lblCover.getIcon() == null){
+            obj.Book_ImageFile = "imgBook/Nocover.jpg";
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String newfilename = sdf.format(Calendar.getInstance().getTime());
+            File labelicon = new File(lblCover.getIcon().toString());
+            File desfile = new File("imgBook\\"+newfilename+"_"+labelicon.getName());
+            try {
+                copyFile(labelicon, desfile);
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        obj.Book_ImageFile = "imgBook/"+desfile.getName();
+        }
+        //Ket thuc phan upload Image
+        
         if ((String)cboStatus.getSelectedItem() == "Active"){
             obj.Book_isDeleted = false;
         } else {

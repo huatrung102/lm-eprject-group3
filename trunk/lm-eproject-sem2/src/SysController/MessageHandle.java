@@ -50,12 +50,13 @@ public class MessageHandle {
     private static final String result_notExist = "not exits";
     private static final String result_notAllowed = "not allowed issue total book more than 5";
     private static final String result_cannotFindCopy = "can not find copy for iussing";
-    
+    private static final String result_cannotDeleteBook = "Please check Book Return!";
     
     private static final String colUnique_loginName = "Login name";
     private static final String colUnique_Email = "Email";
     private static final String colUnique_Member_No = "Member No";
     private static final String colUnique_categoryName = "Category name";
+    
     
     
     private static final String colUnique_nullParameter = "Parameter null";
@@ -162,6 +163,10 @@ public class MessageHandle {
                     break;
                     case Action_delete:
                         switch(result){
+                            case 0:
+                                sb.append(result_unsuccess).append(". ")
+                                        .append(result_cannotDeleteBook);
+                                
                             case 1:
                             sb.append(result_success);
                             break;
