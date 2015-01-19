@@ -13,38 +13,27 @@ import java.util.Calendar;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.openide.util.Exceptions;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author TraPhucVinh
- */
 public class Members extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     Vector row;
-    
-    
-    /**
-     * Creates new form List
-     */
+
     public Members() {
         initComponents();
         UIHelper.bindBackground(pnlBackground);
         this.setTitle("Member Manage");
         start();
     }
+    
     public void start(){
         setNormalMode();
         getList();   
     }
+    
     private void getList(){
         tblMemList.setModel(Model.Members.Mems_getMemberList());
         tblMemList.getColumnModel().getColumn(0).setMinWidth(0);
@@ -104,7 +93,7 @@ public class Members extends javax.swing.JFrame {
     
     public void setSelectedMode(){
         txtID.setEnabled(false);
-        txtNo.setEnabled(true);
+        txtNo.setEnabled(false);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -122,10 +111,11 @@ public class Members extends javax.swing.JFrame {
         txtEmail.setEditable(false);
         txaAddress.setEditable(false);
         cbStatus.setEditable(false);
+        cbStatus.setEnabled(false);
         
         
         btnDelete.setEnabled(true);
-        btnChange.setEnabled(true);
+        btnChange.setEnabled(false);
         btnUpdate.setEnabled(true);
         
         btnSaveUpdate.setVisible(false);
@@ -136,7 +126,7 @@ public class Members extends javax.swing.JFrame {
     
     public void setUpdateMode(){
         txtID.setEnabled(false);
-        txtNo.setEnabled(true);
+        txtNo.setEnabled(false);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -157,7 +147,7 @@ public class Members extends javax.swing.JFrame {
        
         
         btnDelete.setEnabled(false);
-        btnChange.setEnabled(false);
+        btnChange.setEnabled(true);
         btnUpdate.setEnabled(false);
         
         btnSaveUpdate.setVisible(true);
@@ -400,9 +390,19 @@ public class Members extends javax.swing.JFrame {
 
         btnSaveUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Save.png"))); // NOI18N
         btnSaveUpdate.setText("Save");
+        btnSaveUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveUpdateActionPerformed(evt);
+            }
+        });
 
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Cancel.png"))); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("No");
 
@@ -772,33 +772,88 @@ public class Members extends javax.swing.JFrame {
         setSelectedMode();
               
         int line = tblMemList.getSelectedRow();
-        
         DefaultTableModel tbm = new DefaultTableModel();
         tbm = (DefaultTableModel) tblMemList.getModel();
-        String Staff_Id = (String)tbm.getValueAt(line, 0);
-      /*  
-        Members obj = Members.
+        String memid = (String)tbm.getValueAt(line, 0);
         
-        txtID.setText("Auto Generate");
-        txtNo.setText("Auto Generate");
-        txtFirstname.setText(obj.Staff_FirstName);
-        txtLastname.setText(obj.Staff_LastName);
-        txtEmail.setText(obj.Staff_Email);
-        txtPhone.setText(obj.Staff_Phone);
-        txaAddress.setText(obj.Staff_Address);
-        lblRegdate.setText(obj.Staff_CreateDate);
-        cbStatus.setSelectedItem(obj.Staff_Status);
-        boolean status = false;
-        if(status == true){
-            cbStatus.setSelectedIndex(1);
+        Model.Members mem = Model.Members.Members_getMemberByMemberId(memid);
+        txtID.setText(mem.Mem_Id);
+        txtNo.setText(mem.Mem_No);
+        txtFirstname.setText(mem.Mem_FirstName);
+        txtLastname.setText(mem.Mem_LastName);
+        txtPhone.setText(mem.Mem_Phone);
+        txtEmail.setText(mem.Mem_Email);
+        txaAddress.setText(mem.Mem_Address);
+        lblRegdate.setText(mem.Mem_CreateDate);
+        if(mem.Mem_Status == false){
+            cbStatus.setSelectedItem("Inactive");
         } else {
-            cbStatus.setSelectedIndex(0);
+            cbStatus.setSelectedItem("Active");
+        }
+        ImageIcon icon = new ImageIcon(mem.Mem_ImageFile);
+        lblMemAvatar.setIcon(icon);
+    }//GEN-LAST:event_tblMemListMouseClicked
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        setNormalMode();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnSaveUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveUpdateActionPerformed
+        Model.Members obj;
+        obj = new Model.Members();
+        
+        //obj.Mem_No = txtNo.getText();
+        String memid = txtID.getText();
+        obj.Mem_FirstName = txtFirstname.getText();
+        obj.Mem_LastName = txtLastname.getText();
+        obj.Mem_Phone = txtPhone.getText();
+        obj.Mem_Address  = txaAddress.getText();
+        obj.Mem_Email = txtEmail.getText();
+        
+        //Copy file to imgBook folder
+        Model.Members mem = Model.Members.Members_getMemberByMemberId(memid);
+        
+        if(lblMemAvatar.getName().toString() == mem.Mem_ImageFile){
+            JOptionPane.showMessageDialog(null, "skajdksjd");
+        } else {
+            JOptionPane.showMessageDialog(null, lblMemAvatar.getName().toString());
+            JOptionPane.showMessageDialog(null, mem.Mem_ImageFile);
         }
         
-        ImageIcon icon = new ImageIcon(obj.Staff_ImageFile);
-        lblMemAvatar.setIcon(icon);
-        */
-    }//GEN-LAST:event_tblMemListMouseClicked
+        if(lblMemAvatar.getIcon() == null){
+            obj.Mem_ImageFile = "imgMem/MemNoAvatar.png";
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String newfilename = sdf.format(Calendar.getInstance().getTime());
+            File labelicon = new File(lblMemAvatar.getIcon().toString());
+            
+            File desfile = new File("imgMem\\"+newfilename+"_"+labelicon.getName());
+            try {
+                copyFile(labelicon, desfile);
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        obj.Mem_ImageFile = "imgMem/"+desfile.getName();
+        }
+        //Ket thuc phan upload Image
+        
+        if(cbStatus.getSelectedItem() == "Active"){
+            obj.Mem_Status = true;
+        } else if (cbStatus.getSelectedItem() == "Inactive") {
+            obj.Mem_Status = false;
+        }
+        
+        int rt = Model.Members.Members_Update(obj, memid);
+        if(rt == 1){
+            setAddNewMode();
+            getList();
+        }else if(rt == 0){
+            txtNo.requestFocus();
+        }else if(rt == 3){
+            txtEmail.requestFocus();
+        }
+        MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_update, rt);
+    }//GEN-LAST:event_btnSaveUpdateActionPerformed
 
     /**
      * @param args the command line arguments

@@ -22,4 +22,6 @@ tăng kích thước Cop_No lên Char(15) format yyMMddHHmmss### (### là số n
 Check vụ trùng ISBN khi add book --> DONE
 Upload image cho Add book và Upadte book --> DONE
 Làm Report
+Chỉnh lại vụ upload hình nếu ko browse hình khác thì không up tiếp!!!!!!!!!!!!
+
 
