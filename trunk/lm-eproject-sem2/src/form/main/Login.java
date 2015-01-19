@@ -179,7 +179,8 @@ public class Login extends javax.swing.JFrame {
     private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
         Staffs staff  = Staffs.Staffs_Login(txtUsername.getText(), String.valueOf(txtPassword.getPassword()));
         if(staff != null){
-            MessageHandle.showError("OK!");
+            Staffs.Staff_Logined = staff;
+            new Main().setVisible(true);
         }
     }//GEN-LAST:event_btLoginActionPerformed
 
