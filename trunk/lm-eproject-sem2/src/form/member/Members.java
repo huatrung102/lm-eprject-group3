@@ -21,12 +21,13 @@ import org.openide.util.Exceptions;
 public class Members extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     Vector row;
-
+    Members M = new Members();
     public Members() {
         initComponents();
         UIHelper.bindBackground(pnlBackground);
         this.setTitle("Member Manage");
         start();
+        
     }
     
     public void start(){
@@ -520,6 +521,11 @@ public class Members extends javax.swing.JFrame {
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlUpdateLayout = new javax.swing.GroupLayout(pnlUpdate);
         pnlUpdate.setLayout(pnlUpdateLayout);
@@ -813,12 +819,7 @@ public class Members extends javax.swing.JFrame {
         //Copy file to imgBook folder
         Model.Members mem = Model.Members.Members_getMemberByMemberId(memid);
         
-        if(lblMemAvatar.getName().toString() == mem.Mem_ImageFile){
-            JOptionPane.showMessageDialog(null, "skajdksjd");
-        } else {
-            JOptionPane.showMessageDialog(null, lblMemAvatar.getName().toString());
-            JOptionPane.showMessageDialog(null, mem.Mem_ImageFile);
-        }
+        ////  cho nay cho anh Uy
         
         if(lblMemAvatar.getIcon() == null){
             obj.Mem_ImageFile = "imgMem/MemNoAvatar.png";
@@ -854,6 +855,12 @@ public class Members extends javax.swing.JFrame {
         }
         MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_update, rt);
     }//GEN-LAST:event_btnSaveUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        String Mem_Id = txtID.getText();
+        int del = Model.Staffs.Staffs_Lock(Mem_Id);
+        MessageHandle.showMessage(MessageHandle.Obj_Member,MessageHandle.Action_delete, del);   
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments

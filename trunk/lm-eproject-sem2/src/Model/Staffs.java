@@ -157,6 +157,10 @@ public class Staffs {
         DefaultTableModel tbl = Model.Staffs.Staffs_getStaffListbyStaffId("Staffs_getStaffListbyStaffId",Staff_Id);
         return tbl;
     }
+    
+    public static int Staffs_Lock(String Staff_Id){
+        return SqlHelper.executeNonQuery("Staffs_Lock", Staff_Id);
+    }
 }   
 
 
