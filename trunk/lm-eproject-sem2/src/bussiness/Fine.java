@@ -18,12 +18,12 @@ public class Fine {
         double result = daylate * (payPercentPerDay * priceBook / 100);
         return result > priceBook ? priceBook : result;                
     }
-    public static double calculateTotal(JTable table,int columnPrice){
-        double result = 0;
+    public static String calculateTotal(JTable table,int columnPrice){
+        float result = 0;
         TableModel model = table.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; --i) {
-            result +=  Double.valueOf(model.getValueAt(i, columnPrice).toString()) ;
+            result +=  Float.valueOf(model.getValueAt(i, columnPrice).toString()) ;
         }            
-        return result;
+        return String.valueOf(result) ;
     }
 }
