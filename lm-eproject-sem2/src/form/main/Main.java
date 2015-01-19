@@ -17,6 +17,7 @@ import form.fine.FineManagement;
 import form.ir.IssueManagement;
 import form.ir.ReturnManagement;
 import form.member.Members;
+import form.staff.Profile;
 import form.staff.Staff;
 
 import java.awt.Color;
@@ -76,16 +77,17 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         setDateTime();
         initForm();
-        Staffs stafftest = new Staffs();
+        Staffs staff = Staffs.Staff_Logined;
         //test role
-        stafftest.Staff_Role = SysVar.role_Admin;
-        setStaff(stafftest);
+       // staff.Staff_Role = SysVar.role_Admin;
+        setStaff(staff);
         loadTabByRole();
         
        
        // validate();
     }
         private void initForm(){
+        setLocationRelativeTo(null);
         setIconImage(Toolkit.getDefaultToolkit().getImage(
 				Main.class.getResource("/image/main.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,7 +108,22 @@ public class Main extends javax.swing.JFrame {
      //background wall
         
         UIHelper.bindBackground(contentpane,"/image/background.png");
-        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
     
     private void bindTab(boolean[] role){
@@ -1306,6 +1323,7 @@ public class Main extends javax.swing.JFrame {
 
     private void iconMem11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem11MouseClicked
         // TODO add your handling code here:
+        new Profile().setVisible(true);
     }//GEN-LAST:event_iconMem11MouseClicked
 
     private void iconMem12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem12MouseClicked
@@ -1335,42 +1353,7 @@ public class Main extends javax.swing.JFrame {
         };
 		new Timer(1000, taskPerformer).start();
 	}
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Main main = new Main();
-                main.setVisible(true);
-		main.setLocationRelativeTo(null);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgHome;
