@@ -49,6 +49,8 @@ public class BookList extends javax.swing.JFrame {
     }
     
     public void setNormalMode(){
+        lblFileName.setVisible(false);
+        lblFileName.setText(null);
         txtSearchTitle.setText(null);
         txtSearchAuthor.setText(null);
         txtSearchPublisher.setText(null);
@@ -257,6 +259,7 @@ public class BookList extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnSaveUpdate = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        lblFileName = new javax.swing.JLabel();
         jPanel4 = new ClPanelTransparent();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -656,6 +659,8 @@ public class BookList extends javax.swing.JFrame {
         });
         jPanel6.add(btnCancel);
 
+        lblFileName.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -666,7 +671,8 @@ public class BookList extends javax.swing.JFrame {
                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnChangeCover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFileName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -682,7 +688,9 @@ public class BookList extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFileName)
+                        .addGap(38, 38, 38)
                         .addComponent(btnChangeCover)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnUpdate)
@@ -1068,6 +1076,7 @@ public class BookList extends javax.swing.JFrame {
         //Set image vào label cover
         ImageIcon newIcon = new ImageIcon(sourefile.getPath());
         lblCover.setIcon(newIcon);
+        lblFileName.setText(sourefile.getPath());
     }//GEN-LAST:event_btnChangeCoverActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -1092,6 +1101,7 @@ public class BookList extends javax.swing.JFrame {
         String pattern; 
         Pattern r;
         Matcher m;
+        
         //Validate
         
         if (txtTitle.getText().isEmpty()){
@@ -1174,19 +1184,23 @@ public class BookList extends javax.swing.JFrame {
         obj.Book_Language = (String) cboLang.getSelectedItem();
         
         //Copy file to imgBook folder
-        if(lblCover.getIcon() == null){
-            obj.Book_ImageFile = "imgBook/Nocover.jpg";
+        if(lblFileName.getText() == null) {
+            obj.Book_ImageFile = lblCover.getIcon().toString();
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-            String newfilename = sdf.format(Calendar.getInstance().getTime());
-            File labelicon = new File(lblCover.getIcon().toString());
-            File desfile = new File("imgBook\\"+newfilename+"_"+labelicon.getName());
-            try {
-                copyFile(labelicon, desfile);
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
+            if(lblCover.getIcon() == null){
+                obj.Book_ImageFile = "imgBook/Nocover.jpg";
+            } else {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                String newfilename = sdf.format(Calendar.getInstance().getTime());
+                File labelicon = new File(lblFileName.getText());
+                File desfile = new File("imgBook\\"+newfilename+"_"+labelicon.getName());
+                try {
+                    copyFile(labelicon, desfile);
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+                obj.Book_ImageFile = "imgBook/"+desfile.getName();
             }
-        obj.Book_ImageFile = "imgBook/"+desfile.getName();
         }
         //Ket thuc phan upload Image
         
@@ -1268,37 +1282,37 @@ public class BookList extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new BookList().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(BookList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new BookList().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCopies;
@@ -1345,6 +1359,7 @@ public class BookList extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblCover;
+    private javax.swing.JLabel lblFileName;
     private javax.swing.JLabel lblNumberOfCopies;
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JTable tblBookList;
