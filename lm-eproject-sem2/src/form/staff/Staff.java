@@ -311,7 +311,7 @@ public class Staff extends javax.swing.JFrame {
 
         jLabel12.setText("Role");
 
-        cbRoleSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Member", "Admin", "IR", "Book", "Fine" }));
+        cbRoleSearch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Member Manage", "Admin", "IR Manage", "Book Manage", "Fine Manage" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -399,7 +399,7 @@ public class Staff extends javax.swing.JFrame {
 
         jLabel3.setText("Role");
 
-        cbRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Member", "Admin", "IR", "Book", "Fine" }));
+        cbRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Member Manage", "Admin", "IR Manage", "Book Manage", "Fine Manage" }));
 
         btnSaveInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Save.png"))); // NOI18N
         btnSaveInsert.setText("Save");
