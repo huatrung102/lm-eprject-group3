@@ -155,7 +155,7 @@ public class Members extends javax.swing.JFrame {
     
     public void setAddNewMode(){
         txtID.setEnabled(false);
-        txtNo.setEnabled(true);
+        txtNo.setEnabled(false);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -172,10 +172,11 @@ public class Members extends javax.swing.JFrame {
         txtPhone.setEditable(true);
         txtEmail.setEditable(true);
         txaAddress.setEditable(true);
-        cbStatus.setEditable(true);
+        cbStatus.setEnabled(false);
+        
                 
         txtID.setText("Auto Generate");
-        txtNo.setText(null);
+        txtNo.setText("Auto Generate");
         txtFirstname.setText(null);
         txtLastname.setText(null);
         txtPhone.setText(null);
@@ -257,7 +258,6 @@ public class Members extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Members Managment");
-        setMaximumSize(new java.awt.Dimension(1110, 620));
         setMinimumSize(new java.awt.Dimension(1110, 620));
         setResizable(false);
 
@@ -348,7 +348,7 @@ public class Members extends javax.swing.JFrame {
 
         jLabel15.setText("Status");
 
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "Inactive" }));
 
         txaAddress.setColumns(20);
         txaAddress.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -466,7 +466,8 @@ public class Members extends javax.swing.JFrame {
                 .addGroup(pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSaveAdd)
                     .addComponent(btnSaveUpdate)
-                    .addComponent(btnCancel)))
+                    .addComponent(btnCancel))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/staff.png"))); // NOI18N
@@ -504,18 +505,18 @@ public class Members extends javax.swing.JFrame {
         pnlUpdateLayout.setVerticalGroup(
             pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUpdateLayout.createSequentialGroup()
-                .addGroup(pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlUpdateLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnChange)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete))
-                    .addComponent(pnlProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(24, 24, 24)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnChange)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUpdate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnlUpdateLayout.createSequentialGroup()
+                .addComponent(pnlProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(31, 31, 31))
         );
 
         tblMemList.setModel(new javax.swing.table.DefaultTableModel(
@@ -582,7 +583,7 @@ public class Members extends javax.swing.JFrame {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -629,7 +630,7 @@ public class Members extends javax.swing.JFrame {
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1151, Short.MAX_VALUE)
+            .addGap(0, 1157, Short.MAX_VALUE)
             .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlBackgroundLayout.createSequentialGroup()
                     .addContainerGap()
@@ -643,16 +644,16 @@ public class Members extends javax.swing.JFrame {
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGap(0, 646, Short.MAX_VALUE)
             .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlBackgroundLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(9, 9, 9)
-                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pnlUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap(163, Short.MAX_VALUE)))
+                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(155, Short.MAX_VALUE)))
         );
 
         getContentPane().add(pnlBackground, java.awt.BorderLayout.CENTER);
@@ -673,15 +674,22 @@ public class Members extends javax.swing.JFrame {
     private void btnSaveAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAddActionPerformed
         Model.Members obj;
         obj = new Model.Members();
-        obj.Mem_Address  = txaAddress.getText();
-        obj.Mem_No = txtNo.getText();
-        obj.Mem_Email = txtEmail.getText();
+        
+        //obj.Mem_No = txtNo.getText();
+        //obj.Mem_Id = txtID.getText();
         obj.Mem_FirstName = txtFirstname.getText();
-        obj.Mem_ImageFile = "";
         obj.Mem_LastName = txtLastname.getText();
-        obj.Mem_Id = txtID.getText();
         obj.Mem_Phone = txtPhone.getText();
-//        obj.Mem_Status = String.valueOf(cbStatus.getSelectedItem());
+        obj.Mem_Address  = txaAddress.getText();
+        obj.Mem_Email = txtEmail.getText();
+        obj.Mem_ImageFile = "";
+        
+//        if(cbStatus.getSelectedItem() == "Active"){
+//            obj.Mem_Status = true;
+//        } else if (cbStatus.getSelectedItem() == "Inactive") {
+//            obj.Mem_Status = false;
+//        }
+        
         int rt = Model.Members.Members_Insert(obj);
         if(rt == 1){
             setAddNewMode();
@@ -691,8 +699,7 @@ public class Members extends javax.swing.JFrame {
         }else if(rt == 3){
             txtEmail.requestFocus();
         }
-        MessageHandle.showMessage(MessageHandle.Obj_Staff, MessageHandle.Action_insert, rt);
-          
+        MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_insert, rt);
     }//GEN-LAST:event_btnSaveAddActionPerformed
 
     /**

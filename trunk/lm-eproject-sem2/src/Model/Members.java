@@ -60,7 +60,6 @@ public class Members {
     
     public static int Members_Insert(Members obj){
          return SqlHelper.executeNonQuery("Members_Insert"
-                 ,obj.Mem_No
                  ,obj.Mem_FirstName
                  ,obj.Mem_LastName
                  ,obj.Mem_Phone
