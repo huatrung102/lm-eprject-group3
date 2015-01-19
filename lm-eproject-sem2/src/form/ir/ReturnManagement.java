@@ -21,6 +21,7 @@ import form.member.MemberSearch;
 import form.member.MemberSearch1;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
@@ -43,9 +44,10 @@ public class ReturnManagement extends javax.swing.JFrame {
      */
     Books glBook;
     public String Member_No;
+    private HashMap<String, String> Cop_IRDetail_Return;
     private static final int checkBox_Col = 0; //first column
     private static String return_col[] = {"√ Select all","","No","ISBN","Title","Copy No","IssueDate","DueDate","Late Day"};
-    DefaultTableModel tblDef = new DefaultTableModel();    
+    DefaultTableModel tblDef = new DefaultTableModel(return_col,0);    
     private GlassPaneProgress glasspane;
     private Members selectedMember;    
     int minBook = 0;
@@ -81,7 +83,7 @@ public class ReturnManagement extends javax.swing.JFrame {
     private void initTblReturn(){
         DefaultTableModel tblM = new DefaultTableModel(return_col, 0);
         tblReturn.setModel(tblM);
-        
+         
         TableColumn tc = tblReturn.getColumnModel().getColumn(checkBox_Col);  
         tc.setHeaderRenderer(new SelectAllHeader(tblReturn, checkBox_Col));
         tc.setCellEditor(tblReturn.getDefaultEditor(Boolean.class));  
@@ -95,6 +97,7 @@ public class ReturnManagement extends javax.swing.JFrame {
         UIHelper.hideColumnOfTable(tblReturn,1);
     }
     private void initForm(){
+        Cop_IRDetail_Return = new HashMap<>(5);
         glasspane  = new GlassPaneProgress();
         setGlassPane(glasspane);
         glasspane.setMinimum(minBook);
@@ -119,12 +122,7 @@ public class ReturnManagement extends javax.swing.JFrame {
         }
         tblReturn.getTableHeader().setReorderingAllowed(false);
     }
-    private void loadBook(){
-        //glBook = Books.getTestBook();
-    }
-    private void loadIRBook(){
-//        tblReturn.setModel(IRBooks.getTestIRBookReturn(glBook));
-    }
+    
     private void loadMember(){
         String mem_No = txtMemberNo.getText();
         Members mem = Members.getIRCountInformation(mem_No);
@@ -456,6 +454,14 @@ public class ReturnManagement extends javax.swing.JFrame {
         int row = tblReturn.getRowCount();
         if(row> 0 ){
             for(int i =0;i <row;i++){
+                String IRDetail = String.valueOf(tblReturn.getModel().getValueAt(i, 1)) ;
+                Cop_IRDetail_Return.put(IRDetail, IRDetail);
+            }
+            int result = IRBooks.ReturnBook(Cop_IRDetail_Return);
+            MessageHandle.showMessage(MessageHandle.Obj_Book, MessageHandle.Action_return, result);
+            if(result == 1) ((DefaultTableModel)tblReturn.getModel()).setNumRows(0);
+            /*
+            for(int i =0;i <row;i++){
                 boolean check = Boolean.valueOf(String.valueOf(tblReturn.getModel().getValueAt(i, 0))) ;
                 if(check){
                     String IrDetail = String.valueOf(tblReturn.getModel().getValueAt(i, 1));
@@ -463,8 +469,9 @@ public class ReturnManagement extends javax.swing.JFrame {
                    // IRBooks.ReturnBook(Member_No, TOP_ALIGNMENT, maxBook)
                 }
             }
+            */
         }else{
-            MessageHandle.showError("Member dont have book issued!");
+            MessageHandle.showError("Member dont have book return!");
         }
         
         /*
@@ -500,19 +507,7 @@ public class ReturnManagement extends javax.swing.JFrame {
         return Member_No;
     }
     
-    class MyItemListener implements ItemListener  
-  {  
-    public void itemStateChanged(ItemEvent e) {  
-      Object source = e.getSource();  
-      if (source instanceof AbstractButton == false) return;  
-      boolean checked = e.getStateChange() == ItemEvent.SELECTED;  
-      for(int x = 0, y = tblReturn.getRowCount(); x < y; x++)  
-      {  
-        tblReturn.setValueAt(new Boolean(checked),x,0);  
-        
-      }  
-    }  
-  } 
+    
   /*
     public static void main(String args[]) {
         
