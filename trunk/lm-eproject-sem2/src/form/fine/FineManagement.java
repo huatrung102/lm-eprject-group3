@@ -59,6 +59,7 @@ public class FineManagement extends javax.swing.JFrame {
     private Members selectedMember;
     public FineManagement() {        
         initComponents();
+        setLocationRelativeTo(null);
         initForm();
         initTblFine();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -82,7 +83,7 @@ public class FineManagement extends javax.swing.JFrame {
             tblFine.setModel(tbm);
             UIHelper.hideColumnOfTable(tblFine, 0);
             //column price
-            lblTotalPrice.setText(String.valueOf(Fine.calculateTotal(tblFine, 5)));
+            lblTotalPrice.setText(Fine.calculateTotal(tblFine, 5));
 //            TableColumn tc = tblFine.getColumnModel().getColumn(checkBox_Col);
 //            tc.setHeaderRenderer(new SelectAllHeader(tblFine, checkBox_Col));
 //            tc.setCellEditor(tblFine.getDefaultEditor(Boolean.class));  
@@ -335,7 +336,7 @@ public class FineManagement extends javax.swing.JFrame {
             .addGroup(pnlImgMemberLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblImgMember)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         pnlImgMemberLayout.setVerticalGroup(
             pnlImgMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,7 +413,7 @@ public class FineManagement extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
