@@ -100,7 +100,7 @@ public class SqlHelper {
             i = stmt.getInt(1);
         } catch (SQLException ex){
             Logger.getLogger(SqlHelper.class.getName()).log(Level.SEVERE, null,ex);
-            i = -1888;
+            i = -1;
         } finally{
             closeConnection(stmt);
         }        
