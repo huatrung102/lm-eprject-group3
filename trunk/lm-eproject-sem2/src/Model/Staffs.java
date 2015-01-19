@@ -35,7 +35,7 @@ public class Staffs {
     public String Staff_CreateDate;
     public String Staff_ImageFile;
     public boolean Staff_isDeleted;
-
+    public static Staffs Staff_Logined;
     
      
     
