@@ -227,7 +227,7 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="btnUpdate" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnChange" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblMemAvatar" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnDelete" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -240,7 +240,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Component id="lblMemAvatar" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnChange" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -496,7 +496,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel6">
+            <Component class="javax.swing.JLabel" name="lblMemAvatar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/image/staff.png"/>
@@ -513,6 +513,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Change"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChangeActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnUpdate">
               <Properties>

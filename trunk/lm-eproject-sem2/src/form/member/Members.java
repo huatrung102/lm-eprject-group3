@@ -2,9 +2,20 @@ package form.member;
 import ExSwing.ClPanelTransparent;
 import Helpers.UIHelper;
 import SysController.MessageHandle;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.openide.util.Exceptions;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 public class Members extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     Vector row;
+    
     
     /**
      * Creates new form List
@@ -77,9 +89,9 @@ public class Members extends javax.swing.JFrame {
         txaAddress.setText(null);
         lblRegdate.setText(null);
         
-        
+        lblMemAvatar.setIcon(null);
         btnDelete.setEnabled(false);
-        btnChange.setEnabled(true);
+        btnChange.setEnabled(false);
         btnUpdate.setEnabled(false);
         
         btnSaveUpdate.setVisible(false);
@@ -184,9 +196,9 @@ public class Members extends javax.swing.JFrame {
         txaAddress.setText(null);
         lblRegdate.setText(null);
         
-        
+        lblMemAvatar.setIcon(null);
         btnDelete.setEnabled(false);
-        btnChange.setEnabled(false);
+        btnChange.setEnabled(true);
         btnUpdate.setEnabled(false);
         
         btnSaveUpdate.setVisible(false);
@@ -195,6 +207,23 @@ public class Members extends javax.swing.JFrame {
         btnCancel.setEnabled(true);
         
         tblMemList.clearSelection();
+    }
+    
+    private static void copyFile(File source, File dest) throws IOException {
+            InputStream input = null;
+            OutputStream output = null;
+            try {
+                    input = new FileInputStream(source);
+                    output = new FileOutputStream(dest);
+                    byte[] buf = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = input.read(buf)) > 0) {
+                            output.write(buf, 0, bytesRead);
+                    }
+            } finally {
+                    input.close();
+                    output.close();
+            }
     }
     
     @SuppressWarnings("unchecked")
@@ -238,7 +267,7 @@ public class Members extends javax.swing.JFrame {
         lblRegdate = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNo = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        lblMemAvatar = new javax.swing.JLabel();
         btnChange = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -470,11 +499,16 @@ public class Members extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/staff.png"))); // NOI18N
-        jLabel6.setPreferredSize(new java.awt.Dimension(140, 140));
+        lblMemAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/staff.png"))); // NOI18N
+        lblMemAvatar.setPreferredSize(new java.awt.Dimension(140, 140));
 
         btnChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Picture.png"))); // NOI18N
         btnChange.setText("Change");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Update.png"))); // NOI18N
         btnUpdate.setText("Update");
@@ -496,7 +530,7 @@ public class Members extends javax.swing.JFrame {
                 .addGroup(pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnChange, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblMemAvatar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -506,7 +540,7 @@ public class Members extends javax.swing.JFrame {
             pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUpdateLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMemAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnChange)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -682,7 +716,23 @@ public class Members extends javax.swing.JFrame {
         obj.Mem_Phone = txtPhone.getText();
         obj.Mem_Address  = txaAddress.getText();
         obj.Mem_Email = txtEmail.getText();
-        obj.Mem_ImageFile = "";
+        
+        //Copy file to imgBook folder
+        if(lblMemAvatar.getIcon() == null){
+            obj.Mem_ImageFile = "imgMem/MemNoAvatar.png";
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String newfilename = sdf.format(Calendar.getInstance().getTime());
+            File labelicon = new File(lblMemAvatar.getIcon().toString());
+            File desfile = new File("imgMem\\"+newfilename+"_"+labelicon.getName());
+            try {
+                copyFile(labelicon, desfile);
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        obj.Mem_ImageFile = "imgMem/"+desfile.getName();
+        }
+        //Ket thuc phan upload Image
         
 //        if(cbStatus.getSelectedItem() == "Active"){
 //            obj.Mem_Status = true;
@@ -701,6 +751,17 @@ public class Members extends javax.swing.JFrame {
         }
         MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_insert, rt);
     }//GEN-LAST:event_btnSaveAddActionPerformed
+
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+        //Chọn file hình và lấy đường dẫn
+        JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+        File sourefile = fc.getSelectedFile();
+        
+        //Set image vào label cover
+        ImageIcon newIcon = new ImageIcon(sourefile.getPath());
+        lblMemAvatar.setIcon(newIcon);
+    }//GEN-LAST:event_btnChangeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -765,7 +826,6 @@ public class Members extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -778,6 +838,7 @@ public class Members extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel lblMemAvatar;
     private javax.swing.JLabel lblRegdate;
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JPanel pnlProfile;
