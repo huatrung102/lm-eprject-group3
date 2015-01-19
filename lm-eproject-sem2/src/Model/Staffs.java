@@ -102,7 +102,7 @@ public class Staffs {
     
     public static int Staffs_Insert(Staffs obj){
         return SqlHelper.executeNonQuery("Staffs_Insert", obj.Staff_FirstName, obj.Staff_LastName, obj.Staff_Login,obj.Staff_Password,
-            obj.Staff_Phone,obj.Staff_Role,obj.Staff_Address,obj.Staff_Email,obj.Staff_ImageFile,obj.Staff_isDeleted);
+            obj.Staff_Phone,obj.Staff_Role,obj.Staff_Address,obj.Staff_Email,obj.Staff_ImageFile);
         
     }
     
