@@ -384,9 +384,6 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txtID">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="M00001"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
@@ -394,19 +391,10 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtFirstname">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Tr&#xe0; Ph&#xfa;c V&#x129;nh"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtLastname">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Uy"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtPhone">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="01223131459"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel8">
                   <Properties>
@@ -464,7 +452,6 @@
                         </Property>
                         <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="5"/>
-                        <Property name="text" type="java.lang.String" value="Nh&#xe0; s&#x1ed1; 1 &#x111;&#x1b0;&#x1edd;ng Nguy&#x1ec5;n Hu&#x1ec7;, P. B&#x1ebf;n Ngh&#xe9; Qu&#x1ead;n 1, TPHCM, Vi&#x1ec7;t Nam"/>
                         <Property name="wrapStyleWord" type="boolean" value="true"/>
                         <Property name="autoscrolls" type="boolean" value="false"/>
                       </Properties>
@@ -477,9 +464,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtEmail">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="pigbanguy@gmail.com"/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>

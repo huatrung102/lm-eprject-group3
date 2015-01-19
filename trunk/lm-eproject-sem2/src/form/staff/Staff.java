@@ -361,15 +361,7 @@ public class Staff extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        txtID.setText("M00001");
-
         jLabel7.setText("ID");
-
-        txtFirstname.setText("Trà Phúc Vĩnh");
-
-        txtLastname.setText("Uy");
-
-        txtPhone.setText("01223131459");
 
         jLabel8.setText("First Name");
 
@@ -389,14 +381,11 @@ public class Staff extends javax.swing.JFrame {
         txaAddress.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         txaAddress.setLineWrap(true);
         txaAddress.setRows(5);
-        txaAddress.setText("Nhà số 1 đường Nguyễn Huệ, P. Bến Nghé Quận 1, TPHCM, Việt Nam");
         txaAddress.setWrapStyleWord(true);
         txaAddress.setAutoscrolls(false);
         jScrollPane2.setViewportView(txaAddress);
 
         jLabel16.setText("Address");
-
-        txtEmail.setText("pigbanguy@gmail.com");
 
         jLabel3.setText("Role");
 
