@@ -57,4 +57,20 @@ public class Members {
         }
         return mem;        
     }
+    
+    public static int Members_Insert(Members obj){
+         return SqlHelper.executeNonQuery("Members_Insert"
+                 ,obj.Mem_No
+                 ,obj.Mem_FirstName
+                 ,obj.Mem_LastName
+                 ,obj.Mem_Phone
+                 ,obj.Mem_Address
+                 ,obj.Mem_Email
+                 ,obj.Mem_ImageFile);
+    }
+    
+    public static DefaultTableModel Mems_getMemberList(){
+        DefaultTableModel tbl = SqlHelper.getDefaultTableModel("Mems_getMemberList");
+        return tbl;
+    }
 }

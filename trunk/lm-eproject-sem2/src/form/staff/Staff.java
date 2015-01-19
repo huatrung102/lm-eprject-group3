@@ -33,7 +33,7 @@ public class Staff extends javax.swing.JFrame {
     public Staff() {
         initComponents();
         UIHelper.bindBackground(pnlBackground);
-        this.setTitle("Staff Management");
+        this.setTitle("Staff Manage");
         start();
         
         
@@ -60,6 +60,8 @@ public class Staff extends javax.swing.JFrame {
     
     public void setNormalMode(){
         txtID.setEnabled(false);
+        txtLogin.setEnabled(false);
+        txtPassword.setEnabled(false);
         txtFirstname.setEnabled(false);
         txtLastname.setEnabled(false);
         txtPhone.setEnabled(false);
@@ -70,6 +72,8 @@ public class Staff extends javax.swing.JFrame {
         cbRole.setEnabled(false);
         
         txtID.setEditable(false);
+        txtLogin.setEditable(false);
+        txtPassword.setEditable(false);
         txtFirstname.setEditable(false);
         txtLastname.setEditable(false);
         txtPhone.setEditable(false);
@@ -101,6 +105,8 @@ public class Staff extends javax.swing.JFrame {
     
     public void setSelectedMode(){
         txtID.setEnabled(false);
+        txtLogin.setEnabled(true);
+        txtPassword.setEnabled(true);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -111,6 +117,8 @@ public class Staff extends javax.swing.JFrame {
         cbRole.setEnabled(true);
         
         txtID.setEditable(false);
+        txtLogin.setEditable(true);
+        txtPassword.setEditable(true);
         txtFirstname.setEditable(false);
         txtLastname.setEditable(false);
         txtPhone.setEditable(false);
@@ -131,6 +139,8 @@ public class Staff extends javax.swing.JFrame {
     
     public void setUpdateMode(){
         txtID.setEnabled(false);
+        txtLogin.setEnabled(true);
+        txtPassword.setEnabled(true);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -141,6 +151,8 @@ public class Staff extends javax.swing.JFrame {
         cbRole.setEnabled(true);
         
         txtID.setEditable(false);
+        txtLogin.setEditable(true);
+        txtPassword.setEditable(true);
         txtFirstname.setEditable(true);
         txtLastname.setEditable(true);
         txtPhone.setEditable(true);
@@ -160,6 +172,8 @@ public class Staff extends javax.swing.JFrame {
     
     public void setAddNewMode(){
         txtID.setEnabled(false);
+        txtLogin.setEnabled(true);
+        txtPassword.setEnabled(true);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -170,6 +184,8 @@ public class Staff extends javax.swing.JFrame {
         cbRole.setEnabled(true);
         
         txtID.setEditable(false);
+        txtLogin.setEditable(true);
+        txtPassword.setEditable(true);
         txtFirstname.setEditable(true);
         txtLastname.setEditable(true);
         txtPhone.setEditable(true);
@@ -179,6 +195,8 @@ public class Staff extends javax.swing.JFrame {
         cbRole.setEditable(true);
         
         txtID.setText("Auto Generate");
+        txtLogin.setText(null);
+        txtPassword.setText(null);
         txtFirstname.setText(null);
         txtLastname.setText(null);
         txtPhone.setText(null);
@@ -522,6 +540,11 @@ public class Staff extends javax.swing.JFrame {
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Picture.png"))); // NOI18N
         btnChange.setText("Change");
@@ -726,7 +749,7 @@ public class Staff extends javax.swing.JFrame {
         obj.Staff_Password = String.valueOf(txtPassword.getPassword());
         obj.Staff_Phone = txtPhone.getText();
         obj.Staff_Role = String.valueOf(cbRole.getSelectedItem());
-        int rt = Staffs.Staffs_Insert(obj);
+        int rt = Model.Staffs.Staffs_Insert(obj);
         if(rt == 1){
             setAddNewMode();
             getList();
@@ -743,6 +766,7 @@ public class Staff extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         setAddNewMode();
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -850,8 +874,8 @@ public class Staff extends javax.swing.JFrame {
         obj.Staff_LastName = txtLastname.getText();       
         obj.Staff_Phone = txtPhone.getText();
         obj.Staff_Login = txtLogin.getText();
-        obj.Staff_Role =(String) cbRole.getSelectedItem();//Model.Staffs.Staffs_getStaffbyStaffId(String)instanceof cbRole.getSelectedItem().Staff_Id;
-        obj.Staff_Status =(boolean) cbStatus.getSelectedItem();
+        obj.Staff_Role =String.valueOf(cbRole.getSelectedItem());//Model.Staffs.Staffs_getStaffbyStaffId(String)instanceof cbRole.getSelectedItem().Staff_Id;
+        obj.Staff_Status = (boolean) cbStatus.getSelectedItem(); 
         //obj.Book_ImageFile = lblCover.getIcon().toString();
         obj.Staff_ImageFile = "/imgBook/Nocover.JPG";
         if ((String)cbStatus.getSelectedItem() == "Active"){
@@ -900,6 +924,19 @@ public class Staff extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(obj.Staff_ImageFile);
         lblCover.setIcon(icon);
     }//GEN-LAST:event_tblStaffListMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        txtID.setText("");
+        txtLogin.setText("");
+        txtFirstname.setText("");
+        txtLastname.setText("");
+        txtEmail.setText("");
+        txtPhone.setText("");
+        txaAddress.setText("");
+        lblRegdate.setText("");
+        cbStatus.setSelectedItem(-1);
+        cbRole.setSelectedItem(-1);
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
