@@ -24,9 +24,10 @@ import org.openide.util.Exceptions;
 public class Members extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     Vector row;
-    Members M = new Members();
+    Model.Members M ;//= new Members();
     public Members() {
         initComponents();
+        M= new Model.Members();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         UIHelper.bindBackground(pnlBackground);
         this.setTitle("Member Manage");
