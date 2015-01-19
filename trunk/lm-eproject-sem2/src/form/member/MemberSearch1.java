@@ -24,30 +24,27 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Administrator PC
  */
-public class MemberSearch extends javax.swing.JDialog {
+public class MemberSearch1 extends javax.swing.JDialog {
 
     /**
      * Creates new form MemberSearch
      */
     //IssueManagement dataPopup = new IssueManagement();
-    IssueManagement dataPopup ;
+    
     ReturnManagement dataPopup1 ;
     java.awt.Frame parentFrame;
     String selectedMember_No ="";
     private String[] member_col = {"Member ID","Member No","Full Name","Email","Phone"};
-    public MemberSearch(java.awt.Frame parent, boolean modal) {
+    public MemberSearch1(java.awt.Frame parent, boolean modal) {
         super(parent, modal);        
         initComponents();
-        if(parent instanceof IssueManagement){
-            dataPopup = new IssueManagement();            
-        } else if (parent instanceof ReturnManagement){
-            dataPopup1 = new ReturnManagement();
-        }        
+        dataPopup1 = new ReturnManagement();
+            
         initDialog();
         initMember();
         initTblMember();
        
-        btFilter.setIcon(new ImageIcon(MemberSearch.class
+        btFilter.setIcon(new ImageIcon(MemberSearch1.class
                         .getResource("/image/Explore.png")));        
         UIHelper.bindBackground(pnlBackground); 
          setLocationRelativeTo(null);
@@ -58,7 +55,7 @@ public class MemberSearch extends javax.swing.JDialog {
         lblStatusMem.setText("");
         lblRegisterDate.setText("");
         //load image member
-        lblImgMember.setIcon(new ImageIcon(MemberSearch.class
+        lblImgMember.setIcon(new ImageIcon(MemberSearch1.class
                         .getResource(SysVar.image_member_defaut)));        
         lblImgMember.setBounds(0, 0, 140, 140);
         
@@ -91,13 +88,13 @@ public class MemberSearch extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MemberSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MemberSearch1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MemberSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MemberSearch1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MemberSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MemberSearch1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MemberSearch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MemberSearch1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -151,10 +148,10 @@ public class MemberSearch extends javax.swing.JDialog {
         btFilter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.title")); // NOI18N
+        setTitle(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.title")); // NOI18N
         setUndecorated(true);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jPanel2.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jPanel2.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
 
         tblMembers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,12 +209,12 @@ public class MemberSearch extends javax.swing.JDialog {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jPanel4.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jPanel4.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
         jPanel4.setPreferredSize(new java.awt.Dimension(250, 176));
 
         pnlImgMember.setPreferredSize(new java.awt.Dimension(140, 140));
 
-        lblImgMember.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.lblImgMember.text")); // NOI18N
+        lblImgMember.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.lblImgMember.text")); // NOI18N
         lblImgMember.setAlignmentX(0.5F);
 
         javax.swing.GroupLayout pnlImgMemberLayout = new javax.swing.GroupLayout(pnlImgMember);
@@ -238,30 +235,30 @@ public class MemberSearch extends javax.swing.JDialog {
         );
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel4.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jLabel4.text")); // NOI18N
+        jLabel4.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jLabel4.text")); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel5.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jLabel5.text")); // NOI18N
+        jLabel5.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jLabel5.text")); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel6.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jLabel6.text")); // NOI18N
+        jLabel6.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jLabel6.text")); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel7.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jLabel7.text")); // NOI18N
+        jLabel7.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jLabel7.text")); // NOI18N
 
-        lblFullname.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.lblFullname.text")); // NOI18N
+        lblFullname.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.lblFullname.text")); // NOI18N
 
-        lblPhone.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.lblPhone.text")); // NOI18N
+        lblPhone.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.lblPhone.text")); // NOI18N
         lblPhone.setPreferredSize(new java.awt.Dimension(40, 15));
 
-        lblRegisterDate.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.lblRegisterDate.text")); // NOI18N
+        lblRegisterDate.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.lblRegisterDate.text")); // NOI18N
 
-        lblStatusMem.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.lblStatusMem.text")); // NOI18N
+        lblStatusMem.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.lblStatusMem.text")); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel8.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jLabel8.text")); // NOI18N
+        jLabel8.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jLabel8.text")); // NOI18N
 
-        lblPhone1.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.lblPhone1.text")); // NOI18N
+        lblPhone1.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.lblPhone1.text")); // NOI18N
         lblPhone1.setPreferredSize(new java.awt.Dimension(40, 15));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -339,25 +336,25 @@ public class MemberSearch extends javax.swing.JDialog {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jPanel1.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jPanel1.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel1.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jLabel1.text")); // NOI18N
+        jLabel1.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jLabel1.text")); // NOI18N
 
-        txtName.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.txtName.text")); // NOI18N
+        txtName.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.txtName.text")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel2.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jLabel2.text")); // NOI18N
+        jLabel2.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jLabel2.text")); // NOI18N
 
-        txtEmail.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.txtEmail.text")); // NOI18N
+        txtEmail.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.txtEmail.text")); // NOI18N
 
-        txtPhone.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.txtPhone.text")); // NOI18N
+        txtPhone.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.txtPhone.text")); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel3.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.jLabel3.text")); // NOI18N
+        jLabel3.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.jLabel3.text")); // NOI18N
 
-        btFilter.setText(org.openide.util.NbBundle.getMessage(MemberSearch.class, "MemberSearch.btFilter.text")); // NOI18N
+        btFilter.setText(org.openide.util.NbBundle.getMessage(MemberSearch1.class, "MemberSearch1.btFilter.text")); // NOI18N
         btFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btFilterActionPerformed(evt);
@@ -447,18 +444,10 @@ public class MemberSearch extends javax.swing.JDialog {
         if(evt.getClickCount() == 2){
             if(status){
                 try {
-                
-                    if(dataPopup != null){
-                        if(!selectedMember_No.equals("")){
-                            dataPopup.setDataPopUp(selectedMember_No);
-                        }
-                    }                        
-                    else if(dataPopup1 != null){
                         if(!selectedMember_No.equals("")){
                             dataPopup1.setDataPopUp(selectedMember_No);
                         }
-                    } 
-                    
+                                      
                 } catch (Exception e) {
                 }                  
                 dispose();                    
@@ -479,9 +468,7 @@ public class MemberSearch extends javax.swing.JDialog {
         tblMembers.setModel(Members.getFilterBySearchBox(txtName.getText(), txtEmail.getText(), txtPhone.getText()));
         UIHelper.hideColumnOfTable(tblMembers, 0);
     }//GEN-LAST:event_btFilterActionPerformed
-    public String getPopUpData() {
-	return dataPopup.getDataPopUp();
-    }
+   
     public String getPopUpData1(){
         return dataPopup1.getDataPopUp();
     }
