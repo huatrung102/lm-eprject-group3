@@ -140,6 +140,7 @@ public class ChangePassword extends javax.swing.JFrame {
         getContentPane().add(pnlBackground, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
