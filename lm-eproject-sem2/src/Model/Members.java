@@ -63,7 +63,21 @@ public class Members {
         }
         return mem;
     }
-    
+    public static Members getById(String mem_id){
+        Members mem = null;
+        ResultSet rs = null;
+        try {
+            rs = SqlHelper.getResultSet("Members_GetByID", mem_id);
+            if(rs.next()){
+                mem = Members.getObj(rs);                 
+            }
+        } catch (Exception e) {
+            SqlHelper.closeConnection(rs);
+            mem = null;
+        }
+        return mem;
+        
+    }
 	 private static Members getObj(ResultSet rs){
         Members mem = null;
         

@@ -458,7 +458,9 @@ public class ReturnManagement extends javax.swing.JFrame {
             for(int i =0;i <row;i++){
                 boolean check = Boolean.valueOf(String.valueOf(tblReturn.getModel().getValueAt(i, 0))) ;
                 if(check){
-                    //IRBooks.
+                    String IrDetail = String.valueOf(tblReturn.getModel().getValueAt(i, 1));
+                   // String 
+                   // IRBooks.ReturnBook(Member_No, TOP_ALIGNMENT, maxBook)
                 }
             }
         }else{
