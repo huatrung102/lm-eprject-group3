@@ -150,10 +150,19 @@ public class IRBooks {
         DefaultTableModel tblM = SqlHelper.getDefaultTableModel("IRBooks_getListBookNotReturn",Mem_No);
         return tblM;
     }
+    
+    public static DefaultTableModel ListByMemberNo(String Mem_No){
+        DefaultTableModel tblM = SqlHelper.getDefaultTableModel("Fines_ListByMemberNo",Mem_No);
+        return tblM;
+    }
     public static int IssueBook(HashMap Cop_No,String Mem_Id){
         return SqlHelper.executeNonQuery("IRBooks_IssueBook", Cop_No,Mem_Id);
     }
-    public static int ReturnBook(String IRDetail,Float amount, int lateday){
-        return SqlHelper.executeNonQuery("IRBooks_ReturnBook", IRDetail,amount,lateday);
+    public static int ReturnBook(HashMap IRDetail){
+        return SqlHelper.executeNonQuery("IRBooks_ReturnBook", IRDetail);
+    }
+    
+    public static int PaidFine(HashMap fineId){
+        return SqlHelper.executeNonQuery("Fines_Paid", fineId);
     }
 }
