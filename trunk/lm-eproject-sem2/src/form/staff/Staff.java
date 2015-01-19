@@ -4,15 +4,23 @@ import ExSwing.ClPanelTransparent;
 import Helpers.UIHelper;
 import Model.Staffs;
 import SysController.MessageHandle;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.openide.util.Exceptions;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -83,6 +91,8 @@ public class Staff extends javax.swing.JFrame {
         cbStatus.setEditable(false);
         cbRole.setEditable(false);
         
+        lblFileName.setVisible(true);
+        lblFileName.setText(null);
         txtID.setText(null);
         txtFirstname.setText(null);
         txtLastname.setText(null);
@@ -220,7 +230,7 @@ public class Staff extends javax.swing.JFrame {
         
         tblStaffList.clearSelection();
     }
-  
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -264,12 +274,13 @@ public class Staff extends javax.swing.JFrame {
         lblRegdate = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JPasswordField();
         txtLogin = new javax.swing.JTextField();
-        lblCover = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
+        lblStaffAvatar = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnChange = new javax.swing.JButton();
+        lblFileName = new javax.swing.JLabel();
         jPanel4 = new ClPanelTransparent();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -456,8 +467,8 @@ public class Staff extends javax.swing.JFrame {
                             .addComponent(txtEmail)
                             .addComponent(jScrollPane2)
                             .addComponent(lblRegdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtPassword)
-                            .addComponent(txtLogin))
+                            .addComponent(txtLogin)
+                            .addComponent(txtPassword))
                         .addGap(97, 97, 97))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -532,8 +543,8 @@ public class Staff extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
-        lblCover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/staff.png"))); // NOI18N
-        lblCover.setPreferredSize(new java.awt.Dimension(140, 140));
+        lblStaffAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/staff.png"))); // NOI18N
+        lblStaffAvatar.setPreferredSize(new java.awt.Dimension(140, 140));
 
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Update.png"))); // NOI18N
         btnUpdate.setText("Update");
@@ -559,17 +570,23 @@ public class Staff extends javax.swing.JFrame {
             }
         });
 
+        lblFileName.setText("jLabel6");
+        lblFileName.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblCover, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblStaffAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnChange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblFileName)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -581,13 +598,15 @@ public class Staff extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblCover, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblStaffAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(btnChange)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete)))
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblFileName)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -738,7 +757,14 @@ public class Staff extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+        //Chọn file hình và lấy đường dẫn
+        JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(null);
+        File sourefile = fc.getSelectedFile();
         
+        //Set image vào label cover
+        ImageIcon newIcon = new ImageIcon(sourefile.getPath());
+        lblStaffAvatar.setIcon(newIcon);
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnSaveInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveInsertActionPerformed
@@ -765,10 +791,107 @@ public class Staff extends javax.swing.JFrame {
         }
         MessageHandle.showMessage(MessageHandle.Obj_Staff, MessageHandle.Action_insert, rt);
         
+        if (txtFirstname.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "First Name do not NULL");
+            txtFirstname.requestFocus();
+            return;
+        } else if(txtFirstname.getText().length()>30){
+            JOptionPane.showMessageDialog(null, "First Name do not longer 30 chars");
+            txtFirstname.requestFocus();
+            return;
+        }
+        
+         if (txtLastname.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Last Name do not NULL");
+            txtLastname.requestFocus();
+            return;
+        } else if(txtLastname.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Last Name do not longer 50 chars");
+            txtLastname.requestFocus();
+            return;
+        }
+         
+        if (txtLogin.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Login do not NULL");
+            txtLogin.requestFocus();
+            return;
+        } else if(txtLogin.getText().length()>25){
+            JOptionPane.showMessageDialog(null, "Login do not longer 25 chars");
+            txtLogin.requestFocus();
+            return;
+        }
+        
+        if (txtPassword.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Password do not NULL");
+            txtPassword.requestFocus();
+            return;
+        }
+        
+        if (txtEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Email do not NULL");
+            txtEmail.requestFocus();
+            return;
+        } else if(txtEmail.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Email do not longer 50 chars");
+            txtEmail.requestFocus();
+            return;
+        }        
+        if(cbStatus.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(null, "Please choose a Status");
+            cbStatus.requestFocus();
+            return;
+        }
+        
+        if(cbRole.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(null, "Please choose a Role");
+            cbRole.requestFocus();
+            return;
+        }
+        
+        String pattern = "(^0[\\d]{9-10})"; //java regex pattern phone number
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(txtPhone.getText());
+        if(txtPhone.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please input Staff Phone!");
+            txtPhone.requestFocus();
+            return;
+        } else if(!m.find()){
+            JOptionPane.showMessageDialog(null, "Phone must be number, Ex:0xxxxxxxxxx");
+            txtPhone.requestFocus();
+            return;
+        }
+        
+        if ((String)cbStatus.getSelectedItem() == "Active"){
+            obj.Staff_Status = true;
+        } else {
+            obj.Staff_Status = false;
+        }
+        
+        if(txaAddress.getText().isEmpty()){
+            obj.Staff_Address = "";
+        }
+        
         
         
     }//GEN-LAST:event_btnSaveInsertActionPerformed
 
+    private static void copyFile(File source, File dest) throws IOException {
+            InputStream input = null;
+            OutputStream output = null;
+            try {
+                    input = new FileInputStream(source);
+                    output = new FileOutputStream(dest);
+                    byte[] buf = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = input.read(buf)) > 0) {
+                            output.write(buf, 0, bytesRead);
+                    }
+            } finally {
+                    input.close();
+                    output.close();
+            }
+    }
+    
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         setAddNewMode();
         
@@ -816,6 +939,12 @@ public class Staff extends javax.swing.JFrame {
             return;
         }
         
+        if (txtPassword.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Password do not NULL");
+            txtPassword.requestFocus();
+            return;
+        }
+        
         if (txtEmail.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Email do not NULL");
             txtEmail.requestFocus();
@@ -849,11 +978,35 @@ public class Staff extends javax.swing.JFrame {
             txtPhone.requestFocus();
             return;
         }
-                  
+        
+        if(lblFileName.getText() == null){
+            obj.Staff_ImageFile = lblStaffAvatar.getIcon().toString();
+        }else{
+            if(lblStaffAvatar.getIcon() == null){
+            obj.Staff_ImageFile = "imgStaff/MemNoAvatar.png";
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String newfilename = sdf.format(Calendar.getInstance().getTime());
+            File labelicon = new File(lblFileName.getText());
+            File desfile = new File("imgStaff\\"+newfilename+"_"+labelicon.getName());
+            try {
+                copyFile(labelicon, desfile);
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+            obj.Staff_ImageFile = "imgStaff/" + desfile.getName();
+        }
+        }
+        
+        if ((String)cbStatus.getSelectedItem() == "Active"){
+            obj.Staff_Status = true;
+        } else {
+            obj.Staff_Status = false;
+        }
+        
         if(txaAddress.getText().isEmpty()){
             obj.Staff_Address = "";
         }
-        
         //Get data from form and add to Object
         obj.Staff_Id = txtID.getText();
         obj.Staff_Address = txaAddress.getText();
@@ -861,16 +1014,12 @@ public class Staff extends javax.swing.JFrame {
         obj.Staff_LastName = txtLastname.getText();       
         obj.Staff_Phone = txtPhone.getText();
         obj.Staff_Login = txtLogin.getText();
-        obj.Staff_Role =String.valueOf(cbRole.getSelectedItem());//Model.Staffs.Staffs_getStaffbyStaffId(String)instanceof cbRole.getSelectedItem().Staff_Id;
-        obj.Staff_Status = (boolean) cbStatus.getSelectedItem(); 
-        //obj.Book_ImageFile = lblCover.getIcon().toString();
+        obj.Staff_Role =String.valueOf(cbRole.getSelectedItem());
         obj.Staff_ImageFile = "/imgBook/Nocover.JPG";
-        if ((String)cbStatus.getSelectedItem() == "Active"){
-            obj.Staff_isDeleted = false;
-        } else {
-            obj.Staff_isDeleted = true;
-        }
-        
+//        obj.Staff_Status = (boolean) cbStatus.getSelectedItem(); 
+        //obj.Book_ImageFile = lblCover.getIcon().toString();
+       
+       
         setNormalMode();
         int line = tblStaffList.getSelectedRow();
         DefaultTableModel tbm = new DefaultTableModel();
@@ -909,7 +1058,7 @@ public class Staff extends javax.swing.JFrame {
         }
         
         ImageIcon icon = new ImageIcon(obj.Staff_ImageFile);
-        lblCover.setIcon(icon);
+        lblStaffAvatar.setIcon(icon);
     }//GEN-LAST:event_tblStaffListMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -1002,8 +1151,9 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JLabel lblCover;
+    private javax.swing.JLabel lblFileName;
     private javax.swing.JLabel lblRegdate;
+    private javax.swing.JLabel lblStaffAvatar;
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JTable tblStaffList;
     private javax.swing.JTextArea txaAddress;
