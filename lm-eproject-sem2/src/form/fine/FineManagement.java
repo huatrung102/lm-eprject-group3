@@ -16,15 +16,19 @@ import Helpers.UIHelper;
 import Model.Books;
 import Model.IRBooks;
 import Model.Members;
+import SysController.MessageHandle;
 import bussiness.Fine;
 import form.ir.IssueManagement;
 import form.ir.ReturnManagement;
 import form.main.Main;
+import form.member.MemberSearch;
+import form.member.MemberSearch2;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -46,52 +50,47 @@ public class FineManagement extends javax.swing.JFrame {
     /**
      * Creates new form FineManagement
      */
-    Books glBook;
+    private HashMap<String, String> ListFine;
     double totalmoney = 0;
-    
+    public String Member_No = "";
     private static final int checkBox_Col = 0; //first column
     private static String fine_col[] = //{"","No","ISBN","Title","Copy No","Issue Date","Due Date","Late Day"}
-                                        {"","No","ISBN","Title","Copy No","Book's Price","Late Date", "Pay"};
-    public FineManagement() {
+                                        {"","","No","ISBN","Copy No","Title","Money", "CreateDate"};
+    private Members selectedMember;
+    public FineManagement() {        
         initComponents();
         initForm();
         initTblFine();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-       //  loadBook();
-      //   loadIRBook();
-      //   loadTotalPrice();
-       //  loadMember();
-    }
-    private void bindTestValue(DefaultTableModel tblM){
-        
-        Books b = Books.getTestBook();
-        int lateday = 0;
-        Date date;
        
-        SimpleDateFormat simpledate = new SimpleDateFormat("dd/MM/yyyy");
-        
-        try {
-            date = simpledate.parse("31/12/2014");
-            Calendar caldue = Calendar.getInstance();
-            caldue.setTime(date);
-            
-            Calendar calcurrent = Calendar.getInstance();
-            calcurrent.setTime(new Date());
-            while(!caldue.after(calcurrent)){
-                caldue.add(Calendar.DATE, 1);
-                lateday++;
-            }            
-            
-        } catch (Exception e) {
-            System.out.println("Error");
-        }  
-        tblM.addRow(new Object[] {Boolean.FALSE,1,b.Book_ISBN,b.Book_Title ,"00016",b.Book_Price, 
-                                    (lateday-1),Fine.calculateFine((lateday-1), b.Book_Price)});
-         tblM.addRow(new Object[] {Boolean.FALSE,2,b.Book_ISBN,b.Book_Title ,"00017",b.Book_Price, 
-                                    (lateday-1),Fine.calculateFine((lateday-1), b.Book_Price)});
-        
+    }
+    public void setDataPopUp(String memberNo) {
+        this.Member_No = memberNo;
+    }
+    public String getDataPopUp() {
+        return Member_No;
     }
     
+    private void bindDataToTableModel(){
+        if(selectedMember != null){
+        //    int nRow = tblFine.getRowCount(),nCol = tblFine.getColumnCount();
+            //Object[][] data = new Object[nRow][nCol];
+            DefaultTableModel tbm = IRBooks.ListByMemberNo(selectedMember.Mem_No);
+            
+
+            
+            tblFine.setModel(tbm);
+            UIHelper.hideColumnOfTable(tblFine, 0);
+            //column price
+            lblTotalPrice.setText(Fine.calculateTotal(tblFine, 5));
+//            TableColumn tc = tblFine.getColumnModel().getColumn(checkBox_Col);
+//            tc.setHeaderRenderer(new SelectAllHeader(tblFine, checkBox_Col));
+//            tc.setCellEditor(tblFine.getDefaultEditor(Boolean.class));  
+//            tc.setCellRenderer(tblFine.getDefaultRenderer(Boolean.class));
+        }
+        
+        
+    }
     private void initTblFine(){
         DefaultTableModel tblM = //IRBooks.getTestIRBookReturn(Books.getTestBook());
          new DefaultTableModel(fine_col, 0){
@@ -105,28 +104,28 @@ public class FineManagement extends javax.swing.JFrame {
             }
         }
     };
-        bindTestValue(tblM);
+     //   bindTestValue(tblM);
         tblFine.setModel(tblM);
-        TableColumn tc = tblFine.getColumnModel().getColumn(checkBox_Col);  
-        tc.setHeaderRenderer(new SelectAllHeader(tblFine, checkBox_Col));
-        tc.setCellEditor(tblFine.getDefaultEditor(Boolean.class));  
-        tc.setCellRenderer(tblFine.getDefaultRenderer(Boolean.class));
+//        TableColumn tc = tblFine.getColumnModel().getColumn(checkBox_Col);
+//        tc.setHeaderRenderer(new SelectAllHeader(tblFine, checkBox_Col));
+//        tc.setCellEditor(tblFine.getDefaultEditor(Boolean.class));  
+//        tc.setCellRenderer(tblFine.getDefaultRenderer(Boolean.class));
         //tc.setCellRenderer(new CheckBoxTableCellEditor(new FineManagement.MyItemListener()));  
-       tblFine.getModel().addTableModelListener(new TableModelListener() {
-
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                int x = tblFine.getModel().getColumnCount();
-                totalmoney = 0;
-                for(int i= 0 ; i < tblFine.getModel().getRowCount();i++){
-                    if((Boolean) tblFine.getModel().getValueAt(i, 0)){
-                        String temp = tblFine.getModel().getValueAt(i,x-1).toString();
-                        totalmoney +=   Double.parseDouble(temp);
-                    }
-                }
-                 lblTotalPrice.setText(String.valueOf(totalmoney));
-            }
-        });
+//       tblFine.getModel().addTableModelListener(new TableModelListener() {
+//
+//            @Override
+//            public void tableChanged(TableModelEvent e) {
+//                int x = tblFine.getModel().getColumnCount();
+//                totalmoney = 0;
+//                for(int i= 0 ; i < tblFine.getModel().getRowCount();i++){
+//                    if((Boolean) tblFine.getModel().getValueAt(i, 0)){
+//                        String temp = tblFine.getModel().getValueAt(i,x-1).toString();
+//                        totalmoney +=   Double.parseDouble(temp);
+//                    }
+//                }
+//                 lblTotalPrice.setText(String.valueOf(totalmoney));
+//            }
+//        });
        // tblReturn.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JCheckBox()));
     }
   /*
@@ -149,28 +148,12 @@ public class FineManagement extends javax.swing.JFrame {
     }  
   } 
     */
-    private void loadBook(){
-       // glBook = Books.getTestBook();
+   
+    /*
+    private void loadTblFine(){
+        tblFine.setModel(IRBooks.ListByMemberNo(selectedMember.Mem_No));
     }
-    private void loadIRBook(){
-        tblFine.setModel(IRBooks.getTestIRBookFine(glBook));
-    }
-    private void loadTotalPrice(){
-        lblTotalPrice.setText(String.valueOf(Fine.calculateTotal(tblFine, 6)) + " $");
-    }
-    private void loadMember(){
-        Members mem = null; //Members.getTestMember();
-        lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
-        lblPhone.setText(mem.Mem_Phone);
-        lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
-        lblRegisterDate.setText(mem.Mem_CreateDate);
-        //load image member
-        lblImgMember.setIcon(new ImageIcon(Main.class
-                        .getResource(mem.Mem_ImageFile)));        
-        lblImgMember.setBounds(0, 0, 140, 140);
-        
-    }
-    
+    */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -330,6 +313,11 @@ public class FineManagement extends javax.swing.JFrame {
 
         btFine.setForeground(java.awt.Color.darkGray);
         btFine.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.btFine.text")); // NOI18N
+        btFine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFineActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.jPanel4.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
         jPanel4.setPreferredSize(new java.awt.Dimension(250, 176));
@@ -470,12 +458,69 @@ public class FineManagement extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void loadMember(){
+        String mem_No = txtMemberNo.getText();
+        Members mem = Members.getIRCountInformation(mem_No);
+        
+        if(mem != null){
+            selectedMember = mem;
+            
+            lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
+            lblPhone.setText(mem.Mem_Phone);
+            
+            lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
+            lblRegisterDate.setText(mem.Mem_CreateDate);            
+            
+            //load image member
+            lblImgMember.setIcon(new ImageIcon(Main.class
+                            .getResource(mem.Mem_ImageFile)));        
+            lblImgMember.setBounds(0, 0, 140, 140);
+            //rebind data tbl issued
+            
+        }else{
+            MessageHandle.showError("Can not find Member with No: " + mem_No);
+        }
+        
+    }
+    
     private void btSearchMemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchMemActionPerformed
         // TODO add your handling code here:
-        
+       // loadTblFine();
+        MemberSearch2 memberSearchBox = new MemberSearch2(this, true);
+        memberSearchBox.setVisible(true);
+        txtMemberNo.setText(memberSearchBox.getPopUpData());   
+        loadMember();
+        bindDataToTableModel();
     }//GEN-LAST:event_btSearchMemActionPerformed
+
+    private void btFineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFineActionPerformed
+        // TODO add your handling code here:
+        int row = tblFine.getRowCount();
+        if(row> 0 ){
+            for(int i =0;i <row;i++){
+                String fineid = String.valueOf(tblFine.getModel().getValueAt(i, 0)) ;
+                ListFine.put(fineid, fineid);
+            }
+            int result = IRBooks.PaidFine(ListFine);
+            MessageHandle.showMessage(MessageHandle.Obj_Book, MessageHandle.Action_return, result);
+            if(result == 1) ((DefaultTableModel)tblFine.getModel()).setNumRows(0);
+            /*
+            for(int i =0;i <row;i++){
+                boolean check = Boolean.valueOf(String.valueOf(tblReturn.getModel().getValueAt(i, 0))) ;
+                if(check){
+                    String IrDetail = String.valueOf(tblReturn.getModel().getValueAt(i, 1));
+                   // String 
+                   // IRBooks.ReturnBook(Member_No, TOP_ALIGNMENT, maxBook)
+                }
+            }
+            */
+        }else{
+            MessageHandle.showError("Member dont have Fee fine to pay!");
+        }
+        
+    }//GEN-LAST:event_btFineActionPerformed
     private void initForm(){
+        ListFine = new HashMap<>(5);
         /*
         glasspane  = new GlassPaneProgress();
         setGlassPane(glasspane);
