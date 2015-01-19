@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import sun.util.calendar.Gregorian;
 
@@ -138,11 +139,21 @@ public class IRBooks {
         DefaultTableModel tblM = SqlHelper.getDefaultTableModel("Books_getListBookByFilter"
                                             , b.Book_ISBN
                                             , b.Book_Title
-                                            , b.Cat_Id);
+                                            , b.Book_Author);
         return tblM;
     }
     public static DefaultTableModel getListBookNotReturnByMemberNo(String Mem_No){
         DefaultTableModel tblM = SqlHelper.getDefaultTableModel("IRBooks_getListBookNotReturnByMemberNo",Mem_No);
         return tblM;
+    }
+    public static DefaultTableModel getListBookNotReturn(String Mem_No){
+        DefaultTableModel tblM = SqlHelper.getDefaultTableModel("IRBooks_getListBookNotReturn",Mem_No);
+        return tblM;
+    }
+    public static int IssueBook(HashMap Cop_No,String Mem_Id){
+        return SqlHelper.executeNonQuery("IRBooks_IssueBook", Cop_No,Mem_Id);
+    }
+    public static int ReturnBook(String IRDetail,Float amount, int lateday){
+        return SqlHelper.executeNonQuery("IRBooks_ReturnBook", IRDetail,amount,lateday);
     }
 }
