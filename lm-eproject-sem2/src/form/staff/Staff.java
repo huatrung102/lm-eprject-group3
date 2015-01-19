@@ -117,20 +117,20 @@ public class Staff extends javax.swing.JFrame {
     public void setSelectedMode(){
         txtID.setEnabled(false);
         btnChange.setEnabled(false);
-        txtLogin.setEnabled(true);
-        txtPassword.setEnabled(true);
+        txtLogin.setEnabled(false);
+        txtPassword.setEnabled(false);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
         txtEmail.setEnabled(true);
         txaAddress.setEnabled(true);
         lblRegdate.setEnabled(true);
-        cbStatus.setEnabled(true);
-        cbRole.setEnabled(true);
+        cbStatus.setEnabled(false);
+        cbRole.setEnabled(false);
         
         txtID.setEditable(false);
-        txtLogin.setEditable(true);
-        txtPassword.setEditable(true);
+        txtLogin.setEditable(false);
+        txtPassword.setEditable(false);
         txtFirstname.setEditable(false);
         txtLastname.setEditable(false);
         txtPhone.setEditable(false);
@@ -285,11 +285,6 @@ public class Staff extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblStaffList = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
-        btnFirst = new javax.swing.JButton();
-        btnPre = new javax.swing.JButton();
-        btnNext = new javax.swing.JButton();
-        btnLast = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
 
@@ -409,7 +404,7 @@ public class Staff extends javax.swing.JFrame {
 
         jLabel3.setText("Role");
 
-        cbRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Book", "Staff", "Member", "IRBook", "Admin" }));
+        cbRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Member", "Admin", "IR", "Book", "Fine" }));
 
         btnSaveInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Save.png"))); // NOI18N
         btnSaveInsert.setText("Save");
@@ -563,7 +558,7 @@ public class Staff extends javax.swing.JFrame {
         });
 
         btnChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Picture.png"))); // NOI18N
-        btnChange.setText("Change");
+        btnChange.setText("Choose Avatar");
         btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangeActionPerformed(evt);
@@ -655,33 +650,17 @@ public class Staff extends javax.swing.JFrame {
             tblStaffList.getColumnModel().getColumn(4).setPreferredWidth(20);
         }
 
-        btnFirst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/first.png"))); // NOI18N
-        jPanel8.add(btnFirst);
-
-        btnPre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pre.png"))); // NOI18N
-        jPanel8.add(btnPre);
-
-        btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/next.png"))); // NOI18N
-        jPanel8.add(btnNext);
-
-        btnLast.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/last.png"))); // NOI18N
-        jPanel8.add(btnLast);
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
         );
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -1111,10 +1090,6 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnChange;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnFirst;
-    private javax.swing.JButton btnLast;
-    private javax.swing.JButton btnNext;
-    private javax.swing.JButton btnPre;
     private javax.swing.JButton btnSaveInsert;
     private javax.swing.JButton btnSaveUpdate;
     private javax.swing.JButton btnSearch;
@@ -1146,7 +1121,6 @@ public class Staff extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
