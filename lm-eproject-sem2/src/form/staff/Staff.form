@@ -448,11 +448,10 @@
                 <Component class="javax.swing.JComboBox" name="cbStatus">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
+                      <StringArray count="3">
+                        <StringItem index="0" value="Active"/>
+                        <StringItem index="1" value="InActive"/>
+                        <StringItem index="2" value=" "/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -497,11 +496,12 @@
                 <Component class="javax.swing.JComboBox" name="cbRole">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
+                      <StringArray count="5">
+                        <StringItem index="0" value="Book"/>
+                        <StringItem index="1" value="Staff"/>
+                        <StringItem index="2" value="Member"/>
+                        <StringItem index="3" value="IRBook"/>
+                        <StringItem index="4" value="Admin"/>
                       </StringArray>
                     </Property>
                   </Properties>
