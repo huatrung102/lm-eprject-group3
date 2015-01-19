@@ -181,6 +181,7 @@ public class Login extends javax.swing.JFrame {
         if(staff != null){
             Staffs.Staff_Logined = staff;
             new Main().setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btLoginActionPerformed
 

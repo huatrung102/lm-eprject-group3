@@ -12,6 +12,8 @@ import Helpers.UIHelper;
 import Model.Staffs;
 import SysController.MessageHandle;
 import form.book.BookList;
+import form.category.Category;
+import form.changepass.ChangePassword;
 import form.copy.Copies;
 import form.fine.FineManagement;
 import form.ir.IssueManagement;
@@ -621,9 +623,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(70, 70, 70)
                 .addGroup(pnlBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(iconMem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(iconMem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(54, 54, 54)
                 .addGroup(pnlBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(iconMem15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1285,7 +1287,7 @@ public class Main extends javax.swing.JFrame {
 
     private void iconMem3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem3MouseClicked
         // TODO add your handling code here:
-        new Copies().setVisible(true);
+        new Category().setVisible(true);
     }//GEN-LAST:event_iconMem3MouseClicked
 
     private void iconMem4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem4MouseClicked
@@ -1328,6 +1330,7 @@ public class Main extends javax.swing.JFrame {
 
     private void iconMem12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem12MouseClicked
         // TODO add your handling code here:
+        new ChangePassword().setVisible(true);
     }//GEN-LAST:event_iconMem12MouseClicked
 
     private void iconMem13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem13MouseClicked
