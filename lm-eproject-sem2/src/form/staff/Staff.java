@@ -103,7 +103,6 @@ public class Staff extends javax.swing.JFrame {
         
         
         btnDelete.setEnabled(false);
-        btnChange.setEnabled(true);
         btnUpdate.setEnabled(false);
         
         btnSaveUpdate.setVisible(false);
