@@ -1,0 +1,72 @@
+USE [LMS]
+GO
+/****** Object:  UserDefinedFunction [dbo].[returnNextMemNo]    Script Date: 19/01/2015 10:51:17 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		TRUNGHTH
+-- Create date: <Create Date, ,>
+-- Description:	<Description, ,>
+-- =============================================
+ALTER FUNCTION [dbo].[returnNextMemNo]
+(
+	
+)
+RETURNS CHAR(8)
+AS
+BEGIN
+	DECLARE @MAXINT INT;
+	DECLARE @NEWNO CHAR(8)
+	SELECT @MAXINT = (CONVERT(INT,RIGHT(M.Mem_No,7))+1) FROM Members m;
+	IF(ISNULL(@MAXINT,0) =0)
+		SET @NEWNO = 'M' + '0000001' ;
+	ELSE
+		SET @NEWNO = 'M' + RIGHT('0000000' + CONVERT(VARCHAR(7),@MAXINT),7) ;
+	RETURN @NEWNO;
+END
+
+
+USE [LMS]
+GO
+/****** Object:  StoredProcedure [dbo].[Members_Insert]    Script Date: 19/01/2015 10:51:38 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		@Author,,Name>
+-- Create date: @Create Date,
+-- Description:	@Description,
+-- =============================================
+ALTER PROCEDURE [dbo].[Members_Insert]
+			
+           @Mem_FirstName nvarchar(30)
+           ,@Mem_LastName nvarchar(50)
+           
+           ,@Mem_Phone varchar(20)
+           ,@Mem_Address nvarchar(200)
+           ,@Mem_Email varchar(50)
+           ,@Mem_ImageFile varchar(255)
+           
+AS
+BEGIN
+	INSERT INTO [dbo].[Members]
+           ([Mem_FirstName]
+           ,[Mem_LastName]
+           ,Mem_No
+           ,[Mem_Phone]
+           ,[Mem_Address]
+           ,[Mem_Email]
+           ,[Mem_ImageFile])
+     VALUES
+           (@Mem_FirstName
+           ,@Mem_LastName
+           ,dbo.returnNextMemNo()
+           ,@Mem_Phone
+           ,@Mem_Address
+           ,@Mem_Email
+           ,@Mem_ImageFile)
+
+END
