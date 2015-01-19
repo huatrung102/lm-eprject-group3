@@ -392,7 +392,7 @@ public class Staff extends javax.swing.JFrame {
 
         jLabel15.setText("Status");
 
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "InActive", " " }));
 
         txaAddress.setColumns(20);
         txaAddress.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -409,7 +409,7 @@ public class Staff extends javax.swing.JFrame {
 
         jLabel3.setText("Role");
 
-        cbRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbRole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Book", "Staff", "Member", "IRBook", "Admin" }));
 
         btnSaveInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Save.png"))); // NOI18N
         btnSaveInsert.setText("Save");
