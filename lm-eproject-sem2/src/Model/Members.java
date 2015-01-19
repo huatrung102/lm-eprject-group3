@@ -133,5 +133,8 @@ public class Members {
                  ,obj.Mem_Status);
     }
     
+    public static int Members_Lock(String Mem_Id){
+        return SqlHelper.executeNonQuery("Members_Lock", Mem_Id);
+    }   
     
 }
