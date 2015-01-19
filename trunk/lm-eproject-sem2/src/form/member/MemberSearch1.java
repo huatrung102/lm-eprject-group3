@@ -39,7 +39,7 @@ public class MemberSearch1 extends javax.swing.JDialog {
         super(parent, modal);        
         initComponents();
         dataPopup1 = new ReturnManagement();
-            
+            setLocationRelativeTo(null);
         initDialog();
         initMember();
         initTblMember();
