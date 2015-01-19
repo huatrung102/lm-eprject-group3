@@ -256,3 +256,131 @@ else
 select 0 'check'
 END
 GO
+
+ALTER PROCEDURE [dbo].[Members_Insert]
+			@Mem_No char(8)
+           ,@Mem_FirstName nvarchar(30)
+           ,@Mem_LastName nvarchar(50)
+           ,@Mem_Phone varchar(20)
+           ,@Mem_Address nvarchar(200)
+           ,@Mem_Email varchar(50)
+           ,@Mem_ImageFile varchar(255)
+AS
+BEGIN
+	INSERT INTO [dbo].[Members]
+           ([Mem_FirstName]
+		   ,[Mem_No]
+           ,[Mem_LastName]
+           ,[Mem_Phone]
+           ,[Mem_Address]
+           ,[Mem_Email]
+           ,[Mem_ImageFile])
+     VALUES
+           (@Mem_FirstName
+		   ,@Mem_No
+           ,@Mem_LastName
+           ,@Mem_Phone
+           ,@Mem_Address
+           ,@Mem_Email
+           ,@Mem_ImageFile)
+
+END
+
+ALTER PROCEDURE [dbo].[Members_Update]
+		@Mem_Id char(36)
+      ,	@Mem_FirstName nvarchar(30)
+      ,	@Mem_LastName nvarchar(50)
+      , @Mem_Phone varchar(20)
+      , @Mem_Address nvarchar(200)
+      ,	@Mem_Email varchar(50)
+      , @Mem_ImageFile varchar(255)
+AS
+BEGIN
+	UPDATE [dbo].[Members]
+   SET [Mem_FirstName] = @Mem_FirstName
+      ,[Mem_LastName] = @Mem_LastName
+      ,[Mem_Phone] = @Mem_Phone
+      ,[Mem_Address] = @Mem_Address
+      ,[Mem_Email] = @Mem_Email
+      ,[Mem_ImageFile] = @Mem_ImageFile
+ WHERE Mem_Id = @Mem_Id
+END
+
+ALTER PROCEDURE [dbo].[Staffs_Lock]
+	@Staff_Id char(36)
+AS
+BEGIN
+	UPDATE [dbo].[Staffs]
+   SET 
+   
+   [Staff_isDelete] = 1
+
+ WHERE @Staff_Id = Staff_Id
+END
+
+ALTER PROCEDURE [dbo].[Mems_getMemberList]
+AS
+BEGIN
+	SELECT [Mem_Id]
+      ,[Mem_FirstName]
+      ,[Mem_LastName]
+      ,[Mem_No]
+      ,[Mem_Phone]
+      ,[Mem_Address]
+      ,[Mem_Email]
+      ,case when Mem_Status = 1 then 'Active' else 'InActive' end 'Status'
+      --,[Mem_CreateDate]
+      --,[Mem_isDelete]
+      --,[Mem_ImageFile]
+	FROM [dbo].[Members] 
+END
+
+ALTER PROCEDURE [dbo].[Staffs_getListStaff]
+AS
+BEGIN
+	SELECT [Staff_Id]  
+      ,[Staff_FirstName]'First Name'
+      ,[Staff_LastName] 'Last Name'
+      ,[Staff_Login]'Login'
+      --,[Staff_Password]
+	  -- ,[Staff_Phone]
+      ,[Staff_Role] 'Role'
+      --,[Staff_Address]
+      ,[Staff_Email] 'Email' 
+      ,case when Staff_Status = 1 then 'Active' else 'InActive' end 'Status'
+      --,[Staff_CreateDate]
+      --,[Staff_isDelete]
+      --,[Staff_ImageFile]
+  FROM [dbo].[Staffs]
+END
+
+ALTER PROCEDURE [dbo].[Staffs_getStaffbyStaffId]
+	@Staff_Id CHAR(36)
+AS
+BEGIN
+	SELECT * FROM Staffs WHERE Staff_Id = @Staff_Id
+END
+
+ALTER PROCEDURE [dbo].[Staffs_getStaffListbyStaffId]
+@Staff_Id CHAR(36)
+AS
+BEGIN
+	SELECT [Staff_Id]
+      ,[Staff_FirstName]
+      ,[Staff_LastName]
+      ,[Staff_Login]
+      --,[Staff_Password]
+      --,[Staff_Phone]
+      ,[Staff_Role]
+      --,[Staff_Address]
+      ,[Staff_Email]
+      ,case when Staff_Status = 1 then 'Active' else 'InActive' end 'Status'
+      --,[Staff_CreateDate]
+      --,[Staff_isDelete]
+      --,[Staff_ImageFile]
+  FROM [dbo].[Staffs]
+	WHERE Staff_Id = @Staff_Id
+	GROUP BY Staff_Id,Staff_FirstName, Staff_LastName, Staff_Email, Staff_Login,Staff_Role,Staff_Status
+END
+
+
