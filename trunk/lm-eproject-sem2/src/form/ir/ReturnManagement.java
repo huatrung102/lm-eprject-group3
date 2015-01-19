@@ -5,6 +5,7 @@
  */
 package form.ir;
 
+import Config.SysVar;
 import ExSwing.ClButtonTransparan;
 import ExSwing.ClPanelTransparent;
 import ExSwing.CheckBoxHeader;
@@ -17,6 +18,7 @@ import Model.Members;
 import SysController.MessageHandle;
 import form.main.Main;
 import form.member.MemberSearch;
+import form.member.MemberSearch1;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.logging.Level;
@@ -25,6 +27,7 @@ import javax.swing.AbstractButton;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -41,12 +44,15 @@ public class ReturnManagement extends javax.swing.JFrame {
     Books glBook;
     public String Member_No;
     private static final int checkBox_Col = 0; //first column
-    private static String return_col[] = {"","No","ISBN","Title","Copy No","Issue Date","Due Date","Late Day"};
+    private static String return_col[] = {"√ Select all","","No","ISBN","Title","Copy No","IssueDate","DueDate","Late Day"};
+    DefaultTableModel tblDef = new DefaultTableModel();    
     private GlassPaneProgress glasspane;
+    private Members selectedMember;    
     int minBook = 0;
     int maxBook = 5;
     public ReturnManagement() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initForm();
          btSearchMem.setIcon(new ImageIcon(IssueManagement.class
                         .getResource("/image/Explore.png")));
@@ -55,20 +61,38 @@ public class ReturnManagement extends javax.swing.JFrame {
         
         UIHelper.bindBackground(pnlReturn);
         initTblReturn();
+        initMember();
       //  loadBook();
       //  loadIRBook();
       //  loadMember();
     }
+    private void initMember(){
+        lblMemberNo.setText("");
+        lblFullname.setText("");
+        lblPhone.setText("");        
+        lblRegisterDate.setText("");
+        lblStatusMem.setText("");
+        
+        //load image member
+        lblImgMember.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource(SysVar.image_member_defaut)));        
+        lblImgMember.setBounds(0, 0, 140, 140);
+    }
     private void initTblReturn(){
-        DefaultTableModel tblM = IRBooks.getTestIRBookReturn(Books.getTestBook());//= new DefaultTableModel(return_col, 0);
+        DefaultTableModel tblM = new DefaultTableModel(return_col, 0);
         tblReturn.setModel(tblM);
         
         TableColumn tc = tblReturn.getColumnModel().getColumn(checkBox_Col);  
         tc.setHeaderRenderer(new SelectAllHeader(tblReturn, checkBox_Col));
         tc.setCellEditor(tblReturn.getDefaultEditor(Boolean.class));  
         tc.setCellRenderer(tblReturn.getDefaultRenderer(Boolean.class));  
-        
+        UIHelper.hideColumnOfTable(tblReturn,1);
        // tblReturn.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JCheckBox()));
+    }
+    private void loadTblReturn(){
+        DefaultTableModel tblM = IRBooks.getListBookNotReturn(selectedMember.Mem_No);
+        tblReturn.setModel(tblM);
+        UIHelper.hideColumnOfTable(tblReturn,1);
     }
     private void initForm(){
         glasspane  = new GlassPaneProgress();
@@ -102,15 +126,26 @@ public class ReturnManagement extends javax.swing.JFrame {
 //        tblReturn.setModel(IRBooks.getTestIRBookReturn(glBook));
     }
     private void loadMember(){
-        Members mem = null; //Members.getTestMember();
-        lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
-        lblPhone.setText(mem.Mem_Phone);
-        lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
-        lblRegisterDate.setText(mem.Mem_CreateDate);
-        //load image member
-        lblImgMember.setIcon(new ImageIcon(Main.class
-                        .getResource(mem.Mem_ImageFile)));        
-        lblImgMember.setBounds(0, 0, 140, 140);
+        String mem_No = txtMemberNo.getText();
+        Members mem = Members.getIRCountInformation(mem_No);
+        
+        if(mem != null){
+            selectedMember = mem;
+            lblMemberNo.setText(mem.Mem_No);
+            lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
+            lblPhone.setText(mem.Mem_Phone);
+            
+            lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
+            lblRegisterDate.setText(mem.Mem_CreateDate);            
+           
+            //load image member
+            lblImgMember.setIcon(new ImageIcon(Main.class
+                            .getResource(mem.Mem_ImageFile)));        
+            lblImgMember.setBounds(0, 0, 140, 140);
+            //rebind data tbl issued
+        }else{
+            MessageHandle.showError("Can not find Member with No: " + mem_No);
+        }
         
     }
     /**
@@ -150,6 +185,8 @@ public class ReturnManagement extends javax.swing.JFrame {
         lblPhone = new javax.swing.JLabel();
         lblRegisterDate = new javax.swing.JLabel();
         lblStatusMem = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblMemberNo = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -296,56 +333,66 @@ public class ReturnManagement extends javax.swing.JFrame {
 
         lblStatusMem.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblStatusMem.text")); // NOI18N
 
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel6.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.jLabel6.text")); // NOI18N
+
+        lblMemberNo.setText(org.openide.util.NbBundle.getMessage(ReturnManagement.class, "ReturnManagement.lblMemberNo.text")); // NOI18N
+        lblMemberNo.setPreferredSize(new java.awt.Dimension(40, 15));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(170, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblMemberNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRegisterDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFullname, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                    .addComponent(lblStatusMem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(pnlImgMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblRegisterDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(lblStatusMem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(272, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 164, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblFullname))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblRegisterDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblStatusMem))
+                .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(lblFullname))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(lblPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(lblRegisterDate))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel5)
-                                .addComponent(lblStatusMem))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE))
-                        .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -397,13 +444,27 @@ public class ReturnManagement extends javax.swing.JFrame {
 
     private void btSearchMemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchMemActionPerformed
         // TODO add your handling code here:
-        MemberSearch memberSearchBox = new MemberSearch(this, true);
+        MemberSearch1 memberSearchBox = new MemberSearch1(this, true);
         memberSearchBox.setVisible(true);
-        txtMemberNo.setText(memberSearchBox.getPopUpData1());       
+        txtMemberNo.setText(memberSearchBox.getPopUpData1());      
+        loadMember();
+        loadTblReturn();
     }//GEN-LAST:event_btSearchMemActionPerformed
 
     private void btReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReturnActionPerformed
         // TODO add your handling code here:
+        int row = tblReturn.getRowCount();
+        if(row> 0 ){
+            for(int i =0;i <row;i++){
+                boolean check = Boolean.valueOf(String.valueOf(tblReturn.getModel().getValueAt(i, 0))) ;
+                if(check){
+                    //IRBooks.
+                }
+            }
+        }else{
+            MessageHandle.showError("Member dont have book issued!");
+        }
+        
         /*
         boolean flag;
         for(int i = 0; i< tblReturn.getRowCount(); i ++){
@@ -473,6 +534,7 @@ public class ReturnManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -480,6 +542,7 @@ public class ReturnManagement extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFullname;
     private javax.swing.JLabel lblImgMember;
+    private javax.swing.JLabel lblMemberNo;
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblRegisterDate;
     private javax.swing.JLabel lblStatusMem;
