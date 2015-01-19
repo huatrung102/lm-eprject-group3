@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -51,6 +53,7 @@ public class Members extends javax.swing.JFrame {
     public void setNormalMode(){
         txtID.setEnabled(false);
         txtNo.setEnabled(false);
+        btnChange.setEnabled(false);
         txtFirstname.setEnabled(false);
         txtLastname.setEnabled(false);
         txtPhone.setEnabled(false);
@@ -69,7 +72,8 @@ public class Members extends javax.swing.JFrame {
         txaAddress.setEditable(false);
         cbStatus.setEditable(false);
         
-        
+        lblFileName.setVisible(true);
+        lblFileName.setText(null);
         txtID.setText(null);
         txtNo.setText(null);
         txtFirstname.setText(null);
@@ -95,6 +99,7 @@ public class Members extends javax.swing.JFrame {
     public void setSelectedMode(){
         txtID.setEnabled(false);
         txtNo.setEnabled(false);
+        btnChange.setEnabled(false);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -128,6 +133,7 @@ public class Members extends javax.swing.JFrame {
     public void setUpdateMode(){
         txtID.setEnabled(false);
         txtNo.setEnabled(false);
+        btnChange.setEnabled(true);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -159,6 +165,7 @@ public class Members extends javax.swing.JFrame {
     public void setAddNewMode(){
         txtID.setEnabled(false);
         txtNo.setEnabled(false);
+        btnChange.setEnabled(true);
         txtFirstname.setEnabled(true);
         txtLastname.setEnabled(true);
         txtPhone.setEnabled(true);
@@ -262,6 +269,7 @@ public class Members extends javax.swing.JFrame {
         btnChange = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        lblFileName = new javax.swing.JLabel();
         jPanel4 = new ClPanelTransparent();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -484,8 +492,8 @@ public class Members extends javax.swing.JFrame {
                 .addGroup(pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel14)
                     .addComponent(lblRegdate, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -527,17 +535,22 @@ public class Members extends javax.swing.JFrame {
             }
         });
 
+        lblFileName.setText("jLabel6");
+        lblFileName.setEnabled(false);
+
         javax.swing.GroupLayout pnlUpdateLayout = new javax.swing.GroupLayout(pnlUpdate);
         pnlUpdate.setLayout(pnlUpdateLayout);
         pnlUpdateLayout.setHorizontalGroup(
             pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUpdateLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChange, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblMemAvatar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnChange, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMemAvatar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblFileName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -553,6 +566,8 @@ public class Members extends javax.swing.JFrame {
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFileName)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnlUpdateLayout.createSequentialGroup()
                 .addComponent(pnlProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -698,7 +713,7 @@ public class Members extends javax.swing.JFrame {
                     .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(pnlUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(155, Short.MAX_VALUE)))
+                    .addContainerGap(162, Short.MAX_VALUE)))
         );
 
         getContentPane().add(pnlBackground, java.awt.BorderLayout.CENTER);
@@ -761,6 +776,67 @@ public class Members extends javax.swing.JFrame {
             txtEmail.requestFocus();
         }
         MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_insert, rt);
+        
+        if (txtFirstname.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "First Name do not NULL");
+            txtFirstname.requestFocus();
+            return;
+        } else if(txtFirstname.getText().length()>30){
+            JOptionPane.showMessageDialog(null, "First Name do not longer 30 chars");
+            txtFirstname.requestFocus();
+            return;
+        }
+        
+         if (txtLastname.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Last Name do not NULL");
+            txtLastname.requestFocus();
+            return;
+        } else if(txtLastname.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Last Name do not longer 50 chars");
+            txtLastname.requestFocus();
+            return;
+        }
+         
+               
+        if (txtEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Email do not NULL");
+            txtEmail.requestFocus();
+            return;
+        } else if(txtEmail.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Email do not longer 50 chars");
+            txtEmail.requestFocus();
+            return;
+        }        
+        if(cbStatus.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(null, "Please choose a Status");
+            cbStatus.requestFocus();
+            return;
+        }
+      
+             
+        String pattern = "(^0[\\d]{9-10})"; //java regex pattern phone number
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(txtPhone.getText());
+        if(txtPhone.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please input Staff Phone!");
+            txtPhone.requestFocus();
+            return;
+        } else if(!m.find()){
+            JOptionPane.showMessageDialog(null, "Phone must be number, Ex:0xxxxxxxxxx");
+            txtPhone.requestFocus();
+            return;
+        }
+        
+        if ((String)cbStatus.getSelectedItem() == "Active"){
+            obj.Mem_Status = true;
+        } else {
+            obj.Mem_Status = false;
+        }
+        
+        if(txaAddress.getText().isEmpty()){
+            obj.Mem_Address = "";
+        }
+        
     }//GEN-LAST:event_btnSaveAddActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
@@ -772,6 +848,7 @@ public class Members extends javax.swing.JFrame {
         //Set image vào label cover
         ImageIcon newIcon = new ImageIcon(sourefile.getPath());
         lblMemAvatar.setIcon(newIcon);
+        lblFileName.setText(sourefile.getPath());
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void tblMemListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMemListMouseClicked
@@ -820,22 +897,25 @@ public class Members extends javax.swing.JFrame {
         Model.Members mem = Model.Members.Members_getMemberByMemberId(memid);
         
         ////  cho nay cho anh Uy
-        
-        if(lblMemAvatar.getIcon() == null){
+        if(lblFileName.getText() == null){
+            obj.Mem_ImageFile = lblMemAvatar.getIcon().toString();
+        }else{
+            if(lblMemAvatar.getIcon() == null){
             obj.Mem_ImageFile = "imgMem/MemNoAvatar.png";
         } else {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
             String newfilename = sdf.format(Calendar.getInstance().getTime());
-            File labelicon = new File(lblMemAvatar.getIcon().toString());
-            
+            File labelicon = new File(lblFileName.getText());
             File desfile = new File("imgMem\\"+newfilename+"_"+labelicon.getName());
             try {
                 copyFile(labelicon, desfile);
             } catch (IOException ex) {
                 Exceptions.printStackTrace(ex);
             }
-        obj.Mem_ImageFile = "imgMem/"+desfile.getName();
+            obj.Mem_ImageFile = "imgMem/" + desfile.getName();
         }
+        }
+        
         //Ket thuc phan upload Image
         
         if(cbStatus.getSelectedItem() == "Active"){
@@ -854,6 +934,66 @@ public class Members extends javax.swing.JFrame {
             txtEmail.requestFocus();
         }
         MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_update, rt);
+        
+        if (txtFirstname.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "First Name do not NULL");
+            txtFirstname.requestFocus();
+            return;
+        } else if(txtFirstname.getText().length()>30){
+            JOptionPane.showMessageDialog(null, "First Name do not longer 30 chars");
+            txtFirstname.requestFocus();
+            return;
+        }
+        
+         if (txtLastname.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Last Name do not NULL");
+            txtLastname.requestFocus();
+            return;
+        } else if(txtLastname.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Last Name do not longer 50 chars");
+            txtLastname.requestFocus();
+            return;
+        }
+         
+               
+        if (txtEmail.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Email do not NULL");
+            txtEmail.requestFocus();
+            return;
+        } else if(txtEmail.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Email do not longer 50 chars");
+            txtEmail.requestFocus();
+            return;
+        }        
+        if(cbStatus.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(null, "Please choose a Status");
+            cbStatus.requestFocus();
+            return;
+        }
+      
+             
+        String pattern = "(^0[\\d]{9-10})"; //java regex pattern phone number
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(txtPhone.getText());
+        if(txtPhone.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please input Staff Phone!");
+            txtPhone.requestFocus();
+            return;
+        } else if(!m.find()){
+            JOptionPane.showMessageDialog(null, "Phone must be number, Ex:0xxxxxxxxxx");
+            txtPhone.requestFocus();
+            return;
+        }
+        
+        if ((String)cbStatus.getSelectedItem() == "Active"){
+            obj.Mem_Status = true;
+        } else {
+            obj.Mem_Status = false;
+        }
+        
+        if(txaAddress.getText().isEmpty()){
+            obj.Mem_Address = "";
+        }
     }//GEN-LAST:event_btnSaveUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -937,6 +1077,7 @@ public class Members extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel lblFileName;
     private javax.swing.JLabel lblMemAvatar;
     private javax.swing.JLabel lblRegdate;
     private javax.swing.JPanel pnlBackground;
