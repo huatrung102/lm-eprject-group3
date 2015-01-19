@@ -31,18 +31,16 @@ public class MemberSearch extends javax.swing.JDialog {
      */
     //IssueManagement dataPopup = new IssueManagement();
     IssueManagement dataPopup ;
-    ReturnManagement dataPopup1 ;
+    
     java.awt.Frame parentFrame;
     String selectedMember_No ="";
     private String[] member_col = {"Member ID","Member No","Full Name","Email","Phone"};
     public MemberSearch(java.awt.Frame parent, boolean modal) {
         super(parent, modal);        
         initComponents();
-        if(parent instanceof IssueManagement){
+        
             dataPopup = new IssueManagement();            
-        } else if (parent instanceof ReturnManagement){
-            dataPopup1 = new ReturnManagement();
-        }        
+            setLocationRelativeTo(null);
         initDialog();
         initMember();
         initTblMember();
@@ -453,11 +451,7 @@ public class MemberSearch extends javax.swing.JDialog {
                             dataPopup.setDataPopUp(selectedMember_No);
                         }
                     }                        
-                    else if(dataPopup1 != null){
-                        if(!selectedMember_No.equals("")){
-                            dataPopup1.setDataPopUp(selectedMember_No);
-                        }
-                    } 
+                   
                     
                 } catch (Exception e) {
                 }                  
@@ -482,9 +476,7 @@ public class MemberSearch extends javax.swing.JDialog {
     public String getPopUpData() {
 	return dataPopup.getDataPopUp();
     }
-    public String getPopUpData1(){
-        return dataPopup1.getDataPopUp();
-    }
+    
     /**
      * @param args the command line arguments
      */

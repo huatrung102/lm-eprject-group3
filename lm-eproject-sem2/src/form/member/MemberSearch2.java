@@ -43,7 +43,7 @@ public class MemberSearch2 extends javax.swing.JDialog {
         initDialog();
         initMember();
         initTblMember();
-       
+       setLocationRelativeTo(null);
         btFilter.setIcon(new ImageIcon(MemberSearch2.class
                         .getResource("/image/Explore.png")));        
         UIHelper.bindBackground(pnlBackground); 

@@ -45,8 +45,8 @@ public class ReturnManagement extends javax.swing.JFrame {
     Books glBook;
     public String Member_No;
     private HashMap<String, String> Cop_IRDetail_Return;
-    private static final int checkBox_Col = 0; //first column
-    private static String return_col[] = {"√ Select all","","No","ISBN","Title","Copy No","IssueDate","DueDate","Late Day"};
+    
+    private static String return_col[] = {"","No","ISBN","Title","Copy No","IssueDate","DueDate","Late Day"};
     DefaultTableModel tblDef = new DefaultTableModel(return_col,0);    
     private GlassPaneProgress glasspane;
     private Members selectedMember;    
@@ -55,6 +55,7 @@ public class ReturnManagement extends javax.swing.JFrame {
     public ReturnManagement() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         initForm();
          btSearchMem.setIcon(new ImageIcon(IssueManagement.class
                         .getResource("/image/Explore.png")));
@@ -83,18 +84,19 @@ public class ReturnManagement extends javax.swing.JFrame {
     private void initTblReturn(){
         DefaultTableModel tblM = new DefaultTableModel(return_col, 0);
         tblReturn.setModel(tblM);
-         
+         /*
         TableColumn tc = tblReturn.getColumnModel().getColumn(checkBox_Col);  
         tc.setHeaderRenderer(new SelectAllHeader(tblReturn, checkBox_Col));
         tc.setCellEditor(tblReturn.getDefaultEditor(Boolean.class));  
         tc.setCellRenderer(tblReturn.getDefaultRenderer(Boolean.class));  
-        UIHelper.hideColumnOfTable(tblReturn,1);
+        */
+        UIHelper.hideColumnOfTable(tblReturn,0);
        // tblReturn.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JCheckBox()));
     }
     private void loadTblReturn(){
         DefaultTableModel tblM = IRBooks.getListBookNotReturn(selectedMember.Mem_No);
         tblReturn.setModel(tblM);
-        UIHelper.hideColumnOfTable(tblReturn,1);
+        UIHelper.hideColumnOfTable(tblReturn,0);
     }
     private void initForm(){
         Cop_IRDetail_Return = new HashMap<>(5);
