@@ -458,6 +458,7 @@ public class FineManagement extends javax.swing.JFrame {
         getContentPane().add(pnlFine, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void loadMember(){
         String mem_No = txtMemberNo.getText();

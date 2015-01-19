@@ -107,9 +107,7 @@ public class Profile extends javax.swing.JFrame {
         lblAvatar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(536, 540));
         setMinimumSize(new java.awt.Dimension(536, 540));
-        setPreferredSize(new java.awt.Dimension(536, 540));
         setResizable(false);
 
         jLabel7.setText("ID");
@@ -285,6 +283,7 @@ public class Profile extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
