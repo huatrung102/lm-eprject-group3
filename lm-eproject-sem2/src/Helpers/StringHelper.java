@@ -15,9 +15,11 @@ import java.util.Map;
 public class StringHelper {
     public static String getStringByMap(HashMap<String,String> listMap){
         String list = "";
-        for(Map.Entry<String,String> entry: listMap.entrySet()){    
-            list = "'";
+        for(Map.Entry<String,String> entry: listMap.entrySet()){
             if(list.equals(""))
+                list += "'";
+            
+            if(list.equals("'"))
                 list +=   entry.getValue();
             else
                 list += "," + entry.getValue(); 

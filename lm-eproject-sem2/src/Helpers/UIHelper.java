@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 import javax.swing.JToggleButton;
 import javax.swing.text.JTextComponent;
@@ -69,5 +70,10 @@ public class UIHelper {
                         .getResource(pathImg)));        
         label_5.setBounds(0, 0, 2000, 1000);
         pnl.add(label_5);
+    }
+    public static void hideColumnOfTable(JTable table,int column){
+         table.getColumnModel().getColumn(column).setMinWidth(0);
+            table.getColumnModel().getColumn(column).setMaxWidth(0);
+            table.getColumnModel().getColumn(column).setWidth(0);
     }
 }
