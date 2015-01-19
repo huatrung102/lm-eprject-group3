@@ -579,6 +579,11 @@ public class Members extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblMemList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMemListMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblMemList);
         if (tblMemList.getColumnModel().getColumnCount() > 0) {
             tblMemList.getColumnModel().getColumn(0).setResizable(false);
@@ -762,6 +767,38 @@ public class Members extends javax.swing.JFrame {
         ImageIcon newIcon = new ImageIcon(sourefile.getPath());
         lblMemAvatar.setIcon(newIcon);
     }//GEN-LAST:event_btnChangeActionPerformed
+
+    private void tblMemListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMemListMouseClicked
+        setSelectedMode();
+              
+        int line = tblMemList.getSelectedRow();
+        
+        DefaultTableModel tbm = new DefaultTableModel();
+        tbm = (DefaultTableModel) tblMemList.getModel();
+        String Staff_Id = (String)tbm.getValueAt(line, 0);
+      /*  
+        Members obj = Members.
+        
+        txtID.setText("Auto Generate");
+        txtNo.setText("Auto Generate");
+        txtFirstname.setText(obj.Staff_FirstName);
+        txtLastname.setText(obj.Staff_LastName);
+        txtEmail.setText(obj.Staff_Email);
+        txtPhone.setText(obj.Staff_Phone);
+        txaAddress.setText(obj.Staff_Address);
+        lblRegdate.setText(obj.Staff_CreateDate);
+        cbStatus.setSelectedItem(obj.Staff_Status);
+        boolean status = false;
+        if(status == true){
+            cbStatus.setSelectedIndex(1);
+        } else {
+            cbStatus.setSelectedIndex(0);
+        }
+        
+        ImageIcon icon = new ImageIcon(obj.Staff_ImageFile);
+        lblMemAvatar.setIcon(icon);
+        */
+    }//GEN-LAST:event_tblMemListMouseClicked
 
     /**
      * @param args the command line arguments
