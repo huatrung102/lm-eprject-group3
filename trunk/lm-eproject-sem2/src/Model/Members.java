@@ -26,7 +26,7 @@ public class Members {
     public String Mem_CreateDate;
     public String Mem_ImageFile;
     public boolean Mem_isDelete;
-    
+     public int Mem_CountIssued;
     
     
     public Members(){
@@ -39,17 +39,8 @@ public class Members {
         try {
             rs = SqlHelper.getResultSet("Members_GetIRCountInformation", mem_No);
             if(rs.next()){
-                mem = new Members();
-                mem.Mem_Address = rs.getString("Mem_Address");
-                mem.Mem_CreateDate = rs.getString("Mem_CreateDate");
-                mem.Mem_Email = rs.getString("Mem_Email");
-                mem.Mem_FirstName = rs.getString("Mem_FirstName");
-                mem.Mem_Id = rs.getString("Mem_Id");
-                mem.Mem_ImageFile = rs.getString("Mem_ImageFile");
-                mem.Mem_LastName = rs.getString("Mem_LastName");
-                mem.Mem_No = rs.getString("Mem_No");
-                mem.Mem_Phone = rs.getString("Mem_Phone");
-                mem.Mem_Status = rs.getBoolean("Mem_Status");                
+                mem = Members.getObj(rs);                  
+				mem.Mem_CountIssued = rs.getInt("Count_Issued");
             }
         } catch (Exception e) {
             SqlHelper.closeConnection(rs);
@@ -64,17 +55,7 @@ public class Members {
         try{
             rs = SqlHelper.getResultSet("Members_getMemberByMemberId", memid);
             if(rs.next()){
-                mem = new Members();
-                mem.Mem_Address = rs.getString("Mem_Address");
-                mem.Mem_CreateDate = rs.getString("Mem_CreateDate");
-                mem.Mem_Email = rs.getString("Mem_Email");
-                mem.Mem_FirstName = rs.getString("Mem_FirstName");
-                mem.Mem_Id = rs.getString("Mem_Id");
-                mem.Mem_ImageFile = rs.getString("Mem_ImageFile");
-                mem.Mem_LastName = rs.getString("Mem_LastName");
-                mem.Mem_No = rs.getString("Mem_No");
-                mem.Mem_Phone = rs.getString("Mem_Phone");
-                mem.Mem_Status = rs.getBoolean("Mem_Status"); 
+                mem = Members.getObj(rs);    
             }
         } catch (Exception e) {
             SqlHelper.closeConnection(rs);
@@ -83,6 +64,39 @@ public class Members {
         return mem;
     }
     
+	 private static Members getObj(ResultSet rs){
+        Members mem = null;
+        
+        try {
+        mem = new Members();
+        mem.Mem_Address = rs.getString("Mem_Address");
+        mem.Mem_CreateDate = rs.getString("Mem_CreateDate");
+        mem.Mem_Email = rs.getString("Mem_Email");
+        mem.Mem_FirstName = rs.getString("Mem_FirstName");
+        mem.Mem_Id = rs.getString("Mem_Id");
+        mem.Mem_ImageFile = rs.getString("Mem_ImageFile");
+        mem.Mem_LastName = rs.getString("Mem_LastName");
+        mem.Mem_No = rs.getString("Mem_No");
+        mem.Mem_Phone = rs.getString("Mem_Phone");
+        mem.Mem_Status = rs.getBoolean("Mem_Status");   
+       
+        } catch (Exception e) {
+            mem = null;
+        }
+        return mem;
+    }
+    public static DefaultTableModel Mems_getMemberList(){
+        DefaultTableModel tbl = SqlHelper.getDefaultTableModel("Mems_getMemberList");
+        return tbl;
+    }
+    
+    public static DefaultTableModel getFilterBySearchBox(String name,String email,String phone){
+        DefaultTableModel tblM = SqlHelper.getDefaultTableModel("Members_getFilterBySearchBox"
+                                            , name
+                                            , email
+                                            , phone);
+        return tblM;
+    }
     public static int Members_Insert(Members obj){
          return SqlHelper.executeNonQuery("Members_Insert"
                  ,obj.Mem_FirstName
@@ -105,8 +119,5 @@ public class Members {
                  ,obj.Mem_Status);
     }
     
-    public static DefaultTableModel Mems_getMemberList(){
-        DefaultTableModel tbl = SqlHelper.getDefaultTableModel("Mems_getMemberList");
-        return tbl;
-    }
+    
 }
