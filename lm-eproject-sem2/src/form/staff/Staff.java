@@ -4,6 +4,7 @@ import ExSwing.ClPanelTransparent;
 import Helpers.UIHelper;
 import Model.Staffs;
 import SysController.MessageHandle;
+import form.main.Login;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -44,10 +45,7 @@ public class Staff extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         UIHelper.bindBackground(pnlBackground);
         this.setTitle("Staff Manage");
-        start();
-        
-        
-        
+        start();        
     }
     private void getList(){
         tblStaffList.setModel(Model.Staffs.getListStaff());
@@ -63,9 +61,7 @@ public class Staff extends javax.swing.JFrame {
     }
     public void start(){
         setNormalMode();
-        getList();
-        
-        
+        getList();        
     }
     
     public void setNormalMode(){
@@ -393,6 +389,11 @@ public class Staff extends javax.swing.JFrame {
 
         btnSaveInsert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Save.png"))); // NOI18N
         btnSaveInsert.setText("Save");
+        btnSaveInsert.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSaveInsertMouseClicked(evt);
+            }
+        });
         btnSaveInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveInsertActionPerformed(evt);
@@ -835,6 +836,7 @@ public class Staff extends javax.swing.JFrame {
             obj.Staff_Address = "";
         }
         
+        setNormalMode();
         
         
     }//GEN-LAST:event_btnSaveInsertActionPerformed
@@ -1035,6 +1037,10 @@ public class Staff extends javax.swing.JFrame {
         setNormalMode();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void btnSaveInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveInsertMouseClicked
+        setNormalMode();
+    }//GEN-LAST:event_btnSaveInsertMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1070,6 +1076,38 @@ public class Staff extends javax.swing.JFrame {
 //        });
 //    }
 
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Staff().setVisible(true);
+            }
+        });
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
