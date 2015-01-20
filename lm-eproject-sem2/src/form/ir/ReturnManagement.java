@@ -142,8 +142,8 @@ public class ReturnManagement extends javax.swing.JFrame {
             lblRegisterDate.setText(mem.Mem_CreateDate);            
            
             //load image member
-            lblImgMember.setIcon(new ImageIcon(Main.class
-                            .getResource(mem.Mem_ImageFile)));        
+            ImageIcon icon = new ImageIcon(mem.Mem_ImageFile);
+            lblImgMember.setIcon(icon);      
             lblImgMember.setBounds(0, 0, 140, 140);
             //rebind data tbl issued
         }else{
@@ -305,7 +305,7 @@ public class ReturnManagement extends javax.swing.JFrame {
             .addGroup(pnlImgMemberLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblImgMember)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         pnlImgMemberLayout.setVerticalGroup(
             pnlImgMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,7 +395,7 @@ public class ReturnManagement extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 

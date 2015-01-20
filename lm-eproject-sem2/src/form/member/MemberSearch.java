@@ -78,8 +78,9 @@ public class MemberSearch extends javax.swing.JDialog {
         lblEmail.setText(mem.Mem_Email);
         lblMemNo.setText(mem.Mem_No);
         //load image member
-        lblImgMember.setIcon(new ImageIcon(Main.class
-                        .getResource(mem.Mem_ImageFile)));        
+        ImageIcon icon = new ImageIcon(mem.Mem_ImageFile);
+        lblImgMember.setIcon(icon); 
+               
         lblImgMember.setBounds(0, 0, 140, 140);
         
     }
