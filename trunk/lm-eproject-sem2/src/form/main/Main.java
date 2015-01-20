@@ -1296,8 +1296,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_iconMem4MouseClicked
 
     private void iconMem5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem5MouseClicked
-        // TODO add your handling code here:
-         new Staff().setVisible(true);
+        new Staff().setVisible(true);
     }//GEN-LAST:event_iconMem5MouseClicked
 
     private void iconMem6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem6MouseClicked

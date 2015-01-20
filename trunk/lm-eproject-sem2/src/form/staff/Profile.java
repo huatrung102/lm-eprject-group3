@@ -26,6 +26,7 @@ public class Profile extends javax.swing.JFrame {
     
     public Profile() {
         initComponents();
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -92,7 +93,7 @@ public class Profile extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
+        btnClose = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
         lblRole = new javax.swing.JLabel();
         lblID = new javax.swing.JLabel();
@@ -110,36 +111,67 @@ public class Profile extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(536, 540));
         setResizable(false);
 
+        jPanel5.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("ID");
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("First Name");
 
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Last Name");
 
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Phone");
 
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Email");
 
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Date");
 
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Status");
 
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Address");
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Role");
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Reg. Date");
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
-        jButton13.setText("Close");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
+        btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                btnCloseActionPerformed(evt);
             }
         });
 
+        lblStatus.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblRole.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblID.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblFirst.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblLast.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblPhone.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblAddress.setForeground(new java.awt.Color(255, 255, 255));
         lblAddress.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblAddress.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        lblDate.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblRegDate.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -152,7 +184,7 @@ public class Profile extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblRegDate, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -227,7 +259,7 @@ public class Profile extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblRegDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
-                .addComponent(jButton13)
+                .addComponent(btnClose)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -286,14 +318,14 @@ public class Profile extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton13ActionPerformed
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton13;
+    private javax.swing.JButton btnClose;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
