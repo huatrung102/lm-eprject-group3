@@ -93,8 +93,8 @@ public class IssueManagement extends javax.swing.JFrame {
         lblISBN.setText(book.Book_ISBN);
              
         //load image book
-        lblImgBook.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource(book.Book_ImageFile)));        
+        ImageIcon icon = new ImageIcon(book.Book_ImageFile);
+        lblImgBook.setIcon(icon);                
         lblImgBook.setBounds(0, 0, 140, 140);
     }
         

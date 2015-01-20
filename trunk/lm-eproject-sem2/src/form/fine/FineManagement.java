@@ -62,6 +62,7 @@ public class FineManagement extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         initForm();
+        initMember();
         initTblFine();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        
@@ -350,7 +351,7 @@ public class FineManagement extends javax.swing.JFrame {
             .addGroup(pnlImgMemberLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblImgMember)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         pnlImgMemberLayout.setVerticalGroup(
             pnlImgMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,8 +514,9 @@ public class FineManagement extends javax.swing.JFrame {
             lblRegisterDate.setText(mem.Mem_CreateDate);            
             
             //load image member
-            lblImgMember.setIcon(new ImageIcon(Main.class
-                            .getResource(mem.Mem_ImageFile)));        
+            ImageIcon icon = new ImageIcon(mem.Mem_ImageFile);
+            lblImgMember.setIcon(icon); 
+                   
             lblImgMember.setBounds(0, 0, 140, 140);
             //rebind data tbl issued
             
