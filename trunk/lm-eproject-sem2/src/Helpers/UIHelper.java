@@ -76,4 +76,14 @@ public class UIHelper {
             table.getColumnModel().getColumn(column).setMaxWidth(0);
             table.getColumnModel().getColumn(column).setWidth(0);
     }
+    public static void setColumnWidth(JTable table,int[] colWidth){
+       int cols = table.getColumnCount();
+        if(cols == colWidth.length){
+            for(int col = 0;col < cols;col ++){
+                table.getColumnModel().getColumn(col).setMinWidth(colWidth[col]);
+                table.getColumnModel().getColumn(col).setMaxWidth(colWidth[col]);
+            table.getColumnModel().getColumn(col).setWidth(colWidth[col]);
+            }
+        }
+    }
 }

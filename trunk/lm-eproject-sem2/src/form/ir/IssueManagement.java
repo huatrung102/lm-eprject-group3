@@ -50,7 +50,7 @@ public class IssueManagement extends javax.swing.JFrame {
     //Books glBook;
     // <editor-fold defaultstate="collapsed" desc="Declare variable">
     private Members selectedMember;    
-    private ArrayList<Books> listBooks;
+    
     private IRBooks ir;
     int countSTT = 1;
     int countAllow = 0;
@@ -67,7 +67,7 @@ public class IssueManagement extends javax.swing.JFrame {
     public IssueManagement() {
         initComponents();       
         UIHelper.bindBackground(pnlIssue);
-        listBooks = new ArrayList<>();
+        
         ir = new IRBooks();
         Cop_IdList = new HashMap<>(5);
         Cop_IdList_Issued = new HashMap<>(5);
@@ -76,12 +76,13 @@ public class IssueManagement extends javax.swing.JFrame {
 //        initCategory();
         initTblIssuing();
         initTblCopies();
-       initPopUpWindow();
+        initPopUpWindow();
         
        // loadBook();
       //  loadCopies();        
        // loadIRBook();
-    }   
+    }
+    
     private void loadBook(String ISBN){
         Books book = Books.getByISBN(ISBN);
         lblAuthor.setText(book.Book_Author);
@@ -129,7 +130,7 @@ public class IssueManagement extends javax.swing.JFrame {
     private void openPopUp(JLabel lbl){
         Point p = lbl.getLocationOnScreen();
         p.y += lbl.getHeight();
-        p.x -= 100;
+        p.x -= 520;
         window.setLocation(p);
         window.setVisible(true);
     }
@@ -188,7 +189,7 @@ public class IssueManagement extends javax.swing.JFrame {
              window.setAlwaysOnTop(true);
              window.setLayout(new BorderLayout());
              //window.add(new JScrollPane(new JTextArea("INI ADALAH TOOLTIP WINDOW")));
-             window.setSize(450, 120);
+             window.setSize(770, 120);
             tblIssued = new JTable();
             if(selectedMember != null){
                 tblIssued.setModel(IRBooks.getListBookNotReturnByMemberNo(selectedMember.Mem_No));//));
@@ -198,7 +199,8 @@ public class IssueManagement extends javax.swing.JFrame {
                 tblIssued.setModel(tbm);//));
             }
             
-            tblIssued.setPreferredSize(new Dimension(400, 100));             
+            tblIssued.setPreferredSize(new Dimension(750, 100));     
+            UIHelper.setColumnWidth(tblIssued, new int[]{50,120,120,170,170,120});
             window.add(new JScrollPane(tblIssued));
             window.setEnabled(false);
         
@@ -215,7 +217,7 @@ public class IssueManagement extends javax.swing.JFrame {
          btSearchBook.setIcon(new ImageIcon(IssueManagement.class
                         .getResource("/image/Explore.png")));
         btReset.setIcon(new ImageIcon(IssueManagement.class
-                        .getResource("/image/reset.png")));
+                        .getResource("/image/CloseForm.png")));
         btIssue.setIcon(new ImageIcon(IssueManagement.class
                         .getResource("/image/issue.png")));
         tblCopies.getTableHeader().setReorderingAllowed(false);
@@ -517,15 +519,7 @@ public class IssueManagement extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tblCopies.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblCopies.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -542,9 +536,7 @@ public class IssueManagement extends javax.swing.JFrame {
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -861,6 +853,11 @@ public class IssueManagement extends javax.swing.JFrame {
         btReset.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btReset.setForeground(java.awt.Color.yellow);
         btReset.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.btReset.text")); // NOI18N
+        btReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -996,6 +993,8 @@ public class IssueManagement extends javax.swing.JFrame {
                     removeRow(index);
                     setCountSttOnTblIssuing();
                     --countAllow;
+                    String copNo = String.valueOf(tblIssuing.getModel().getValueAt(index, 4));
+                    Cop_IdList.remove(copNo);
                 }                
         }
     }//GEN-LAST:event_tblIssuingMouseClicked
@@ -1042,6 +1041,11 @@ public class IssueManagement extends javax.swing.JFrame {
       //  else
             
     }//GEN-LAST:event_btIssueActionPerformed
+
+    private void btResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btResetActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btResetActionPerformed
     // </editor-fold>
     
      /*
