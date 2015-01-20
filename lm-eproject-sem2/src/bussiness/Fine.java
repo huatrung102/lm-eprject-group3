@@ -5,6 +5,7 @@
  */
 package bussiness;
 
+import java.text.DecimalFormat;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
@@ -19,11 +20,14 @@ public class Fine {
         return result > priceBook ? priceBook : result;                
     }
     public static String calculateTotal(JTable table,int columnPrice){
-        float result = 0;
+        double result = 0;
         TableModel model = table.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; --i) {
             result +=  Float.valueOf(model.getValueAt(i, columnPrice).toString()) ;
-        }            
-        return String.valueOf(result) ;
+        }   
+        result = Math.round(result*100.0)/100.0;
+        DecimalFormat df = new DecimalFormat("###.## $");
+        
+        return df.format(result);
     }
 }

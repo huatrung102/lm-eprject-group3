@@ -5,6 +5,7 @@
  */
 package form.fine;
 
+import Config.SysVar;
 import ExSwing.CheckBoxHeader;
 import ExSwing.CheckBoxTable;
 import ExSwing.CheckBoxTableCellEditor;
@@ -71,19 +72,28 @@ public class FineManagement extends javax.swing.JFrame {
     public String getDataPopUp() {
         return Member_No;
     }
-    
+    private void initMember(){
+        lblFullname.setText("");
+            lblPhone.setText("");
+            lblMemNo.setText("");
+            lblStatusMem.setText("");
+            lblRegisterDate.setText("");            
+            
+            //load image member
+             lblImgMember.setIcon(new ImageIcon(FineManagement.class
+                        .getResource(SysVar.image_member_defaut)));        
+        lblImgMember.setBounds(0, 0, 140, 140);
+    }
     private void bindDataToTableModel(){
         if(selectedMember != null){
         //    int nRow = tblFine.getRowCount(),nCol = tblFine.getColumnCount();
             //Object[][] data = new Object[nRow][nCol];
             DefaultTableModel tbm = IRBooks.ListByMemberNo(selectedMember.Mem_No);
-            
-
-            
             tblFine.setModel(tbm);
             UIHelper.hideColumnOfTable(tblFine, 0);
             //column price
             lblTotalPrice.setText(Fine.calculateTotal(tblFine, 5));
+            ListFine.clear();
 //            TableColumn tc = tblFine.getColumnModel().getColumn(checkBox_Col);
 //            tc.setHeaderRenderer(new SelectAllHeader(tblFine, checkBox_Col));
 //            tc.setCellEditor(tblFine.getDefaultEditor(Boolean.class));  
@@ -195,6 +205,9 @@ public class FineManagement extends javax.swing.JFrame {
         lblPhone = new javax.swing.JLabel();
         lblRegisterDate = new javax.swing.JLabel();
         lblStatusMem = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblMemNo = new javax.swing.JLabel();
+        btClose = new ClButtonTransparan("Return");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.title")); // NOI18N
@@ -287,7 +300,7 @@ public class FineManagement extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel3.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.jLabel3.text")); // NOI18N
 
-        lblTotalPrice.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblTotalPrice.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTotalPrice.setForeground(java.awt.Color.red);
         lblTotalPrice.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.lblTotalPrice.text")); // NOI18N
 
@@ -312,7 +325,8 @@ public class FineManagement extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btFine.setForeground(java.awt.Color.darkGray);
+        btFine.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btFine.setForeground(java.awt.Color.yellow);
         btFine.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.btFine.text")); // NOI18N
         btFine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,57 +381,78 @@ public class FineManagement extends javax.swing.JFrame {
 
         lblStatusMem.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.lblStatusMem.text")); // NOI18N
 
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel7.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.jLabel7.text")); // NOI18N
+
+        lblMemNo.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.lblMemNo.text")); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(170, 170, 170)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlImgMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblRegisterDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblStatusMem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblFullname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                    .addComponent(lblPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRegisterDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblStatusMem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFullname, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(lblPhone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblMemNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pnlImgMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(254, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblFullname))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(lblPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lblRegisterDate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(lblStatusMem))
-                .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(lblMemNo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(lblFullname))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(lblPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(lblRegisterDate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(lblStatusMem))
+                        .addGap(0, 16, Short.MAX_VALUE))
+                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel4.add(jPanel3, java.awt.BorderLayout.CENTER);
+
+        btClose.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btClose.setForeground(java.awt.Color.yellow);
+        btClose.setText(org.openide.util.NbBundle.getMessage(FineManagement.class, "FineManagement.btClose.text")); // NOI18N
+        btClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlFineLayout = new javax.swing.GroupLayout(pnlFine);
         pnlFine.setLayout(pnlFineLayout);
@@ -433,9 +468,12 @@ public class FineManagement extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlFineLayout.createSequentialGroup()
-                        .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btFine)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlFineLayout.createSequentialGroup()
+                                .addComponent(btFine)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btClose)))
                         .addGap(9, 9, 9)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -450,15 +488,16 @@ public class FineManagement extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(btFine)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btFine)
+                    .addComponent(btClose))
+                .addGap(20, 20, 20))
         );
 
         getContentPane().add(pnlFine, java.awt.BorderLayout.CENTER);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void loadMember(){
         String mem_No = txtMemberNo.getText();
@@ -469,7 +508,7 @@ public class FineManagement extends javax.swing.JFrame {
             
             lblFullname.setText(mem.Mem_FirstName + " " + mem.Mem_LastName);
             lblPhone.setText(mem.Mem_Phone);
-            
+            lblMemNo.setText(mem.Mem_No);
             lblStatusMem.setText(mem.Mem_Status?"Active" : "Inactive");
             lblRegisterDate.setText(mem.Mem_CreateDate);            
             
@@ -505,7 +544,10 @@ public class FineManagement extends javax.swing.JFrame {
             }
             int result = IRBooks.PaidFine(ListFine);
             MessageHandle.showMessage(MessageHandle.Obj_Book, MessageHandle.Action_return, result);
-            if(result == 1) ((DefaultTableModel)tblFine.getModel()).setNumRows(0);
+            if(result == 1){
+                ((DefaultTableModel)tblFine.getModel()).setNumRows(0);
+                ListFine.clear();
+            } 
             /*
             for(int i =0;i <row;i++){
                 boolean check = Boolean.valueOf(String.valueOf(tblReturn.getModel().getValueAt(i, 0))) ;
@@ -521,6 +563,11 @@ public class FineManagement extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btFineActionPerformed
+
+    private void btCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCloseActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btCloseActionPerformed
     private void initForm(){
         ListFine = new HashMap<>(5);
         /*
@@ -535,6 +582,9 @@ public class FineManagement extends javax.swing.JFrame {
                         .getResource("/image/Explore.png")));
          btFine.setIcon(new ImageIcon(IssueManagement.class
                         .getResource("/image/pay.png")));
+         btClose.setIcon(new ImageIcon(IssueManagement.class
+                        .getResource("/image/CloseForm.png")));
+         
          UIHelper.bindBackground(pnlFine);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -586,6 +636,7 @@ public class FineManagement extends javax.swing.JFrame {
     }
 */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btClose;
     private javax.swing.JButton btFine;
     private javax.swing.JButton btSearchMem;
     private javax.swing.JLabel jLabel1;
@@ -594,6 +645,7 @@ public class FineManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -603,6 +655,7 @@ public class FineManagement extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblFullname;
     private javax.swing.JLabel lblImgMember;
+    private javax.swing.JLabel lblMemNo;
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblRegisterDate;
     private javax.swing.JLabel lblStatusMem;

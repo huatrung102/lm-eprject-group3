@@ -65,6 +65,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(450, 370));
 
         lblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblIcon.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.lblIcon.text")); // NOI18N
@@ -75,6 +76,7 @@ public class Login extends javax.swing.JFrame {
 
         txtPassword.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.txtPassword.text")); // NOI18N
 
+        btLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Open_lock.png"))); // NOI18N
         btLogin.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.btLogin.text")); // NOI18N
         btLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +86,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.jLabel3.text")); // NOI18N
 
+        btExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Cancel.png"))); // NOI18N
         btExit.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.btExit.text")); // NOI18N
         btExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +132,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        btSetting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/settingIcon_24.png"))); // NOI18N
         btSetting.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.btSetting.text")); // NOI18N
         btSetting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,11 +159,11 @@ public class Login extends javax.swing.JFrame {
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(lblIcon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btSetting)
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
 
         getContentPane().add(pnlBackground, java.awt.BorderLayout.CENTER);
