@@ -711,7 +711,7 @@ public class Members extends javax.swing.JFrame {
         Model.Members obj;
         obj = new Model.Members();
         
-        //obj.Mem_No = txtNo.getText();
+//        obj.Mem_No = txtNo.getText();
         //obj.Mem_Id = txtID.getText();
         obj.Mem_FirstName = txtFirstname.getText();
         obj.Mem_LastName = txtLastname.getText();
@@ -790,18 +790,18 @@ public class Members extends javax.swing.JFrame {
         }
       
              
-        String pattern = "(^0[\\d]{9-10})"; //java regex pattern phone number
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(txtPhone.getText());
-        if(txtPhone.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Please input Staff Phone!");
-            txtPhone.requestFocus();
-            return;
-        } else if(!m.find()){
-            JOptionPane.showMessageDialog(null, "Phone must be number, Ex:0xxxxxxxxxx");
-            txtPhone.requestFocus();
-            return;
-        }
+//        String pattern = "(^0[\\d]{9-10})"; //java regex pattern phone number
+//        Pattern r = Pattern.compile(pattern);
+//        Matcher m = r.matcher(txtPhone.getText());
+//        if(txtPhone.getText().isEmpty()){
+//            JOptionPane.showMessageDialog(null, "Please input Staff Phone!");
+//            txtPhone.requestFocus();
+//            return;
+//        } else if(!m.find()){
+//            JOptionPane.showMessageDialog(null, "Phone must be number, Ex:0xxxxxxxxxx");
+//            txtPhone.requestFocus();
+//            return;
+//        }
         
         if ((String)cbStatus.getSelectedItem() == "Active"){
             obj.Mem_Status = true;
