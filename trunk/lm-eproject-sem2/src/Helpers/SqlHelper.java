@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -23,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Administrator PC
  */
 public class SqlHelper {
-    private static final String myConnectionDriver =Config.SysVar.driver_jdts;
+    private static final String myConnectionDriver =Config.SysVar.driver_msSQL;
     
     public static DefaultComboBoxModel getDefaultComboBoxModel(String cmdText){
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
@@ -266,7 +267,9 @@ public class SqlHelper {
                 strSql.append((Boolean)obj?1:0);
             } else if(obj instanceof Float){
                 strSql.append((Float)obj);
-            } 
+            } else if(obj instanceof HashMap){
+                strSql.append(StringHelper.getStringByMap((HashMap)obj));
+            }
            // strSql.append("?");
             t++;
         }

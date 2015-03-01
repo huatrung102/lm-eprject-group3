@@ -112,8 +112,8 @@ public class IssueManagement extends javax.swing.JFrame {
             lblRegisterDate.setText(mem.Mem_CreateDate);            
             lblNumberBookIssued.setText(String.valueOf(mem.Mem_CountIssued));
             //load image member
-            lblImgMember.setIcon(new ImageIcon(Main.class
-                            .getResource(mem.Mem_ImageFile)));        
+            ImageIcon icon = new ImageIcon(mem.Mem_ImageFile);
+        lblImgMember.setIcon(icon);
             lblImgMember.setBounds(0, 0, 140, 140);
             //rebind data tbl issued
             initPopUpWindow();
@@ -590,7 +590,7 @@ public class IssueManagement extends javax.swing.JFrame {
             .addGroup(pnlImgMemberLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblImgMember)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
         pnlImgMemberLayout.setVerticalGroup(
             pnlImgMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -628,7 +628,6 @@ public class IssueManagement extends javax.swing.JFrame {
         lblNumberBookIssued.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblNumberBookIssued.text")); // NOI18N
 
         JLabel1111.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        JLabel1111.setForeground(new java.awt.Color(0, 0, 0));
         JLabel1111.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.JLabel1111.text")); // NOI18N
 
         lblMemberNo.setText(org.openide.util.NbBundle.getMessage(IssueManagement.class, "IssueManagement.lblMemberNo.text")); // NOI18N
@@ -714,7 +713,7 @@ public class IssueManagement extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel9Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                    .addComponent(pnlImgMember, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -741,7 +740,7 @@ public class IssueManagement extends javax.swing.JFrame {
             pnlImgBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlImgBookLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblImgBook, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addComponent(lblImgBook, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

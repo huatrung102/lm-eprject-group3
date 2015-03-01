@@ -35,6 +35,9 @@ public class Staffs {
     public String Staff_CreateDate;
     public String Staff_ImageFile;
     public boolean Staff_isDeleted;
+    public String Staff_EmailOld;
+    public String Staff_LoginOld;
+    
     public static Staffs Staff_Logined;
     
      
@@ -119,7 +122,9 @@ public class Staffs {
                 ,obj.Staff_Email
                 ,obj.Staff_Status
                 ,obj.Staff_ImageFile
-                ,obj.Staff_isDeleted);
+                ,obj.Staff_LoginOld
+                ,obj.Staff_EmailOld
+           );
         
     }
     public static Staffs obj;
@@ -143,6 +148,7 @@ public class Staffs {
                 obj.Staff_Role = rs.getString("Staff_Role");
                 obj.Staff_Status = rs.getBoolean("Staff_Status");
                 obj.Staff_ImageFile = rs.getString("Staff_ImageFile");
+                obj.Staff_Password = rs.getString("Staff_Password");
             }
         } catch (SQLException ex) {
             Exceptions.printStackTrace(ex);
@@ -161,7 +167,9 @@ public class Staffs {
     public static int Staffs_Lock(String Staff_Id){
         return SqlHelper.executeNonQuery("Staffs_Lock", Staff_Id);
     }
-
+     public static int Staffs_ChangePassword(String Staff_Login,String Staff_Password,String Staff_PasswordNew){
+        return SqlHelper.executeNonQuery("Staffs_ChangePassword", Staff_Login,Staff_Password,Staff_PasswordNew);
+    }
     
 }   
 

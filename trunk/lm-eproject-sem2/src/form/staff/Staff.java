@@ -42,6 +42,7 @@ public class Staff extends javax.swing.JFrame {
      */
     public Staff() {
         initComponents();
+        lblFileName.setVisible(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         UIHelper.bindBackground(pnlBackground);
         this.setTitle("Staff Manage");
@@ -89,7 +90,7 @@ public class Staff extends javax.swing.JFrame {
         cbStatus.setEditable(false);
         cbRole.setEditable(false);
         
-        lblFileName.setVisible(true);
+        //lblFileName.setVisible(true);
         lblFileName.setText(null);
         txtID.setText(null);
         txtFirstname.setText(null);
@@ -137,7 +138,7 @@ public class Staff extends javax.swing.JFrame {
         cbRole.setEditable(false);
         
         btnDelete.setEnabled(true);
-        btnChange.setEnabled(true);
+       // btnChange.setEnabled(true);
         btnUpdate.setEnabled(true);
         
         btnSaveUpdate.setVisible(false);
@@ -172,7 +173,7 @@ public class Staff extends javax.swing.JFrame {
         cbRole.setEditable(true);
         
         btnDelete.setEnabled(false);
-        btnChange.setEnabled(false);
+        //btnChange.setEnabled(false);
         btnUpdate.setEnabled(false);
         
         btnSaveUpdate.setVisible(true);
@@ -745,16 +746,7 @@ public class Staff extends javax.swing.JFrame {
         obj.Staff_Password = String.valueOf(txtPassword.getPassword());
         obj.Staff_Phone = txtPhone.getText();
         obj.Staff_Role = String.valueOf(cbRole.getSelectedItem());
-        int rt = Model.Staffs.Staffs_Insert(obj);
-        if(rt == 1){
-            setAddNewMode();
-            getList();
-        }else if(rt == 0){
-            txtLogin.requestFocus();
-        }else if(rt == 3){
-            txtEmail.requestFocus();
-        }
-        MessageHandle.showMessage(MessageHandle.Obj_Staff, MessageHandle.Action_insert, rt);
+       
         
         if (txtFirstname.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "First Name do not NULL");
@@ -812,33 +804,23 @@ public class Staff extends javax.swing.JFrame {
             cbRole.requestFocus();
             return;
         }
-        
-        String pattern = "(^0[\\d]{9-10})"; //java regex pattern phone number
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(txtPhone.getText());
-        if(txtPhone.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Please input Staff Phone!");
-            txtPhone.requestFocus();
-            return;
-        } else if(!m.find()){
-            JOptionPane.showMessageDialog(null, "Phone must be number, Ex:0xxxxxxxxxx");
-            txtPhone.requestFocus();
-            return;
-        }
-        
-        if ((String)cbStatus.getSelectedItem() == "Active"){
-            obj.Staff_Status = true;
-        } else {
-            obj.Staff_Status = false;
-        }
+                
+        obj.Staff_Status = (String)cbStatus.getSelectedItem() == "Active";
         
         if(txaAddress.getText().isEmpty()){
             obj.Staff_Address = "";
         }
-        
-        setNormalMode();
-        
-        
+       
+         int rt = Model.Staffs.Staffs_Insert(obj);
+        if(rt == 1){
+            setAddNewMode();
+            getList();
+        }else if(rt == 0){
+            txtLogin.requestFocus();
+        }else if(rt == 3){
+            txtEmail.requestFocus();
+        }
+        MessageHandle.showMessage(MessageHandle.Obj_Staff, MessageHandle.Action_insert, rt);
     }//GEN-LAST:event_btnSaveInsertActionPerformed
 
     private static void copyFile(File source, File dest) throws IOException {
@@ -932,18 +914,6 @@ public class Staff extends javax.swing.JFrame {
             return;
         }
         
-        pattern = "(^0[\\d]{9-10})"; //java regex pattern phone number
-        r = Pattern.compile(pattern);
-        m = r.matcher(txtPhone.getText());
-        if(txtPhone.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Please input Staff Phone!");
-            txtPhone.requestFocus();
-            return;
-        } else if(!m.find()){
-            JOptionPane.showMessageDialog(null, "Phone must be number, Ex:0xxxxxxxxxx");
-            txtPhone.requestFocus();
-            return;
-        }
         
         if(lblFileName.getText() == null){
             obj.Staff_ImageFile = lblStaffAvatar.getIcon().toString();
@@ -964,37 +934,49 @@ public class Staff extends javax.swing.JFrame {
         }
         }
         
-        if ((String)cbStatus.getSelectedItem() == "Active"){
-            obj.Staff_Status = true;
-        } else {
-            obj.Staff_Status = false;
-        }
+        
         
         if(txaAddress.getText().isEmpty()){
             obj.Staff_Address = "";
         }
         //Get data from form and add to Object
-        obj.Staff_Id = txtID.getText();
+        int line = tblStaffList.getSelectedRow();
+        obj.Staff_Id = String.valueOf(tblStaffList.getModel().getValueAt(line, 0)) ;
+         obj.Staff_LoginOld = String.valueOf(tblStaffList.getModel().getValueAt(line, 3)) ;
+         obj.Staff_EmailOld = String.valueOf(tblStaffList.getModel().getValueAt(line, 5)) ;
         obj.Staff_Address = txaAddress.getText();
         obj.Staff_FirstName = txtFirstname.getText();
         obj.Staff_LastName = txtLastname.getText();       
         obj.Staff_Phone = txtPhone.getText();
         obj.Staff_Login = txtLogin.getText();
         obj.Staff_Role =String.valueOf(cbRole.getSelectedItem());
-        obj.Staff_ImageFile = "/imgBook/Nocover.JPG";
+        obj.Staff_ImageFile = "imgStaff/Nocover.png";
+        obj.Staff_Email = txtEmail.getText();
+        obj.Staff_Status = (String)cbStatus.getSelectedItem() == "Active";
+        obj.Staff_Password = String.valueOf(txtPassword.getPassword());
+        
 //        obj.Staff_Status = (boolean) cbStatus.getSelectedItem(); 
         //obj.Book_ImageFile = lblCover.getIcon().toString();
        
-       
+        
+        int rt = Model.Staffs.Staffs_Update(obj);
+        if(rt == 1){
+            setNormalMode();
+            getList();
+        }else if(rt == 0){
+            txtLogin.requestFocus();
+        }else if(rt == 3){
+            txtEmail.requestFocus();        
+        MessageHandle.showMessage(MessageHandle.Obj_Staff, MessageHandle.Action_update, rt);
+       /*
         setNormalMode();
-        int line = tblStaffList.getSelectedRow();
-        DefaultTableModel tbm = new DefaultTableModel();
-        tbm = (DefaultTableModel) tblStaffList.getModel();
-        String Staff_Id = (String)tbm.getValueAt(line, 0);
+        
+        
         tblStaffList.setModel(Model.Staffs.Staffs_getStaffListbyStaffId(Staff_Id));
         getList();
+        */
     }//GEN-LAST:event_btnSaveUpdateActionPerformed
-
+    }
     private void tblStaffListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStaffListMouseClicked
         setSelectedMode();
               
@@ -1016,6 +998,7 @@ public class Staff extends javax.swing.JFrame {
         lblRegdate.setText(obj.Staff_CreateDate);
         cbStatus.setSelectedItem(obj.Staff_Status);
         cbRole.setSelectedItem(obj.Staff_Role);
+        txtPassword.setText(obj.Staff_Password);
         boolean status = false;
         if(status == true){
             cbStatus.setSelectedIndex(1);
@@ -1028,8 +1011,13 @@ public class Staff extends javax.swing.JFrame {
     }//GEN-LAST:event_tblStaffListMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        String Staff_Id = txtID.getText();
+        int line = tblStaffList.getSelectedRow();
+        String Staff_Id = String.valueOf(tblStaffList.getModel().getValueAt(line, 0)) ;
         int del = Model.Staffs.Staffs_Lock(Staff_Id);
+        if(del == 1){
+            getList();
+            setNormalMode();
+        }
         MessageHandle.showMessage(MessageHandle.Obj_Staff,MessageHandle.Action_delete, del);
     }//GEN-LAST:event_btnDeleteActionPerformed
 

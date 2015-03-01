@@ -214,9 +214,7 @@ public class Main extends javax.swing.JFrame {
         bgHome = new javax.swing.JLabel();
         pnlMember = new ClGlossyPanel();
         iconMem1 = new javax.swing.JLabel();
-        iconMem2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new ClPanelTransparent();
         jLabel12 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -239,13 +237,9 @@ public class Main extends javax.swing.JFrame {
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
-        iconMem15 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
         pnlStaff = new ClGlossyPanel();
         iconMem5 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        iconMem6 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new ClPanelTransparent();
         jLabel33 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
@@ -266,8 +260,6 @@ public class Main extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         iconMem8 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        iconMem14 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jPanel2 = new ClPanelTransparent();
         jLabel19 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
@@ -277,8 +269,6 @@ public class Main extends javax.swing.JFrame {
         pnlFine = new ClGlossyPanel();
         iconMem9 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        iconMem10 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jPanel5 = new ClPanelTransparent();
         jLabel20 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
@@ -319,7 +309,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(pnlHomeLayout.createSequentialGroup()
                         .addGap(191, 191, 191)
                         .addComponent(lblWelcome)))
-                .addContainerGap(570, Short.MAX_VALUE))
+                .addContainerGap(589, Short.MAX_VALUE))
         );
         pnlHomeLayout.setVerticalGroup(
             pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,26 +333,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        iconMem2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconMem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/report.png"))); // NOI18N
-        iconMem2.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.iconMem2.text")); // NOI18N
-        iconMem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iconMem2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        iconMem2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iconMem2MouseClicked(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel1.text")); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel2.text")); // NOI18N
 
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -467,7 +441,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel29)
                     .addComponent(jLabel30))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlMemberLayout = new javax.swing.GroupLayout(pnlMember);
@@ -479,11 +453,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(iconMem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(70, 70, 70)
-                .addGroup(pnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(iconMem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 494, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
@@ -491,13 +461,9 @@ public class Main extends javax.swing.JFrame {
             pnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMemberLayout.createSequentialGroup()
                 .addGap(110, 110, 110)
-                .addGroup(pnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(iconMem2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(iconMem1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(iconMem1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addComponent(jLabel1)
                 .addContainerGap(361, Short.MAX_VALUE))
             .addGroup(pnlMemberLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
@@ -508,7 +474,7 @@ public class Main extends javax.swing.JFrame {
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(Main.class, "Main.pnlMember.TabConstraints.tabTitle"), pnlMember); // NOI18N
 
         iconMem3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconMem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/copy.png"))); // NOI18N
+        iconMem3.setIcon(new javax.swing.ImageIcon("image/copy.png"));
         iconMem3.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.iconMem3.text")); // NOI18N
         iconMem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         iconMem3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -596,22 +562,6 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        iconMem15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconMem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/report.png"))); // NOI18N
-        iconMem15.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.iconMem15.text")); // NOI18N
-        iconMem15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iconMem15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        iconMem15.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iconMem15MouseClicked(evt);
-            }
-        });
-
-        jLabel22.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel22.text")); // NOI18N
-
         javax.swing.GroupLayout pnlBookLayout = new javax.swing.GroupLayout(pnlBook);
         pnlBook.setLayout(pnlBookLayout);
         pnlBookLayout.setHorizontalGroup(
@@ -625,11 +575,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                     .addComponent(iconMem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(54, 54, 54)
-                .addGroup(pnlBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(iconMem15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(94, 94, 94)
+                .addGap(276, 276, 276)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -643,10 +589,6 @@ public class Main extends javax.swing.JFrame {
                 .addGap(110, 110, 110)
                 .addGroup(pnlBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBookLayout.createSequentialGroup()
-                        .addComponent(iconMem15, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel22))
-                    .addGroup(pnlBookLayout.createSequentialGroup()
                         .addComponent(iconMem4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4))
@@ -654,7 +596,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(iconMem3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)))
-                .addContainerGap(361, Short.MAX_VALUE))
+                .addContainerGap(359, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(Main.class, "Main.pnlBook.TabConstraints.tabTitle"), pnlBook); // NOI18N
@@ -674,22 +616,6 @@ public class Main extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel5.text")); // NOI18N
-
-        iconMem6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconMem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/report.png"))); // NOI18N
-        iconMem6.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.iconMem6.text")); // NOI18N
-        iconMem6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iconMem6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        iconMem6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iconMem6MouseClicked(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel6.text")); // NOI18N
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
@@ -829,7 +755,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel43)
                     .addComponent(jLabel44))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlStaffLayout = new javax.swing.GroupLayout(pnlStaff);
@@ -841,26 +767,16 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(iconMem5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
-                .addGroup(pnlStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(iconMem6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(282, 282, 282)
+                .addGap(480, 480, 480)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlStaffLayout.setVerticalGroup(
             pnlStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStaffLayout.createSequentialGroup()
                 .addGap(110, 110, 110)
-                .addGroup(pnlStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlStaffLayout.createSequentialGroup()
-                        .addComponent(iconMem5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5))
-                    .addGroup(pnlStaffLayout.createSequentialGroup()
-                        .addComponent(iconMem6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
+                .addComponent(iconMem5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
                 .addContainerGap(361, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlStaffLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
@@ -903,22 +819,6 @@ public class Main extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel8.text")); // NOI18N
-
-        iconMem14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconMem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/report.png"))); // NOI18N
-        iconMem14.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.iconMem14.text")); // NOI18N
-        iconMem14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iconMem14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        iconMem14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iconMem14MouseClicked(evt);
-            }
-        });
-
-        jLabel17.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel17.text")); // NOI18N
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -992,32 +892,23 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(iconMem8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
-                .addGroup(pnlIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(iconMem14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(74, 74, 74)
+                .addGap(272, 272, 272)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlIRLayout.setVerticalGroup(
             pnlIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlIRLayout.createSequentialGroup()
                 .addGap(110, 110, 110)
-                .addGroup(pnlIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlIRLayout.createSequentialGroup()
-                        .addComponent(iconMem14, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(iconMem7, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel17))
-                    .addGroup(pnlIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlIRLayout.createSequentialGroup()
-                            .addComponent(iconMem7, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel7))
-                        .addGroup(pnlIRLayout.createSequentialGroup()
-                            .addComponent(iconMem8, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel8))))
-                .addContainerGap(361, Short.MAX_VALUE))
+                        .addComponent(jLabel7))
+                    .addGroup(pnlIRLayout.createSequentialGroup()
+                        .addComponent(iconMem8, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)))
+                .addContainerGap(359, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlIRLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1041,22 +932,6 @@ public class Main extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel9.text")); // NOI18N
-
-        iconMem10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconMem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/report.png"))); // NOI18N
-        iconMem10.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.iconMem10.text")); // NOI18N
-        iconMem10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        iconMem10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        iconMem10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                iconMem10MouseClicked(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel10.text")); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
@@ -1108,27 +983,17 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(iconMem9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
-                .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(iconMem10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(282, 282, 282)
+                .addGap(480, 480, 480)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlFineLayout.setVerticalGroup(
             pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFineLayout.createSequentialGroup()
                 .addGap(110, 110, 110)
-                .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFineLayout.createSequentialGroup()
-                        .addComponent(iconMem9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9))
-                    .addGroup(pnlFineLayout.createSequentialGroup()
-                        .addComponent(iconMem10, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)))
-                .addContainerGap(361, Short.MAX_VALUE))
+                .addComponent(iconMem9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addContainerGap(359, Short.MAX_VALUE))
             .addGroup(pnlFineLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1281,10 +1146,6 @@ public class Main extends javax.swing.JFrame {
         new Members().setVisible(true);
     }//GEN-LAST:event_iconMem1MouseClicked
 
-    private void iconMem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iconMem2MouseClicked
-
     private void iconMem3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem3MouseClicked
         // TODO add your handling code here:
         new Category().setVisible(true);
@@ -1299,10 +1160,6 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
          new Staff().setVisible(true);
     }//GEN-LAST:event_iconMem5MouseClicked
-
-    private void iconMem6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem6MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iconMem6MouseClicked
 
     private void iconMem7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem7MouseClicked
         // TODO add your handling code here:
@@ -1319,10 +1176,6 @@ public class Main extends javax.swing.JFrame {
         new FineManagement().setVisible(true);
     }//GEN-LAST:event_iconMem9MouseClicked
 
-    private void iconMem10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem10MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iconMem10MouseClicked
-
     private void iconMem11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem11MouseClicked
         // TODO add your handling code here:
         new Profile().setVisible(true);
@@ -1336,16 +1189,9 @@ public class Main extends javax.swing.JFrame {
     private void iconMem13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem13MouseClicked
         // TODO add your handling code here:
         this.dispose();
-        new Login();
+        Login login = new Login();
+                login.setVisible(true);
     }//GEN-LAST:event_iconMem13MouseClicked
-
-    private void iconMem14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem14MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iconMem14MouseClicked
-
-    private void iconMem15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem15MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iconMem15MouseClicked
     public void setDateTime() {
         
         ActionListener taskPerformer = new ActionListener() {
@@ -1364,31 +1210,22 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel bgHome;
     private javax.swing.JPanel contentpane;
     private javax.swing.JLabel iconMem1;
-    private javax.swing.JLabel iconMem10;
     private javax.swing.JLabel iconMem11;
     private javax.swing.JLabel iconMem12;
     private javax.swing.JLabel iconMem13;
-    private javax.swing.JLabel iconMem14;
-    private javax.swing.JLabel iconMem15;
-    private javax.swing.JLabel iconMem2;
     private javax.swing.JLabel iconMem3;
     private javax.swing.JLabel iconMem4;
     private javax.swing.JLabel iconMem5;
-    private javax.swing.JLabel iconMem6;
     private javax.swing.JLabel iconMem7;
     private javax.swing.JLabel iconMem8;
     private javax.swing.JLabel iconMem9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -1423,7 +1260,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
