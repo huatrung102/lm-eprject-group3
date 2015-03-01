@@ -30,7 +30,7 @@ public class Copies {
         Copies cop = null;
         ResultSet rs = null;
         try {
-            rs = SqlHelper.getResultSet("Copies_getLastestIsFree", ISBN,Cop_Id);
+                rs = SqlHelper.getResultSet("Copies_getLastestIsFree", ISBN,Cop_Id);
             if(rs.next()){
                 cop = new Copies();
                 cop.Book_ISBN = rs.getString("Book_ISBN");

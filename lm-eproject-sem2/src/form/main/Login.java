@@ -28,6 +28,8 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        txtPassword.setText(null);
+        txtUsername.setText(null);
         lblIcon.setIcon(new ImageIcon(Login.class
                         .getResource("/image/lock_icon.png")));
         ((ClIconText) txtUsername).setIcon(new ImageIcon(

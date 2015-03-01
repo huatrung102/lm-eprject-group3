@@ -27,6 +27,7 @@ public class Members extends javax.swing.JFrame {
     Model.Members M ;//= new Members();
     public Members() {
         initComponents();
+        lblFileName.setVisible(false);
         M= new Model.Members();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         UIHelper.bindBackground(pnlBackground);
@@ -75,7 +76,7 @@ public class Members extends javax.swing.JFrame {
         txaAddress.setEditable(false);
         cbStatus.setEditable(false);
         
-        lblFileName.setVisible(true);
+      //  lblFileName.setVisible(true);
         lblFileName.setText(null);
         txtID.setText(null);
         txtNo.setText(null);
@@ -700,6 +701,7 @@ public class Members extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         setAddNewMode();
+        txtFirstname.requestFocus();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -870,7 +872,7 @@ public class Members extends javax.swing.JFrame {
         obj.Mem_Email = txtEmail.getText();
         
         //Copy file to imgBook folder
-        Model.Members mem = Model.Members.Members_getMemberByMemberId(memid);
+        
         
         ////  cho nay cho anh Uy
         if(lblFileName.getText() == null){
@@ -900,16 +902,7 @@ public class Members extends javax.swing.JFrame {
             obj.Mem_Status = false;
         }
         
-        int rt = Model.Members.Members_Update(obj, memid);
-        if(rt == 1){
-            setAddNewMode();
-            getList();
-        }else if(rt == 0){
-            txtNo.requestFocus();
-        }else if(rt == 3){
-            txtEmail.requestFocus();
-        }
-        MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_update, rt);
+        
         
         if (txtFirstname.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "First Name do not NULL");
@@ -946,36 +939,30 @@ public class Members extends javax.swing.JFrame {
             cbStatus.requestFocus();
             return;
         }
-      
-             
-        String pattern = "(^0[\\d]{9-10})"; //java regex pattern phone number
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(txtPhone.getText());
-        if(txtPhone.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Please input Staff Phone!");
-            txtPhone.requestFocus();
-            return;
-        } else if(!m.find()){
-            JOptionPane.showMessageDialog(null, "Phone must be number, Ex:0xxxxxxxxxx");
-            txtPhone.requestFocus();
-            return;
-        }
-        
-        if ((String)cbStatus.getSelectedItem() == "Active"){
-            obj.Mem_Status = true;
-        } else {
-            obj.Mem_Status = false;
-        }
+        obj.Mem_Status = (String)cbStatus.getSelectedItem() == "Active";
         
         if(txaAddress.getText().isEmpty()){
             obj.Mem_Address = "";
         }
+        int rt = Model.Members.Members_Update(obj, memid);
+        if(rt == 1){
+            setNormalMode();
+            getList();
+        }else if(rt == 0){
+            txtNo.requestFocus();
+        }else if(rt == 3){
+            txtEmail.requestFocus();
+        }
+        MessageHandle.showMessage(MessageHandle.Obj_Member, MessageHandle.Action_update, rt);
+        
     }//GEN-LAST:event_btnSaveUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String Mem_Id = txtID.getText();
-        int del = Model.Staffs.Staffs_Lock(Mem_Id);
-        MessageHandle.showMessage(MessageHandle.Obj_Member,MessageHandle.Action_delete, del);   
+        int del = Model.Members.Members_Lock(Mem_Id);
+        MessageHandle.showMessage(MessageHandle.Obj_Member,MessageHandle.Action_delete, del);  
+        getList();
+        
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
