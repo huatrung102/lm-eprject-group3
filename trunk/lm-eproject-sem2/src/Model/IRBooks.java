@@ -150,7 +150,10 @@ public class IRBooks {
         DefaultTableModel tblM = SqlHelper.getDefaultTableModel("IRBooks_getListBookNotReturn",Mem_No);
         return tblM;
     }
-    
+    public static DefaultTableModel getListBookNotReturnTest(String Mem_No){
+        DefaultTableModel tblM = SqlHelper.getDefaultTableModelWithCheckbox("IRBooks_getListBookNotReturn",Mem_No);
+        return tblM;
+    }
     public static DefaultTableModel ListByMemberNo(String Mem_No){
         DefaultTableModel tblM = SqlHelper.getDefaultTableModel("Fines_ListByMemberNo",Mem_No);
         return tblM;
