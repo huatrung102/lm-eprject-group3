@@ -75,8 +75,18 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.jLabel2.text")); // NOI18N
 
         txtUsername.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.txtUsername.text")); // NOI18N
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
 
         txtPassword.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.txtPassword.text")); // NOI18N
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         btLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Open_lock.png"))); // NOI18N
         btLogin.setText(org.openide.util.NbBundle.getMessage(Login.class, "Login.btLogin.text")); // NOI18N
@@ -181,15 +191,27 @@ public class Login extends javax.swing.JFrame {
     
         System.exit(0);
     }//GEN-LAST:event_btExitActionPerformed
-
-    private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
+    private void callLogin(){
         Staffs staff  = Staffs.Staffs_Login(txtUsername.getText(), String.valueOf(txtPassword.getPassword()));
         if(staff != null){
             Staffs.Staff_Logined = staff;
             new Main().setVisible(true);
             this.dispose();
         }
+    }
+    private void btLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoginActionPerformed
+        callLogin();
     }//GEN-LAST:event_btLoginActionPerformed
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+        callLogin();
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+        callLogin();
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**
      * @param args the command line arguments
