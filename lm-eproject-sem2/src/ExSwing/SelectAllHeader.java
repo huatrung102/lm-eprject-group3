@@ -39,9 +39,9 @@ public class SelectAllHeader extends JToggleButton implements TableCellRenderer 
         super(ALL);
         this.table = table;
         this.tableModel = table.getModel();
-//        if (tableModel.getColumnClass(targetColumn) != Boolean.class) {
-//            throw new IllegalArgumentException("Boolean column required.");
-//        }
+        if (tableModel.getColumnClass(targetColumn) != Boolean.class) {
+            throw new IllegalArgumentException("Boolean column required.");
+        }
         this.targetColumn = targetColumn;
         this.header = table.getTableHeader();
         this.tcm = table.getColumnModel();
