@@ -141,7 +141,7 @@ public class BookList extends javax.swing.JFrame {
         cboStatus.setEditable(true);
         cboCategory.setEnabled(true);
         cboLang.setEnabled(true);
-        cboStatus.setEnabled(true);
+        cboStatus.setEnabled(false);
         txaContent.setEditable(true);
         txtNumberOfCopies.setEditable(true);
         
@@ -443,7 +443,7 @@ public class BookList extends javax.swing.JFrame {
 
         cboCategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cboLang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afrikaans", "Albanian", "Ancient Greek", "Arabic", "Armenian", "Basque", "Bengali", "Bulgarian", "Cantonese Chinese", "Catalan", "Chinese", "Cornish", "Creole", "Croatian", "Czech", "Danish", "Dutch", "English", "Esperanto", "Estonian", "Farsi", "Finnish", "French", "Galician", "Georgian", "German", "Greek", "Gujarati", "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Irish", "Italian", "Japanese", "Kannada", "Korean", "Latin", "Latvian", "Lithuanian", "Macedonian", "Malay", "Malayalam", "Maori", "Marathi", "Middle English", "Nauru", "Norwegian", "Old English", "Persian", "Polish", "Portuguese", "Punjabi", "Romance", "Romanian", "Russian", "Sanskrit", "Scots", "Scots Gaelic", "Serbian", "Serbo-Croatian", "Slovak", "Slovene", "Somali", "Spanish", "Swahili", "Swedish", "Tagalog", "Taiwanese Chinese", "Tamil", "Telugu", "Thai", "Tibetan", "Turkish", "Ukrainian", "Urdu", "Vietnamese", "Welsh", "Xhosa", "Yiddish", "Zulu", "Other ..." }));
+        cboLang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chinese", "English", "French", "German", "Japan", "Korean", "Russian", "Thai", "Vietnam", "Other.." }));
 
         cboStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "Inactive" }));
 
@@ -890,96 +890,8 @@ public class BookList extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         Books obj = new Books();
-                    
-        //Validate
-        String pattern = "^(\\d){13}$";
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(txtISBN.getText());
-        if(txtISBN.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Book_ISBN do not NULL");
-            txtISBN.requestFocus();
-            return;
-        } else if(!m.find()){
-            JOptionPane.showMessageDialog(null, "Book_ISBN length must be 13 NUMBERS");
-            txtISBN.requestFocus();
-            return;
-        } else {
-            Books objCheck = Model.Books.getByISBN(txtISBN.getText());
-            if (!objCheck.Book_ISBN.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Book ISBN exist, try again!");
-                txtTitle.requestFocus();
-                return;
-            }
-        }
-        
-        if (txtTitle.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Book Title do not NULL");
-            txtTitle.requestFocus();
-            return;
-        } else if(txtTitle.getText().length()>50){
-            JOptionPane.showMessageDialog(null, "Book Title do not longer 50 chars");
-            txtTitle.requestFocus();
-            return;
-        }
-        
-         if (txtAuthor.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Author do not NULL");
-            txtAuthor.requestFocus();
-            return;
-        } else if(txtAuthor.getText().length()>50){
-            JOptionPane.showMessageDialog(null, "Author do not longer 50 chars");
-            txtAuthor.requestFocus();
-            return;
-        }
-         
-        if (txtPublisher.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Publisher do not NULL");
-            txtPublisher.requestFocus();
-            return;
-        } else if(txtPublisher.getText().length()>50){
-            JOptionPane.showMessageDialog(null, "Publisher do not longer 50 chars");
-            txtPublisher.requestFocus();
-            return;
-        }
-        
-        if(cboCategory.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(null, "Please choose a category");
-            cboCategory.requestFocus();
-            return;
-        }
-        
-        if(cboLang.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(null, "Please choose a language");
-            cboLang.requestFocus();
-            return;
-        }
-        
-        pattern = "(\\d)";
-        r = Pattern.compile(pattern);
-        m = r.matcher(txtPrice.getText());
-        if(txtPrice.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Please input book price!");
-            txtPrice.requestFocus();
-            return;
-        } else if(!m.find()){
-            JOptionPane.showMessageDialog(null, "Book price must be number!");
-            txtPrice.requestFocus();
-            return;
-        } else if (Float.parseFloat(txtPrice.getText()) == 0){
-            JOptionPane.showConfirmDialog(null, "Book price must be larger 0");
-            txtPrice.requestFocus();
-            return;
-        }
-        
-        if(cboStatus.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(null, "Please choose a status of book");
-            cboStatus.requestFocus();
-            return;
-        }
-        
-        if(txaContent.getText().isEmpty()){
-            obj.Book_Content = "";
-        }
+        //checkDuplicateISBN(txtISBN.getText());   
+        checkFormBeforeSave();
         
         //Get data from form and add to Object
         obj.Book_ISBN = txtISBN.getText();
@@ -991,30 +903,18 @@ public class BookList extends javax.swing.JFrame {
         obj.Cat_Id = Model.Categories.Categories_getCategoryByCateName(
                 (String)cboCategory.getSelectedItem()).Cat_Id;
         obj.Book_Language = (String) cboLang.getSelectedItem();
+        obj.Book_isDeleted = false;
         
         //Copy file to imgBook folder
-        if(lblCover.getIcon() == null){
+        if(lblFileName.getText()== null){
             obj.Book_ImageFile = "imgBook/Nocover.jpg";
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-            String newfilename = sdf.format(Calendar.getInstance().getTime());
-            File labelicon = new File(lblCover.getIcon().toString());
-            File desfile = new File("imgBook\\"+newfilename+"_"+labelicon.getName());
-            try {
-                copyFile(labelicon, desfile);
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
-            }
-        obj.Book_ImageFile = "imgBook/"+desfile.getName();
+            String fileName = lblCover.getIcon().toString();            
+            obj.Book_ImageFile = "imgBook/"+uploadImage(fileName);
         }
         //Ket thuc phan upload Image
         
-        if ((String)cboStatus.getSelectedItem() == "Active"){
-            obj.Book_isDeleted = false;
-        } else {
-            obj.Book_isDeleted = true;
-        }
-        
+        //addCopies();
         if(txtNumberOfCopies.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Must enter at least one copy");
             txtNumberOfCopies.requestFocus();
@@ -1097,13 +997,7 @@ public class BookList extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSaveUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveUpdateActionPerformed
-        Books obj = new Books();
-        String pattern; 
-        Pattern r;
-        Matcher m;
-        
-        //Validate
-        
+        Books obj = new Books(); 
         if (txtTitle.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Book Title do not NULL");
             txtTitle.requestFocus();
@@ -1112,67 +1006,46 @@ public class BookList extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Book Title do not longer 50 chars");
             txtTitle.requestFocus();
             return;
+        } else {
+            if (txtAuthor.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Author do not NULL");
+                txtAuthor.requestFocus();
+                return;
+            } else if(txtAuthor.getText().length()>50){
+                JOptionPane.showMessageDialog(null, "Author do not longer 50 chars");
+                txtAuthor.requestFocus();
+                return;
+            } else {
+                if (txtPublisher.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Publisher do not NULL");
+                    txtPublisher.requestFocus();
+                    return;
+                } else if(txtPublisher.getText().length()>50){
+                    JOptionPane.showMessageDialog(null, "Publisher do not longer 50 chars");
+                    txtPublisher.requestFocus();
+                    return;
+                } else {
+                    String pattern = "(\\d)";
+                    Pattern r = Pattern.compile(pattern);
+                    Matcher m = r.matcher(txtISBN.getText());
+                    r = Pattern.compile(pattern);
+                    m = r.matcher(txtPrice.getText());
+                    if(txtPrice.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Please input book price!");
+                        txtPrice.requestFocus();
+                        return;
+                    } else if(!m.find()){
+                        JOptionPane.showMessageDialog(null, "Book price must be number!");
+                        txtPrice.requestFocus();
+                        return;
+                    } else if (Float.parseFloat(txtPrice.getText()) == 0){
+                        JOptionPane.showConfirmDialog(null, "Book price must be larger 0");
+                        txtPrice.requestFocus();
+                        return;
+                    }
+                }
+            }
         }
-        
-         if (txtAuthor.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Author do not NULL");
-            txtAuthor.requestFocus();
-            return;
-        } else if(txtAuthor.getText().length()>50){
-            JOptionPane.showMessageDialog(null, "Publisher do not longer 50 chars");
-            txtAuthor.requestFocus();
-            return;
-        }
-         
-        if (txtPublisher.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Publisher do not NULL");
-            txtPublisher.requestFocus();
-            return;
-        } else if(txtPublisher.getText().length()>50){
-            JOptionPane.showMessageDialog(null, "Publisher do not longer 50 chars");
-            txtPublisher.requestFocus();
-            return;
-        }
-        
-        if(cboCategory.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(null, "Please choose a category");
-            cboCategory.requestFocus();
-            return;
-        }
-        
-        if(cboLang.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(null, "Please choose a language");
-            cboLang.requestFocus();
-            return;
-        }
-        
-        pattern = "(\\d)";
-        r = Pattern.compile(pattern);
-        m = r.matcher(txtPrice.getText());
-        if(txtPrice.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Please input book price!");
-            txtPrice.requestFocus();
-            return;
-        } else if(!m.find()){
-            JOptionPane.showMessageDialog(null, "Book price must be number!");
-            txtPrice.requestFocus();
-            return;
-        } else if (Float.parseFloat(txtPrice.getText()) == 0){
-            JOptionPane.showConfirmDialog(null, "Book price must be larger 0");
-            txtPrice.requestFocus();
-            return;
-        }
-        
-        if(cboStatus.getSelectedIndex() == -1){
-            JOptionPane.showMessageDialog(null, "Please choose a status of book");
-            cboStatus.requestFocus();
-            return;
-        }
-        
-        if(txaContent.getText().isEmpty()){
-            obj.Book_Content = "";
-        }
-        
         //Get data from form and add to Object
         obj.Book_Title = txtTitle.getText();
         obj.Book_Author = txtAuthor.getText();
@@ -1182,7 +1055,14 @@ public class BookList extends javax.swing.JFrame {
         obj.Cat_Id = Model.Categories.Categories_getCategoryByCateName(
                 (String)cboCategory.getSelectedItem()).Cat_Id;
         obj.Book_Language = (String) cboLang.getSelectedItem();
-        
+        if (cboStatus.getSelectedItem().equals("Active")){
+            obj.Book_isDeleted = false;
+        } else {
+            obj.Book_isDeleted = true;
+        }
+        if(txaContent.getText().isEmpty()){
+            obj.Book_Content = "";
+        }
         //Copy file to imgBook folder
         if(lblFileName.getText() == null) {
             obj.Book_ImageFile = lblCover.getIcon().toString();
@@ -1203,13 +1083,7 @@ public class BookList extends javax.swing.JFrame {
             }
         }
         //Ket thuc phan upload Image
-        
-        if ((String)cboStatus.getSelectedItem() == "Active"){
-            obj.Book_isDeleted = false;
-        } else {
-            obj.Book_isDeleted = true;
-        }
-        
+
         if(!txtNumberOfCopies.getText().isEmpty()) {
             if(Integer.parseInt(txtNumberOfCopies.getText()) <= 0){
                 JOptionPane.showMessageDialog(null, "Number of copies must be greater 0");
@@ -1246,8 +1120,7 @@ public class BookList extends javax.swing.JFrame {
                     } else {
                         numi = "00"+Integer.toString(i);
                         objCopies.Cop_No = copno+numi;
-                        int a = Model.Copies.Copies_Insert(objCopies);
-                        
+                        int a = Model.Copies.Copies_Insert(objCopies); 
                     }
                 }
             }
@@ -1376,4 +1249,92 @@ public class BookList extends javax.swing.JFrame {
     private javax.swing.JTextField txtSearchTitle;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
+
+    private void checkFormBeforeSave() {
+        //Validate
+        String pattern = "^(\\d){13}$";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(txtISBN.getText());
+        if(txtISBN.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Book_ISBN do not NULL");
+            txtISBN.requestFocus();
+            return;
+        } else if(!m.find()){
+            JOptionPane.showMessageDialog(null, "Book_ISBN length must be 13 NUMBERS");
+            txtISBN.requestFocus();
+            return;
+        }
+        
+        if (txtTitle.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Book Title do not NULL");
+            txtTitle.requestFocus();
+            return;
+        } else if(txtTitle.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Book Title do not longer 50 chars");
+            txtTitle.requestFocus();
+            return;
+        }
+        
+         if (txtAuthor.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Author do not NULL");
+            txtAuthor.requestFocus();
+            return;
+        } else if(txtAuthor.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Author do not longer 50 chars");
+            txtAuthor.requestFocus();
+            return;
+        }
+         
+        if (txtPublisher.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Publisher do not NULL");
+            txtPublisher.requestFocus();
+            return;
+        } else if(txtPublisher.getText().length()>50){
+            JOptionPane.showMessageDialog(null, "Publisher do not longer 50 chars");
+            txtPublisher.requestFocus();
+            return;
+        }
+        
+        if(cboCategory.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(null, "Please choose a category");
+            cboCategory.requestFocus();
+            return;
+        }
+        
+        if(cboLang.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(null, "Please choose a language");
+            cboLang.requestFocus();
+            return;
+        }
+        
+        pattern = "(\\d)";
+        r = Pattern.compile(pattern);
+        m = r.matcher(txtPrice.getText());
+        if(txtPrice.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please input book price!");
+            txtPrice.requestFocus();
+            return;
+        } else if(!m.find()){
+            JOptionPane.showMessageDialog(null, "Book price must be number!");
+            txtPrice.requestFocus();
+            return;
+        } else if (Float.parseFloat(txtPrice.getText()) == 0){
+            JOptionPane.showConfirmDialog(null, "Book price must be larger 0");
+            txtPrice.requestFocus();
+            return;
+        }
+    }
+
+    private String uploadImage(String fileName) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String newfilename = sdf.format(Calendar.getInstance().getTime());
+        File labelicon = new File(fileName);
+        File desfile = new File("imgBook\\"+newfilename+"_"+labelicon.getName());
+        try {
+            copyFile(labelicon, desfile);
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+        return desfile.getName();
+    }
 }
