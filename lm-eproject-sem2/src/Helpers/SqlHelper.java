@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Administrator PC
  */
 public class SqlHelper {
-    private static final String myConnectionDriver =Config.SysVar.driver_msSQL;
+    public static final String myConnectionDriver =Config.SysVar.driver_msSQL;
     
     public static DefaultComboBoxModel getDefaultComboBoxModel(String cmdText){
         DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
