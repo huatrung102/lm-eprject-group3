@@ -103,13 +103,16 @@ public class ReturnManagement1 extends javax.swing.JFrame {
         tc.setCellRenderer(tblReturn.getDefaultRenderer(Boolean.class)); 
     }
     private void loadTblReturn(){
-        DefaultTableModel tblM = IRBooks.getListBookNotReturnTest(selectedMember.Mem_No);
-        tblReturn.setModel(tblM);
-        renderTableColumnCheckbox();        
-        UIHelper.unhideColumnOfTable(tblReturn,0,70);
-        UIHelper.hideColumnOfTable(tblReturn,1);
+        if(selectedMember != null){
+            DefaultTableModel tblM = IRBooks.getListBookNotReturnTest(selectedMember.Mem_No);
+            tblReturn.setModel(tblM);
+            renderTableColumnCheckbox();        
+            UIHelper.unhideColumnOfTable(tblReturn,0,70);
+            UIHelper.hideColumnOfTable(tblReturn,1);
+
+            Cop_IRDetail_Return.clear();
+        }
         
-        Cop_IRDetail_Return.clear();
     }
     private void initForm(){
         Cop_IRDetail_Return = new HashMap<>(5);
@@ -476,14 +479,17 @@ public class ReturnManagement1 extends javax.swing.JFrame {
         int row = tblReturn.getRowCount();
         if(row> 0 ){
             for(int i =0;i <row;i++){
-                String IRDetail = String.valueOf(tblReturn.getModel().getValueAt(i, 1)) ;
-                Cop_IRDetail_Return.put(IRDetail, IRDetail);
+                if(Boolean.valueOf(tblReturn.getModel().getValueAt(i, 0).toString()) == true){
+                    String IRDetail = String.valueOf(tblReturn.getModel().getValueAt(i, 1)) ;
+                    Cop_IRDetail_Return.put(IRDetail, IRDetail);
+                }
             }
             int result = IRBooks.ReturnBook(Cop_IRDetail_Return);
             MessageHandle.showMessage(MessageHandle.Obj_Book, MessageHandle.Action_return, result);
             if(result == 1){
-                ((DefaultTableModel)tblReturn.getModel()).setNumRows(0);
-                Cop_IRDetail_Return.clear();
+                loadTblReturn();
+              //  ((DefaultTableModel)tblReturn.getModel()).setNumRows(0);
+              //  Cop_IRDetail_Return.clear();
             } 
             /*
             for(int i =0;i <row;i++){

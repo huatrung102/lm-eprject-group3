@@ -23,6 +23,7 @@ public class Fine {
         double result = 0;
         TableModel model = table.getModel();
         for (int i = model.getRowCount() - 1; i >= 0; --i) {
+            
             result +=  Float.valueOf(model.getValueAt(i, columnPrice).toString()) ;
         }   
         result = Math.round(result*100.0)/100.0;

@@ -16,6 +16,7 @@ import form.category.Category;
 import form.changepass.ChangePassword;
 import form.copy.Copies;
 import form.fine.FineManagement;
+import form.fine.FineManagement1;
 import form.ir.IssueManagement;
 import form.ir.ReturnManagement;
 import form.ir.ReturnManagement1;
@@ -1174,7 +1175,7 @@ public class Main extends javax.swing.JFrame {
 
     private void iconMem9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem9MouseClicked
         // TODO add your handling code here:
-        new FineManagement().setVisible(true);
+        new FineManagement1().setVisible(true);
     }//GEN-LAST:event_iconMem9MouseClicked
 
     private void iconMem11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem11MouseClicked
