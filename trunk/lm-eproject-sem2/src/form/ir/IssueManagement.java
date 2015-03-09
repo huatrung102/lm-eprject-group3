@@ -989,11 +989,13 @@ public class IssueManagement extends javax.swing.JFrame {
             int index = target.getSelectedRow();
             boolean status = index != -1;
                 if(status){
-                    removeRow(index);
-                    setCountSttOnTblIssuing();
+                    
+                    
                     --countAllow;
                     String copNo = String.valueOf(tblIssuing.getModel().getValueAt(index, 4));
                     Cop_IdList.remove(copNo);
+                    removeRow(index);
+                    setCountSttOnTblIssuing();
                 }                
         }
     }//GEN-LAST:event_tblIssuingMouseClicked

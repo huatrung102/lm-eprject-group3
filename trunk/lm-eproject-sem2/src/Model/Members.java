@@ -40,7 +40,7 @@ public class Members {
             rs = SqlHelper.getResultSet("Members_GetIRCountInformation", mem_No);
             if(rs.next()){
                 mem = Members.getObj(rs);                  
-				mem.Mem_CountIssued = rs.getInt("Count_Issued");
+		mem.Mem_CountIssued = rs.getInt("Count_Issued");
             }
         } catch (Exception e) {
             SqlHelper.closeConnection(rs);
