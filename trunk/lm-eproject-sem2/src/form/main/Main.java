@@ -21,6 +21,7 @@ import form.ir.IssueManagement;
 import form.ir.ReturnManagement;
 import form.ir.ReturnManagement1;
 import form.member.Members;
+import form.report.FineReport;
 import form.staff.Profile;
 import form.staff.Staff;
 
@@ -275,6 +276,8 @@ public class Main extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
         jLabel61 = new javax.swing.JLabel();
+        iconMem10 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         sidePanel = new ClPanelTransparent();
         iconMem11 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -976,6 +979,22 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        iconMem10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconMem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/report.png"))); // NOI18N
+        iconMem10.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.iconMem10.text")); // NOI18N
+        iconMem10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        iconMem10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconMem10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconMem10MouseClicked(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText(org.openide.util.NbBundle.getMessage(Main.class, "Main.jLabel10.text")); // NOI18N
+
         javax.swing.GroupLayout pnlFineLayout = new javax.swing.GroupLayout(pnlFine);
         pnlFine.setLayout(pnlFineLayout);
         pnlFineLayout.setHorizontalGroup(
@@ -985,21 +1004,31 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(iconMem9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(480, 480, 480)
+                .addGap(70, 70, 70)
+                .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(iconMem10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(284, 284, 284)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlFineLayout.setVerticalGroup(
             pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFineLayout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(iconMem9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addContainerGap(359, Short.MAX_VALUE))
-            .addGroup(pnlFineLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(pnlFineLayout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addGroup(pnlFineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlFineLayout.createSequentialGroup()
+                        .addComponent(iconMem10, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10))
+                    .addGroup(pnlFineLayout.createSequentialGroup()
+                        .addComponent(iconMem9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)))
+                .addContainerGap(359, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(org.openide.util.NbBundle.getMessage(Main.class, "Main.pnlFine.TabConstraints.tabTitle"), pnlFine); // NOI18N
@@ -1194,6 +1223,11 @@ public class Main extends javax.swing.JFrame {
         Login login = new Login();
                 login.setVisible(true);
     }//GEN-LAST:event_iconMem13MouseClicked
+
+    private void iconMem10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconMem10MouseClicked
+        // TODO add your handling code here:
+        new FineReport().setVisible(true);
+    }//GEN-LAST:event_iconMem10MouseClicked
     public void setDateTime() {
         
         ActionListener taskPerformer = new ActionListener() {
@@ -1212,6 +1246,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel bgHome;
     private javax.swing.JPanel contentpane;
     private javax.swing.JLabel iconMem1;
+    private javax.swing.JLabel iconMem10;
     private javax.swing.JLabel iconMem11;
     private javax.swing.JLabel iconMem12;
     private javax.swing.JLabel iconMem13;
@@ -1222,6 +1257,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel iconMem8;
     private javax.swing.JLabel iconMem9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
