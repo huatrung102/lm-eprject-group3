@@ -42,7 +42,7 @@
 		<band height="70" splitType="Stretch">
 			<image>
 				<reportElement x="-20" y="0" width="595" height="64" uuid="d981fc33-72b6-4938-bc7c-79537dd2aa55"/>
-				<imageExpression><![CDATA["src\\image\\wood.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["image\\wood.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="0" y="5" width="263" height="33" uuid="ce22399e-a43f-43fa-ab9b-b7a2dbd0213d"/>

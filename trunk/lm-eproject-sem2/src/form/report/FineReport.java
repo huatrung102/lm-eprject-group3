@@ -24,12 +24,13 @@ import net.sf.jasperreports.view.JasperViewer;
 public class FineReport extends javax.swing.JFrame {
 
     HashMap hm = null;   
-    public String reportName = "src\\form\\report\\FineReport.jrxml";
+    public String reportName = "report\\FineReport.jrxml";
     /**
      * Creates new form FineReport
      */
     public FineReport() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
