@@ -225,6 +225,7 @@ public class FineManagement1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(org.openide.util.NbBundle.getMessage(FineManagement1.class, "FineManagement1.title")); // NOI18N
+        setPreferredSize(new java.awt.Dimension(900, 622));
 
         pnlFine.setPreferredSize(new java.awt.Dimension(700, 595));
 

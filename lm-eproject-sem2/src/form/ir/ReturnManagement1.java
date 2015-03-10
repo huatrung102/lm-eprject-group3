@@ -209,9 +209,10 @@ public class ReturnManagement1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(org.openide.util.NbBundle.getMessage(ReturnManagement1.class, "ReturnManagement1.title")); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1151, 490));
         setResizable(false);
 
-        pnlReturn.setPreferredSize(new java.awt.Dimension(1100, 400));
+        pnlReturn.setPreferredSize(new java.awt.Dimension(1100, 500));
 
         pnlBackground.setBorder(javax.swing.BorderFactory.createTitledBorder(null, org.openide.util.NbBundle.getMessage(ReturnManagement1.class, "ReturnManagement1.pnlBackground.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), java.awt.Color.yellow)); // NOI18N
         pnlBackground.setLayout(new java.awt.BorderLayout());
@@ -237,10 +238,10 @@ public class ReturnManagement1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(txtMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMemberNo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btSearchMem)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,20 +430,20 @@ public class ReturnManagement1 extends javax.swing.JFrame {
         pnlReturnLayout.setHorizontalGroup(
             pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlReturnLayout.createSequentialGroup()
-                .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(12, 12, 12)
+                .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlReturnLayout.createSequentialGroup()
-                        .addGap(907, 907, 907)
                         .addComponent(btReturn)
-                        .addGap(52, 52, 52)
-                        .addComponent(btClose))
+                        .addGap(43, 43, 43)
+                        .addComponent(btClose)
+                        .addGap(9, 9, 9))
                     .addGroup(pnlReturnLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
                         .addGroup(pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 400, Short.MAX_VALUE)
+                            .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
         pnlReturnLayout.setVerticalGroup(
             pnlReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
